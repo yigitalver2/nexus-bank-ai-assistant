@@ -1,6 +1,5 @@
 from functools import lru_cache
 
-from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -37,15 +36,12 @@ class Settings(BaseSettings):
     chroma_persist_dir: str = "/app/chroma_data"
     chroma_collection: str = "nexus_bank_kb"
 
-    # CORS — comma-separated list of allowed origins
-    cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
+    # CORS — comma-separated string, e.g. "http://localhost:3000,https://example.com"
+    cors_origins: str = "http://localhost:3000"
 
-    @field_validator("cors_origins", mode="before")
-    @classmethod
-    def split_cors_origins(cls, v):
-        if isinstance(v, str):
-            return [origin.strip() for origin in v.split(",") if origin.strip()]
-        return v
+    @property
+    def cors_origins_list(self) -> list[str]:
+        return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
 
 
 @lru_cache
