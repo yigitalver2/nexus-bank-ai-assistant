@@ -1,34 +1,23 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import (
-    DECIMAL,
-    TEXT,
-    VARCHAR,
-    DateTime,
-    Enum,
-    ForeignKey,
-    Integer,
-    String,
-    func,
-)
+from sqlalchemy import DECIMAL, TEXT, VARCHAR, DateTime, Enum, ForeignKey, Integer, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database.connection import Base
 
+FK_CUSTOMER_ID = "customers.customer_id"
 
-# ─────────────────────────────────────────────
-# customers
-# ─────────────────────────────────────────────
+
 class Customer(Base):
     __tablename__ = "customers"
 
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    customer_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name: Mapped[str] = mapped_column(VARCHAR(255), nullable=False)
     email: Mapped[str] = mapped_column(VARCHAR(255), unique=True, nullable=False)
     password_hash: Mapped[str] = mapped_column(VARCHAR(255), nullable=False)
-    phone: Mapped[str | None] = mapped_column(VARCHAR(20))
+    phone: Mapped[str | None] = mapped_column(VARCHAR(30))
     national_id: Mapped[str | None] = mapped_column(VARCHAR(20))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
@@ -38,14 +27,11 @@ class Customer(Base):
     conversations: Mapped[list["Conversation"]] = relationship(back_populates="customer")
 
 
-# ─────────────────────────────────────────────
-# accounts
-# ─────────────────────────────────────────────
 class Account(Base):
     __tablename__ = "accounts"
 
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    customer_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("customers.id"), nullable=False)
+    account_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    customer_id: Mapped[uuid.UUID] = mapped_column(ForeignKey(FK_CUSTOMER_ID), nullable=False)
     type: Mapped[str] = mapped_column(
         Enum("checking", "savings", "time_deposit", "credit_card", name="account_type"),
         nullable=False,
@@ -65,14 +51,11 @@ class Account(Base):
     credit_card: Mapped["CreditCard | None"] = relationship(back_populates="account", uselist=False)
 
 
-# ─────────────────────────────────────────────
-# transactions
-# ─────────────────────────────────────────────
 class Transaction(Base):
     __tablename__ = "transactions"
 
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    account_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("accounts.id"), nullable=False)
+    transaction_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    account_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("accounts.account_id"), nullable=False)
     type: Mapped[str] = mapped_column(
         Enum("credit", "debit", name="transaction_type"),
         nullable=False,
@@ -85,14 +68,11 @@ class Transaction(Base):
     account: Mapped["Account"] = relationship(back_populates="transactions")
 
 
-# ─────────────────────────────────────────────
-# loans
-# ─────────────────────────────────────────────
 class Loan(Base):
     __tablename__ = "loans"
 
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    customer_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("customers.id"), nullable=False)
+    loan_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    customer_id: Mapped[uuid.UUID] = mapped_column(ForeignKey(FK_CUSTOMER_ID), nullable=False)
     type: Mapped[str] = mapped_column(
         Enum("personal", "mortgage", "vehicle", name="loan_type"),
         nullable=False,
@@ -114,14 +94,11 @@ class Loan(Base):
     customer: Mapped["Customer"] = relationship(back_populates="loans")
 
 
-# ─────────────────────────────────────────────
-# credit_cards
-# ─────────────────────────────────────────────
 class CreditCard(Base):
     __tablename__ = "credit_cards"
 
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    account_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("accounts.id"), nullable=False)
+    credit_card_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    account_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("accounts.account_id"), nullable=False)
     card_number_masked: Mapped[str] = mapped_column(VARCHAR(19), nullable=False)
     credit_limit: Mapped[float] = mapped_column(DECIMAL(15, 2), nullable=False)
     available_limit: Mapped[float] = mapped_column(DECIMAL(15, 2), nullable=False)
@@ -136,14 +113,11 @@ class CreditCard(Base):
     account: Mapped["Account"] = relationship(back_populates="credit_card")
 
 
-# ─────────────────────────────────────────────
-# support_tickets
-# ─────────────────────────────────────────────
 class SupportTicket(Base):
     __tablename__ = "support_tickets"
 
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    customer_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("customers.id"), nullable=False)
+    ticket_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    customer_id: Mapped[uuid.UUID] = mapped_column(ForeignKey(FK_CUSTOMER_ID), nullable=False)
     subject: Mapped[str] = mapped_column(VARCHAR(255), nullable=False)
     description: Mapped[str] = mapped_column(TEXT, nullable=False)
     status: Mapped[str] = mapped_column(
@@ -164,14 +138,11 @@ class SupportTicket(Base):
     customer: Mapped["Customer"] = relationship(back_populates="support_tickets")
 
 
-# ─────────────────────────────────────────────
-# conversations
-# ─────────────────────────────────────────────
 class Conversation(Base):
     __tablename__ = "conversations"
 
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    customer_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("customers.id"), nullable=False)
+    conversation_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    customer_id: Mapped[uuid.UUID] = mapped_column(ForeignKey(FK_CUSTOMER_ID), nullable=False)
     mode: Mapped[str] = mapped_column(
         Enum("chat", "voice", name="conversation_mode"),
         nullable=False,
@@ -184,14 +155,11 @@ class Conversation(Base):
     messages: Mapped[list["Message"]] = relationship(back_populates="conversation")
 
 
-# ─────────────────────────────────────────────
-# messages
-# ─────────────────────────────────────────────
 class Message(Base):
     __tablename__ = "messages"
 
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    conversation_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("conversations.id"), nullable=False)
+    message_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    conversation_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("conversations.conversation_id"), nullable=False)
     role: Mapped[str] = mapped_column(
         Enum("user", "assistant", name="message_role"),
         nullable=False,
