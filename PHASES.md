@@ -4,23 +4,23 @@ PRD v1.0 üzerinden çıkarılmış faz ve alt-görev listesi. Her görev tamaml
 
 ---
 
-## Faz 1 — Temel (Gün 1-2)
+## ✅ Faz 1 — Temel (Tamamlandı)
 
 Amaç: Repo iskeletini, veritabanını, mock veriyi ve JWT auth'u ayağa kaldırmak.
 
-- [ ] **1.1** Repo'yu başlat: klasör yapısı (PRD §15), `.gitignore`, `.env.example`
-- [ ] **1.2** `docker-compose.yml` — `backend` + `postgres` servisleri (frontend Faz 3'te eklenecek)
-- [ ] **1.3** Backend `Dockerfile` (`python:3.11-slim`) + `requirements.txt` (FastAPI, SQLAlchemy, LangGraph, LangChain, python-jose, passlib, pydantic v2, chromadb, openai, faker, alembic)
-- [ ] **1.4** FastAPI iskelet (`backend/main.py`) + `GET /health` endpoint'i + CORS ayarları
-- [ ] **1.5** `backend/config.py` — environment variable yükleme (DB URL, JWT secret, OpenAI key)
-- [ ] **1.6** `backend/database/connection.py` — SQLAlchemy engine + session factory
-- [ ] **1.7** `backend/database/models.py` — 8 tablo: `customers`, `accounts`, `transactions`, `loans`, `credit_cards`, `support_tickets`, `conversations`, `messages` (PRD §5)
-- [ ] **1.8** `backend/database/schemas.py` — Pydantic v2 request/response şemaları
-- [ ] **1.9** Alembic kurulumu + ilk migration ("initial_schema")
-- [ ] **1.10** `backend/database/seed.py` — Faker ile 100 müşteri + 2-4 hesap + 20-50 transaction + 0-2 kredi + ~%60 kredi kartı + 5-10 ticket
-- [ ] **1.11** `backend/auth/utils.py` — bcrypt hash/verify, JWT encode/decode, `get_current_customer` dependency
-- [ ] **1.12** `backend/auth/router.py` — `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/auth/me`
-- [ ] **1.13** Doğrulama: `docker compose up` → login token döndürüyor, `/api/auth/me` müşteri bilgilerini dönüyor
+- [x] **1.1** Repo'yu başlat: klasör yapısı (PRD §15), `.gitignore`, `.env.example`
+- [x] **1.2** `docker-compose.yml` — `backend` + `postgres` servisleri (frontend Faz 3'te eklenecek)
+- [x] **1.3** Backend `Dockerfile` (`python:3.11-slim`) + `requirements.txt` (FastAPI, SQLAlchemy, LangGraph, LangChain, python-jose, bcrypt, pydantic v2, chromadb, openai, faker, alembic)
+- [x] **1.4** FastAPI iskelet (`backend/main.py`) + `GET /health` endpoint'i + CORS ayarları
+- [x] **1.5** `backend/config.py` — environment variable yükleme (DB URL, JWT secret, OpenAI key)
+- [x] **1.6** `backend/database/connection.py` — SQLAlchemy engine + session factory
+- [x] **1.7** `backend/database/models.py` — 8 tablo: `customers`, `accounts`, `transactions`, `loans`, `credit_cards`, `support_tickets`, `conversations`, `messages` (PRD §5)
+- [x] **1.8** `backend/database/schemas.py` — Pydantic v2 request/response şemaları
+- [x] **1.9** Alembic kurulumu + ilk migration ("initial_schema")
+- [x] **1.10** `backend/database/seed.py` — Faker ile 100 müşteri + 2-4 hesap + 20-50 transaction + 0-2 kredi + ~%60 kredi kartı + 5-10 ticket
+- [x] **1.11** `backend/auth/utils.py` — bcrypt hash/verify, JWT encode/decode, `get_current_customer` dependency
+- [x] **1.12** `backend/auth/router.py` — `POST /api/auth/login`, `GET /api/auth/me`
+- [x] **1.13** Doğrulama: `docker compose up` → login token döndürüyor, `/api/auth/me` müşteri bilgilerini dönüyor
 
 ---
 

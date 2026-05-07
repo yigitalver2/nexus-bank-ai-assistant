@@ -1,0 +1,33 @@
+Title: ATM Withdrawal Limits and ATM Usage
+Category: faq
+Doc-ID: faq-011
+
+Nexus Bank ATMs are available 24/7 and allow a range of transactions beyond cash withdrawal.
+
+Daily ATM withdrawal limits:
+- Standard accounts: $1,000/day
+- Gold accounts: $2,000/day
+- Platinum accounts: $5,000/day
+
+Single transaction limit: $500 per withdrawal (you can make multiple withdrawals up to your daily limit).
+
+Nexus Bank ATM services:
+- Cash withdrawal
+- Balance inquiry
+- Mini-statement (last 10 transactions)
+- PIN change
+- Mobile top-up
+- Cheque deposit (at enabled ATMs)
+
+Using non-Nexus ATMs:
+- Within the country: $2 fee per withdrawal (waived for Premium and above).
+- International ATMs: $5 fee per withdrawal + applicable foreign currency conversion fee.
+
+If an ATM retains your card:
+- The machine will return retained cards at end of day.
+- If not returned, call 1-800-NEXUS-00 immediately to block your card and request a replacement.
+- Do not attempt to force the card out of the machine.
+
+If the ATM dispenses incorrect cash:
+- Note the time, location, and amount displayed on screen.
+- Call 1-800-NEXUS-00 and we will investigate. Your account will be corrected within 3 business days.

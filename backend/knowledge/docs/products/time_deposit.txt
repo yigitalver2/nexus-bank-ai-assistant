@@ -1,0 +1,31 @@
+Title: Nexus Time Deposit (Fixed-Term Deposit)
+Category: products
+Doc-ID: prod-004
+
+A Time Deposit (also called a fixed-term or certificate of deposit) locks your money for a fixed period in exchange for a guaranteed, higher interest rate.
+
+Available terms:
+- 1 month: 4.00% APY
+- 3 months: 4.50% APY
+- 6 months: 5.00% APY
+- 12 months: 5.50% APY
+- 24 months: 5.75% APY
+- 36 months: 6.00% APY
+
+Minimum deposit: $1,000.
+Maximum deposit: Unlimited (large deposits may qualify for negotiated rates).
+
+Key features:
+- Guaranteed return — rate is locked for the full term regardless of market changes.
+- Interest can be credited monthly, quarterly, or at maturity (your choice).
+- Auto-renewal available: At maturity, the deposit automatically renews at the prevailing rate for the same term unless you instruct otherwise.
+- FDIC-insured up to $250,000.
+
+Early withdrawal:
+- Early withdrawal is possible but incurs a penalty.
+- Penalty: 50% of the interest that would have been earned for the remaining term.
+- Principal is never at risk — you will always receive your full deposit back.
+
+To open: Log in to online banking > Products > Time Deposit, or visit any branch. Funds are transferred from your linked Nexus account.
+
+Best for: Customers with a lump sum they do not need immediate access to, seeking better returns than a savings account.

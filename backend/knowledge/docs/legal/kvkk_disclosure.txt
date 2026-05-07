@@ -1,0 +1,34 @@
+Title: KVKK Data Subject Disclosure (Turkish Customers)
+Category: legal
+Doc-ID: legal-003
+
+Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında Nexus Bank'ın Türk müşterilerine yönelik Aydınlatma Metnidir.
+
+Veri Sorumlusu:
+Nexus Bank A.Ş., 200 Financial Plaza, New York, NY 10004, ABD.
+Türkiye temsilcisi: Nexus Bank Türkiye İrtibat Ofisi, Levent, İstanbul.
+
+İşlenen Kişisel Veriler:
+- Kimlik verileri: Ad, soyad, doğum tarihi, TC kimlik numarası, pasaport bilgileri.
+- İletişim verileri: E-posta, telefon, adres.
+- Finansal veriler: Hesap bilgileri, işlem geçmişi, kredi bilgileri.
+- Teknik veriler: IP adresi, cihaz bilgisi, uygulama kullanım verileri.
+
+Kişisel Verilerin İşlenme Amaçları:
+- Bankacılık hizmetlerinin sunulması ve yürütülmesi.
+- Yasal yükümlülüklerin yerine getirilmesi (BDDK, MASAK, vergi mevzuatı).
+- Dolandırıcılık ve yetkisiz erişimin önlenmesi.
+- Müşteri deneyiminin iyileştirilmesi ve kişiselleştirilmesi.
+
+Verilerin Aktarıldığı Taraflar:
+- Yasal düzenleyici kurumlar ve kolluk kuvvetleri (yasal zorunluluk halinde).
+- Ödeme sistemleri ve muhabir bankalar (işlem gerçekleştirme amacıyla).
+- Teknoloji hizmet sağlayıcıları (gizlilik sözleşmesi kapsamında).
+
+KVKK Kapsamındaki Haklarınız (Madde 11):
+- Kişisel verilerinizin işlenip işlenmediğini öğrenme.
+- İşlenen verileriniz hakkında bilgi talep etme.
+- Verilerin silinmesini veya yok edilmesini talep etme.
+- İşlemeye itiraz etme.
+
+Başvuru: kvkk@nexusbank.com veya herhangi bir Nexus Bank şubesi aracılığıyla başvurabilirsiniz. Başvurularınız 30 gün içinde yanıtlanır.

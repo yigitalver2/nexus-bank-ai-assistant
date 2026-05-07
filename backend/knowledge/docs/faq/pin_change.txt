@@ -1,0 +1,33 @@
+Title: How to Change Your Card PIN
+Category: faq
+Doc-ID: faq-013
+
+You can change the PIN for your Nexus Bank debit or credit card through several methods.
+
+Via a Nexus Bank ATM (recommended):
+1. Insert your card and enter your current PIN.
+2. Select "PIN Services" from the main menu.
+3. Choose "Change PIN."
+4. Enter your new 4-digit PIN twice to confirm.
+5. Your new PIN is active immediately.
+
+Via the mobile app:
+1. Go to Cards > Manage Card.
+2. Tap "Change PIN."
+3. Enter your current PIN, then your new PIN twice.
+4. Confirm with biometric authentication.
+
+Via the web portal:
+1. Log in and go to My Cards > Manage Card.
+2. Select "Change PIN" and follow the on-screen steps.
+3. You will receive an SMS confirmation.
+
+PIN requirements:
+- Must be exactly 4 digits.
+- Cannot be a sequence (1234) or repeated digits (1111).
+- Cannot be your date of birth or a previously used PIN.
+
+If you have forgotten your PIN:
+- You cannot retrieve a forgotten PIN — it is never stored by the bank.
+- You can set a new PIN via the mobile app or ATM after identity verification.
+- For security, after 3 incorrect PIN attempts, the card will be blocked temporarily.

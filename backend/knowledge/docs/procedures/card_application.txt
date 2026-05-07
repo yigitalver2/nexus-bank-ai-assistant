@@ -1,0 +1,33 @@
+Title: Credit Card Application Process
+Category: procedures
+Doc-ID: proc-003
+
+Applying for a Nexus Bank credit card is straightforward and can be done fully online.
+
+Step 1 — Compare cards:
+- Visit nexusbank.com/cards to compare the Classic, Gold, and Platinum cards.
+- Use the eligibility checker to see which card you are likely to be approved for (soft credit check, does not affect your credit score).
+
+Step 2 — Apply:
+- Online: Click "Apply Now" on the card page.
+- App: Go to Products > Credit Cards > Apply.
+- Branch: Speak to an advisor who will process the application.
+
+Step 3 — Provide required information:
+- Personal details: Full name, date of birth, address, national ID or Social Security Number.
+- Financial details: Annual income, employment status, employer name, monthly housing costs.
+- Existing debts: Approximate total of any other credit cards, loans, or overdrafts.
+
+Step 4 — Credit check and decision:
+- A hard credit inquiry is performed upon submission.
+- Decision is typically instant (95% of applications). Complex cases may take up to 3 business days.
+
+Step 5 — Receive your card:
+- If approved, your card is mailed within 5-7 business days.
+- Activate the card via the app or by calling 1-800-NEXUS-00.
+- Add to your digital wallet immediately for instant use while the physical card is in transit.
+
+Step 6 — If declined:
+- You will receive a written explanation.
+- You may request a manual review within 30 days if you believe the decision was incorrect.
+- Improving credit score and reapplying after 6 months is recommended.

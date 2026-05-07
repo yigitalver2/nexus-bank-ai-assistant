@@ -1,0 +1,26 @@
+Title: What to Do If You Lose Your Card
+Category: faq
+Doc-ID: faq-012
+
+If your Nexus Bank card is lost or stolen, act quickly to prevent unauthorized use.
+
+Immediate steps:
+1. Block the card via the mobile app (Cards > Block Card) or call 1-800-NEXUS-00 immediately.
+2. Review recent transactions for unauthorized charges.
+3. If you see fraudulent transactions, report them using the "Dispute a Transaction" flow or inform the call center representative.
+
+Requesting a replacement card:
+- Replacement cards are issued automatically when you permanently block a lost/stolen card.
+- Delivery: 5-7 business days to your registered address.
+- Express delivery (1-2 business days) is available for a $15 fee.
+- You can also collect the card from any branch the next business day (bring your ID).
+
+If you find the card after blocking it:
+- Temporarily blocked cards can be unblocked via the app.
+- Permanently blocked cards cannot be unblocked — use the replacement card when it arrives.
+
+Costs:
+- First replacement per year: Free.
+- Additional replacements: $10 per card.
+
+Always sign the back of your new card immediately upon receipt and register it in the mobile app before use.

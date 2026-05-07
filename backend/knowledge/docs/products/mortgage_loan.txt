@@ -1,0 +1,33 @@
+Title: Nexus Mortgage Loan
+Category: products
+Doc-ID: prod-009
+
+The Nexus Mortgage Loan helps customers purchase or refinance residential property with competitive rates and flexible terms.
+
+Loan details:
+- Amount: $50,000 – $2,000,000.
+- Term: 10, 15, 20, or 30 years.
+- Down payment: Minimum 10% of property value (20% to avoid PMI).
+- Rate types:
+  - Fixed rate: Rate locked for the full term. Current 30-year fixed: 6.75% APR.
+  - Adjustable rate (ARM): Lower initial rate, adjusts after 5 or 7 years. Current 5/1 ARM: 5.99% APR.
+
+Additional costs:
+- Origination fee: 0.5% of loan amount.
+- Appraisal fee: $400–$700 (paid by applicant).
+- Title insurance and closing costs: Typically 2%–4% of loan amount.
+- PMI (Private Mortgage Insurance): Required if down payment < 20%. Approx. 0.5%–1% of loan amount/year, removed once equity reaches 20%.
+
+Application process:
+1. Pre-qualification: Submit income and debt information online — receive a pre-approval letter within 24 hours.
+2. Property appraisal: Nexus Bank arranges an independent appraisal.
+3. Underwriting: 3–10 business days.
+4. Closing: Sign documents at a licensed escrow/title company.
+
+Required documents:
+- Last 2 years of tax returns and W-2s.
+- Last 3 months of bank statements.
+- Proof of employment.
+- Property purchase agreement.
+
+Best for: Customers buying a primary residence, vacation home, or investment property.

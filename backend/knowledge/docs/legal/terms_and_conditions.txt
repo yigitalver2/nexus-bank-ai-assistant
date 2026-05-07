@@ -1,0 +1,30 @@
+Title: Terms and Conditions — Key Points
+Category: legal
+Doc-ID: legal-002
+
+This document summarizes the key terms governing your use of Nexus Bank products. The full Terms and Conditions are available at nexusbank.com/terms.
+
+Account ownership and eligibility:
+- You must be 18 or older and a legal resident to hold a personal account.
+- You are responsible for all transactions made on your account, including those made by authorized third parties.
+- You must keep your contact details up to date. Nexus Bank is not liable for failed notifications sent to outdated details.
+
+Your responsibilities:
+- Keep your credentials (username, password, PIN, OTP) confidential.
+- Report unauthorized transactions or suspected fraud immediately.
+- Ensure sufficient funds are available for scheduled payments and direct debits.
+- Do not use your account for illegal activities, including money laundering or financing prohibited activities.
+
+Our rights:
+- Nexus Bank may suspend or close an account if it is used for fraudulent, illegal, or abusive purposes.
+- We may change fees and terms with 30 days' advance notice. Continued use of the account after the notice period constitutes acceptance.
+- We may set off any outstanding debts you owe us against credit balances in your accounts.
+
+Liability:
+- We are liable for losses caused by our negligence or system failures.
+- We are not liable for losses due to your failure to keep credentials secure, or due to events outside our control (force majeure).
+- In cases of confirmed fraud where you followed our security guidelines, we will refund unauthorized transactions per applicable consumer protection law.
+
+Governing law: These terms are governed by the laws of the State of New York, USA.
+
+To read the full terms: nexusbank.com/terms. For questions, contact legal@nexusbank.com.

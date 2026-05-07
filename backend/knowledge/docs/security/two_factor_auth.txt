@@ -1,0 +1,29 @@
+Title: Two-Factor Authentication (2FA) — Setup and Management
+Category: security
+Doc-ID: sec-002
+
+Two-Factor Authentication (2FA) adds an extra layer of security to your Nexus Bank account. It is mandatory for all accounts.
+
+How 2FA works:
+After entering your username and password, you must confirm your identity with a second factor:
+- SMS OTP: A 6-digit code sent to your registered mobile number (valid for 5 minutes).
+- Authenticator App: A time-based code from an app like Google Authenticator or Authy (recommended — more secure than SMS).
+- Biometric: Face ID or fingerprint on a trusted device.
+
+Setting up an authenticator app (recommended):
+1. Log in to online banking and go to Profile > Security > 2FA Settings.
+2. Select "Authenticator App" and click "Set Up."
+3. Scan the QR code with your authenticator app.
+4. Enter the 6-digit code to confirm.
+5. Save your backup codes somewhere secure (printed or in a password manager) — these are needed if you lose your phone.
+
+Changing your 2FA method:
+- Go to Profile > Security > 2FA Settings > Change Method.
+- Your current 2FA method is required to make changes.
+
+If you lose access to your 2FA method (e.g., lost phone):
+- Call 1-800-NEXUS-00 immediately.
+- Identity verification via knowledge-based questions and document check will be required.
+- 2FA will be reset and you can set it up again.
+
+Note: If you receive a 2FA code you did not request, do not share it with anyone and change your password immediately. Someone may be attempting to access your account.

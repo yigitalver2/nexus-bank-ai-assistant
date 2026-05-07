@@ -1,0 +1,31 @@
+Title: Cheque Services — Requesting and Depositing Cheques
+Category: faq
+Doc-ID: faq-020
+
+Nexus Bank supports cheque issuance for eligible account holders and cheque deposits via branch or ATM.
+
+Requesting a cheque book:
+- Cheque books are available for Standard Checking, Business Checking, and Premium accounts.
+- Request via online banking: My Accounts > Cheques > Order Cheque Book.
+- Delivery: 5-7 business days. Collect from branch if you need it sooner.
+- Cost: First cheque book (25 leaves) is free. Subsequent books: $5 each.
+
+Writing a cheque:
+- Fill in the payee name, date, and amount (in words and figures).
+- Sign as per your account signature on file.
+- Cross the cheque with two parallel lines to prevent cash encashment ("Account Payee Only").
+
+Depositing a cheque:
+- In branch: Hand the cheque to a teller with your deposit slip.
+- At ATM: Use enabled ATMs with cheque deposit slots.
+- Clearing time: Domestic cheques clear within 2 business days. Foreign cheques: up to 21 days.
+
+Stopping a cheque payment:
+- If a cheque has not yet been presented, you can stop it.
+- Go to My Accounts > Cheques > Stop Cheque Payment, or call 1-800-NEXUS-00.
+- Fee: $10 per stopped cheque.
+
+Bounced cheques:
+- If your account has insufficient funds when a cheque is presented, it will bounce.
+- Fee: $25 for a returned cheque.
+- Repeated bounced cheques may result in cheque book privileges being revoked.

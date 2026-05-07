@@ -1,0 +1,37 @@
+Title: Nexus Business Checking Account
+Category: products
+Doc-ID: prod-012
+
+The Nexus Business Checking Account is designed for sole proprietors, small businesses, and corporations.
+
+Tiers:
+
+Nexus Business Starter:
+- Monthly fee: $15 (waived with $3,000 average monthly balance or $5,000 in deposits).
+- 200 free transactions/month; $0.50 per transaction thereafter.
+- Cash deposit: Up to $5,000/month free; $0.25 per $100 thereafter.
+- 1 free business debit card.
+
+Nexus Business Plus:
+- Monthly fee: $30 (waived with $10,000 average balance).
+- 500 free transactions/month.
+- Cash deposit: Up to $20,000/month free.
+- Up to 5 business debit cards.
+- Dedicated business banking team.
+- API access for accounting integrations (QuickBooks, Xero).
+
+Nexus Business Premium:
+- Monthly fee: $75 (waived with $50,000 average balance).
+- Unlimited transactions.
+- Unlimited cash deposits.
+- Relationship manager assigned.
+- Payroll services integration.
+- Priority customer support.
+
+Required documents to open:
+- Business registration certificate.
+- Tax Employer Identification Number (EIN).
+- Beneficial ownership information (for legal entities).
+- Government-issued ID for all authorized signatories.
+
+To open: Contact the business banking team at business@nexusbank.com or call 1-800-NEXUS-BZ.

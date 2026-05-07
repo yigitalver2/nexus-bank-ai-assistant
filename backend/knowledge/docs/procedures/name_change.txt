@@ -1,0 +1,29 @@
+Title: How to Update Your Name on Your Account
+Category: procedures
+Doc-ID: proc-006
+
+A legal name change (due to marriage, divorce, court order, or other legal reason) must be reflected on your Nexus Bank account.
+
+Required documents:
+- Marriage certificate (for name change due to marriage).
+- Divorce decree (if reverting to a previous name).
+- Court order (for any other legal name change).
+- Updated government-issued photo ID in your new name (passport or national ID card).
+
+Process:
+1. Visit any Nexus Bank branch in person — name changes cannot be processed online or by phone due to legal identity requirements.
+2. Bring all required documents (originals or certified copies).
+3. Complete the "Name Change Request" form at the branch.
+4. A branch representative will verify the documents and update your account.
+
+Timeline:
+- Account name updated: Immediately at the branch.
+- New debit/credit cards issued in the new name: Mailed within 5-7 business days.
+- Updated statements: Next billing cycle onwards.
+
+Impact on linked services:
+- Your IBAN and account number remain the same.
+- Direct debits and standing orders are not affected.
+- Inform any employers, government agencies, or billers of your name change separately.
+
+There is no fee for a name change request. If you require an updated account confirmation letter in your new name for legal purposes, this can be printed at the branch at no charge.

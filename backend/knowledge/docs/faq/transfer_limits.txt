@@ -1,0 +1,27 @@
+Title: Transfer Limits and Daily Transaction Caps
+Category: faq
+Doc-ID: faq-004
+
+Nexus Bank applies daily transfer limits to protect customers from fraud. Limits vary by account tier:
+
+Standard Checking / Savings:
+- Online transfers to own accounts: $10,000/day
+- Online transfers to third parties: $5,000/day
+- ATM cash withdrawal: $1,000/day
+- POS (point-of-sale) purchases: $3,000/day
+
+Premium Savings / Gold accounts:
+- Online transfers to own accounts: $25,000/day
+- Online transfers to third parties: $15,000/day
+- ATM cash withdrawal: $2,000/day
+- POS purchases: $10,000/day
+
+Platinum accounts:
+- Online transfers to own accounts: Unlimited
+- Online transfers to third parties: $50,000/day (higher limits available on request)
+- ATM cash withdrawal: $5,000/day
+- POS purchases: Unlimited
+
+To request a temporary limit increase (e.g., for a large purchase or property payment), contact support at least 24 hours in advance. We may request supporting documentation for amounts above $50,000.
+
+International wire transfers have separate limits — please see the "Foreign Currency Exchange" FAQ.

@@ -1,0 +1,33 @@
+Title: Nexus Bank Insurance Products
+Category: products
+Doc-ID: prod-014
+
+Nexus Bank partners with leading insurance providers to offer protection products conveniently through your banking account.
+
+Available insurance products:
+
+1. Life Insurance (Term Life):
+- Coverage: $50,000 – $2,000,000.
+- Terms: 10, 20, or 30 years.
+- Monthly premium: From $12/month (based on age and coverage).
+- Application: Online in 10 minutes; medical exam may be required for coverage above $500,000.
+- Provider: NexusLife Insurance Co.
+
+2. Home Insurance:
+- Covers: Dwelling, personal property, liability, additional living expenses.
+- Premium: Starting at $45/month.
+- Discount: 10% if home is linked to a Nexus mortgage.
+- Provider: NexusShield Insurance.
+
+3. Auto Insurance:
+- Coverage: Comprehensive, collision, liability, uninsured motorist.
+- Premium: Based on vehicle and driver profile. Get a quote in the app.
+- Discount: 5% for Nexus checking account holders.
+- Provider: NexusShield Insurance.
+
+4. Payment Protection Insurance (PPI):
+- Covers your loan or credit card repayments if you are unable to work due to illness, injury, or involuntary unemployment.
+- Cost: 0.5% of outstanding loan balance per month.
+- Claim waiting period: 30 days.
+
+To get a quote or apply: Go to the app under Products > Insurance, or contact support. Insurance products are underwritten by third-party providers and are not bank deposits.

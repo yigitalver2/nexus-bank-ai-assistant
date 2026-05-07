@@ -1,0 +1,30 @@
+Title: Nexus Savings Account
+Category: products
+Doc-ID: prod-002
+
+The Nexus Savings Account is designed to help customers grow their money with a competitive interest rate while maintaining easy access to funds.
+
+Key features:
+- Annual interest rate: 3.75% APY (updated quarterly based on market conditions).
+- Interest calculated daily, credited monthly.
+- No monthly maintenance fee if balance is $500 or above. $5/month if below.
+- Up to 6 free withdrawals per month (regulatory limit for savings accounts); $3 fee per additional withdrawal.
+- Linked to your Nexus Checking account for easy transfers.
+- Eligible for automatic savings rules (e.g., round-up transfers from checking).
+
+Minimum opening deposit: $100.
+
+Eligibility:
+- Must be 18 years or older (joint accounts available).
+- Valid government-issued photo ID required.
+
+Interest rate tiers:
+- $0 – $4,999: 3.25% APY
+- $5,000 – $24,999: 3.75% APY
+- $25,000+: 4.10% APY
+
+Best for: Customers building an emergency fund or saving toward a goal (vacation, home deposit, education).
+
+Note: Savings accounts are not intended for daily transactions. For high-frequency use, pair with a Checking account.
+
+To open: Available online, via app, or in any branch. Existing customers can open a savings account instantly from the app.

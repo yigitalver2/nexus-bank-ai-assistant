@@ -1,0 +1,33 @@
+Title: How to Check Your Account Balance
+Category: faq
+Doc-ID: faq-014
+
+You can check your Nexus Bank account balance through multiple channels:
+
+Mobile app (real-time):
+- Log in and your balance is displayed on the home dashboard.
+- Swipe between accounts if you have multiple.
+- Balance updates are real-time for internal transactions and near-real-time for external ones.
+
+Online banking (real-time):
+- Log in at bank.nexusbank.com and view balances under My Accounts.
+
+ATM balance inquiry:
+- Insert your card, enter your PIN, and select "Balance Inquiry."
+- Balance is displayed on-screen and can optionally be printed.
+- No fee at Nexus Bank ATMs.
+
+Phone banking:
+- Call 1-800-NEXUS-00 and select the automated balance line (option 1).
+- Verify with your account number and PIN.
+
+SMS balance (optional service):
+- Text "BAL" to 90900 from your registered mobile number.
+- You will receive an SMS with your current balance within seconds.
+- This service is free and can be enabled/disabled in app settings.
+
+Available balance vs. total balance:
+- Total balance: All funds in the account.
+- Available balance: Total minus any pending transactions or holds. This is the amount you can spend right now.
+
+If there is a discrepancy between your expected and actual balance, check for pending transactions or contact support.

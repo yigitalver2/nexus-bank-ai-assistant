@@ -1,0 +1,36 @@
+Title: Nexus Vehicle Loan
+Category: products
+Doc-ID: prod-010
+
+The Nexus Vehicle Loan helps customers finance new or used vehicles — cars, motorcycles, and light commercial vehicles.
+
+Loan details:
+- Amount: $5,000 – $150,000.
+- Term: 24 to 84 months.
+- Interest rate: 5.99% – 14.99% APR (fixed), depending on vehicle age, loan term, and credit profile.
+- No prepayment penalty.
+- Vehicle serves as collateral (secured loan).
+
+Rate guide:
+- New vehicles (model year current or prior): 5.99% – 9.99% APR.
+- Used vehicles (up to 5 years old): 7.99% – 12.99% APR.
+- Used vehicles (6–10 years old): 10.99% – 14.99% APR.
+- Vehicles older than 10 years: Not eligible.
+
+Loan-to-value ratio:
+- New vehicles: Up to 110% of dealer invoice price.
+- Used vehicles: Up to 100% of market value (based on approved valuation guide).
+
+Application process:
+1. Apply online, via app, or in branch.
+2. Provide dealer quote or vehicle details (for used vehicles).
+3. Proof of income required.
+4. Decision within 4 business hours for existing customers.
+5. Funds disbursed directly to dealer or seller.
+
+Insurance requirement:
+- Comprehensive auto insurance required for the duration of the loan.
+- Nexus Bank must be listed as loss payee on the policy.
+
+Monthly repayment example:
+- $25,000 over 60 months at 7.99% APR = approx. $507/month.

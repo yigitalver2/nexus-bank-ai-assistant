@@ -1,0 +1,31 @@
+Title: Phishing, Smishing, and Vishing — How to Spot and Report Scams
+Category: security
+Doc-ID: sec-003
+
+Fraudsters use phishing (email), smishing (SMS), and vishing (phone calls) to steal banking credentials. Here is how to recognize and avoid these attacks.
+
+Common phishing tactics:
+
+Email phishing:
+- Fake emails that look like they are from Nexus Bank, asking you to "verify your account" or "confirm a suspicious transaction."
+- These emails often contain urgent language ("Your account will be suspended in 24 hours") and a link to a fake website.
+- The fake website looks identical to nexusbank.com but has a slightly different URL (e.g., nexus-bank-secure.com, nexus.bank-login.com).
+
+Smishing (SMS phishing):
+- A text message claiming to be from Nexus Bank with a link to confirm a transaction or unlock your account.
+- Real Nexus Bank SMS messages never include clickable links to log in.
+
+Vishing (phone call fraud):
+- A caller pretending to be a Nexus Bank representative asking for your PIN, OTP, or online banking password.
+- Sometimes they claim your account is under attack and urgently need your details to "protect" it.
+
+How to protect yourself:
+- Never click links in unsolicited emails or SMS messages. Go directly to nexusbank.com by typing it in your browser.
+- Never share your PIN, password, or OTP — Nexus Bank staff will NEVER ask for these.
+- If you receive a suspicious call, hang up and call 1-800-NEXUS-00 yourself to verify.
+- Check the sender email carefully — official Nexus Bank emails come from @nexusbank.com only.
+
+Report phishing:
+- Forward suspicious emails to phishing@nexusbank.com.
+- Report suspicious SMS to 7726 (SPAM) — this is a free service on most carriers.
+- Call 1-800-NEXUS-FR to report fraud attempts.

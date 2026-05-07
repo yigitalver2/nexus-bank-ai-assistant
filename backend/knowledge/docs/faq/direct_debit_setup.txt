@@ -1,0 +1,22 @@
+Title: Setting Up Direct Debit and Standing Orders
+Category: faq
+Doc-ID: faq-008
+
+Direct debits allow third parties (e.g., utility companies, subscriptions) to automatically collect payments from your account on agreed dates. Standing orders are fixed recurring payments you set up yourself.
+
+Setting up a Direct Debit:
+- The company collecting payment will send you a Direct Debit Mandate form.
+- Sign the mandate and return it to the company — they notify the bank directly.
+- You will see the direct debit listed under My Accounts > Direct Debits within 3 business days.
+
+Setting up a Standing Order:
+1. Log in to online banking and go to Payments > Standing Orders.
+2. Click "New Standing Order."
+3. Enter the recipient IBAN, amount, start date, frequency (weekly, monthly, etc.), and optional end date.
+4. Confirm with your transaction password or 2FA code.
+
+Cancelling a Direct Debit or Standing Order:
+- Online: Payments > Direct Debits / Standing Orders > Cancel.
+- Note: Cancelling a direct debit at the bank does not cancel your contract with the company. Contact the company separately.
+
+If a direct debit causes your balance to go below zero and you do not have an overdraft facility, the payment will be rejected and you may incur a failed payment fee of $5.

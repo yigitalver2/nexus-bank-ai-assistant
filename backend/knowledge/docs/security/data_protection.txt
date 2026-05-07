@@ -1,0 +1,33 @@
+Title: How Nexus Bank Protects Your Data
+Category: security
+Doc-ID: sec-007
+
+Nexus Bank is committed to protecting your personal and financial data in compliance with applicable privacy laws.
+
+Data encryption:
+- All data transmitted between your device and our servers is encrypted using TLS 1.3.
+- Data stored in our databases is encrypted at rest using AES-256.
+- Card numbers are stored in tokenized form — the real card number is never stored in our application database.
+
+Access control:
+- Your account data is only accessible to staff who need it for their role.
+- All staff access is logged and audited.
+- We use multi-factor authentication internally for all staff.
+
+Data retention:
+- Transaction records are kept for 7 years as required by law.
+- Account records are kept for 5 years after account closure.
+- After retention periods, data is securely deleted.
+
+Third-party sharing:
+- We do not sell your personal data to third parties for marketing purposes.
+- We share data only when required by law (e.g., tax authorities, law enforcement with valid court orders) or when necessary to provide your services (e.g., payment processors, credit bureaus).
+- When we share data with third parties, we require them to maintain equivalent data protection standards.
+
+Your rights:
+- Right to access: Request a copy of all personal data we hold about you.
+- Right to rectification: Ask us to correct inaccurate data.
+- Right to erasure: Request deletion of your data (subject to legal retention obligations).
+- Right to portability: Receive your data in a machine-readable format.
+
+To exercise your data rights, contact: privacy@nexusbank.com or visit any branch.

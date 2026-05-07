@@ -1,0 +1,30 @@
+Title: Nexus Bank Mobile App — Common Issues and Help
+Category: faq
+Doc-ID: faq-006
+
+The Nexus Bank mobile app is available for iOS 14+ and Android 8+.
+
+Common issues and solutions:
+
+App won't load / blank screen:
+- Ensure you have a stable internet connection.
+- Force-close the app and reopen.
+- Update the app to the latest version from the App Store / Google Play.
+- If the issue persists, uninstall and reinstall the app (your data is saved on the server).
+
+Biometric login not working:
+- Go to Settings > Security > Biometric Login and disable, then re-enable.
+- Ensure your device biometrics are up-to-date in phone settings.
+
+Push notifications not received:
+- Check that notifications are enabled for the Nexus Bank app in your phone settings.
+- Log out and log back in to re-register the push token.
+
+Transfer not appearing:
+- Allow up to 5 minutes for transactions to reflect.
+- Pull down to refresh the transaction list.
+- Scheduled transfers appear with a "Pending" label until processed.
+
+To report a bug or technical issue in the app, go to Settings > Help > Report an Issue. This sends a diagnostic log to our technical team.
+
+For urgent issues, call 1-800-NEXUS-00.

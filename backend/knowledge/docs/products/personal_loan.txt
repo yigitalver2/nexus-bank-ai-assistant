@@ -1,0 +1,33 @@
+Title: Nexus Personal Loan
+Category: products
+Doc-ID: prod-008
+
+The Nexus Personal Loan provides flexible financing for personal needs such as home renovation, medical expenses, travel, or debt consolidation.
+
+Loan details:
+- Amount: $1,000 – $50,000.
+- Term: 12 to 60 months.
+- Interest rate: 8.99% – 24.99% APR (fixed), depending on credit score and term.
+- No collateral required (unsecured loan).
+- No prepayment penalty — pay off early without fees.
+
+Typical rates by credit profile:
+- Excellent (750+): 8.99% – 12.99% APR
+- Good (700–749): 13.00% – 17.99% APR
+- Fair (650–699): 18.00% – 22.99% APR
+- Below 650: Contact branch for assessment.
+
+Monthly repayment example:
+- $10,000 over 36 months at 12.99% APR = approx. $337/month.
+
+Application process:
+1. Apply online at nexusbank.com/loans or via the app.
+2. Provide proof of income (last 3 payslips or tax return).
+3. Decision within 1 business day for existing customers.
+4. Funds disbursed to your Nexus account within 24 hours of approval.
+
+Repayment:
+- Fixed monthly payments by direct debit from your Nexus account.
+- Extra payments or full early repayment allowed at any time with no penalty.
+
+Best for: Customers needing a lump sum for a specific purpose with predictable monthly repayments.

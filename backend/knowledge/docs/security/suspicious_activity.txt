@@ -1,0 +1,31 @@
+Title: Reporting Suspicious Activity on Your Account
+Category: security
+Doc-ID: sec-006
+
+If you notice anything unusual on your account — transactions you don't recognize, login alerts from unknown devices, or unexpected changes — report it immediately.
+
+Signs of account compromise:
+- Transactions you did not make (even small ones — fraudsters often test with small amounts first).
+- A login alert from an unknown device or location.
+- Your password no longer works.
+- You stop receiving bank notifications or statements.
+- Unexpected changes to your email address, phone number, or address.
+- A 2FA code arrives that you did not request.
+
+What to do immediately:
+1. Change your online banking password (if you can still log in).
+2. Block any cards you believe may be compromised.
+3. Call 1-800-NEXUS-FR (24/7 Fraud Line) immediately.
+4. Do not transfer money to any "safe account" suggested by a third party — this is a known scam tactic. Nexus Bank will never ask you to do this.
+
+What Nexus Bank will do:
+- Place a temporary security hold on your account while we investigate.
+- Review recent account activity.
+- Issue new cards with new numbers if needed.
+- Work with you to recover any funds lost to fraud, subject to our investigation findings and applicable consumer protection laws.
+
+If a large amount has been transferred fraudulently:
+- We may be able to recall the payment if it was made recently. The sooner you report it, the higher the chance of recovery.
+- We coordinate with recipient banks on your behalf.
+
+Keep records of: when you noticed the suspicious activity, what transactions are affected, and any communications you received related to the incident.

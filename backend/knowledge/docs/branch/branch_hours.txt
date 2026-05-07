@@ -1,0 +1,32 @@
+Title: Branch Opening Hours
+Category: branch
+Doc-ID: branch-001
+
+Nexus Bank branches are open during the following standard hours. Hours may vary on public holidays.
+
+Standard branch hours:
+- Monday to Friday: 09:00 – 17:00
+- Saturday: 09:00 – 13:00
+- Sunday: Closed
+
+Extended-hours branches (select locations):
+- Monday to Friday: 08:00 – 19:00
+- Saturday: 09:00 – 16:00
+- Sunday: Closed (some flagship branches open 10:00 – 14:00)
+
+Holiday hours:
+- Branches are closed on all federal public holidays.
+- A schedule of holiday closures is published each year at nexusbank.com/branches and in the Nexus Bank app.
+- ATMs remain operational 24/7 on public holidays.
+
+Finding branch hours:
+- Use the Branch Locator at nexusbank.com/branches or in the Nexus Bank app under "Branches & ATMs."
+- Search by city, zip code, or your current location.
+- Each branch listing shows its specific hours, services, and accessibility features.
+
+Appointment-only services:
+- Mortgage consultations, business account opening, and investment advice require appointments even during open hours.
+- Book via the app under Appointments, or call 1-800-NEXUS-00.
+
+Self-service areas:
+- Many Nexus Bank branches have a self-service zone accessible outside branch hours (ATMs, deposit machines, statement printing) — check the branch listing for availability.

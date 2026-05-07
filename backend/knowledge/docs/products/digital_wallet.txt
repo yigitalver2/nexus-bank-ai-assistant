@@ -1,0 +1,34 @@
+Title: Nexus Digital Wallet
+Category: products
+Doc-ID: prod-011
+
+The Nexus Digital Wallet allows you to make instant payments from your phone without carrying a physical card.
+
+Supported platforms:
+- Apple Pay (iPhone, Apple Watch, iPad, Mac).
+- Google Pay (Android phones and watches).
+- Nexus Pay (in-app payments via QR code, unique to Nexus customers).
+
+Setting up:
+1. Open the Nexus Bank app.
+2. Go to Cards > Add to Digital Wallet.
+3. Select your card and follow the device-specific setup steps.
+4. Verify via SMS or biometric.
+
+How to pay in-store:
+- Hold your phone near the contactless terminal.
+- Authenticate with Face ID, fingerprint, or PIN.
+- Payment is processed instantly.
+
+Nexus Pay (QR-based):
+- Open the app, tap "Pay" on the home screen.
+- Scan the merchant's QR code or show your QR to the merchant.
+- Works at all participating Nexus Bank merchants and partner apps.
+- Can also be used for person-to-person (P2P) payments.
+
+Security:
+- Your actual card number is never shared with merchants. A unique device token is used.
+- Each transaction requires biometric or PIN confirmation.
+- Lost phone: Block your digital wallet via the app or by calling support, without affecting the physical card.
+
+Limits: Same daily limits as your linked card. No additional fees for digital wallet transactions.

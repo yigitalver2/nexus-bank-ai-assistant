@@ -1,0 +1,34 @@
+Title: Nexus Student Loan
+Category: products
+Doc-ID: prod-015
+
+The Nexus Student Loan helps students and families finance higher education expenses at competitive rates.
+
+Loan types:
+- Undergraduate Loan: For students enrolled in accredited 4-year institutions.
+- Graduate Loan: For students in master's, doctoral, or professional programs.
+- Parent Loan: For parents of dependent students.
+
+Loan details:
+- Amount: $2,000/year up to $100,000 total (undergraduate); up to $150,000 (graduate).
+- Terms: 5, 10, or 15 years (repayment begins 6 months after graduation).
+- Interest rate: 5.49% – 11.99% APR (fixed or variable options).
+- Origination fee: $0.
+- No prepayment penalty.
+
+Repayment options:
+- Deferred: No payments while enrolled. Interest capitalizes at graduation.
+- Interest-only: Pay interest while enrolled; principal repayment begins after graduation.
+- Full repayment: Pay principal + interest immediately (lowest total cost).
+
+Benefits for Nexus customers:
+- 0.25% rate discount for enrolling in autopay.
+- 0.25% additional discount for existing Nexus checking account holders.
+- 6-month grace period post-graduation before repayment begins.
+- Forbearance available for up to 12 months total during hardship.
+
+Cosigner:
+- A creditworthy cosigner can improve approval odds and reduce the interest rate.
+- Cosigner release available after 24 consecutive on-time payments.
+
+To apply: Go to nexusbank.com/student-loans. Requires enrollment verification from your school.

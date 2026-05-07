@@ -1,0 +1,33 @@
+Title: Anti-Money Laundering (AML) and Know Your Customer (KYC) Policy
+Category: legal
+Doc-ID: legal-005
+
+Nexus Bank is committed to preventing money laundering, terrorist financing, and financial crime. This summary explains our AML/KYC obligations and what they mean for you as a customer.
+
+What is KYC?
+Know Your Customer (KYC) is the process of verifying the identity of our customers. We are required by law to collect and verify:
+- Your full legal name, date of birth, and address.
+- A government-issued photo ID (passport, national ID, or driver's license).
+- For business accounts: Ownership structure, ultimate beneficial owners, and business registration documents.
+
+Why we ask for documents:
+We are legally required under the Bank Secrecy Act (BSA), USA PATRIOT Act, and other regulations to verify identities and monitor transactions. Providing accurate information is your legal obligation as a customer.
+
+Ongoing monitoring:
+We continuously monitor account activity for suspicious patterns, including:
+- Unusually large or frequent cash transactions.
+- Rapid movement of funds through accounts.
+- Transactions inconsistent with your stated purpose or income.
+- Transactions involving high-risk countries or sanctioned entities.
+
+What happens if suspicious activity is detected:
+- We may request additional documentation or explanation.
+- In serious cases, we are legally required to file a Suspicious Activity Report (SAR) with FinCEN (Financial Crimes Enforcement Network). We cannot disclose to you if a SAR has been filed.
+- We may restrict or close the account pending investigation.
+
+Your responsibilities:
+- Provide accurate and up-to-date information.
+- Notify us promptly of any changes to your identity, address, or business structure.
+- Do not conduct or facilitate any transaction that constitutes money laundering or fraud.
+
+For questions about our AML/KYC requirements, contact compliance@nexusbank.com.

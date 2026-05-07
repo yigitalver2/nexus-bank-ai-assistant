@@ -1,0 +1,27 @@
+Title: Nexus Investment Account
+Category: products
+Doc-ID: prod-013
+
+The Nexus Investment Account gives customers access to stocks, ETFs, mutual funds, and bonds through a seamlessly integrated brokerage account.
+
+Account types:
+- Individual brokerage: Taxable investment account, no contribution limits.
+- Traditional IRA: Tax-deferred retirement savings; contribution limit $7,000/year ($8,000 if age 50+).
+- Roth IRA: Tax-free growth; same contribution limits as Traditional IRA. Income limits apply.
+
+Key features:
+- $0 commission on US stock and ETF trades.
+- Access to 5,000+ mutual funds (some with transaction fees).
+- Bond and Treasury bill investments available.
+- Fractional shares available for stocks priced above $50.
+- Automatic dividend reinvestment (DRIP) option.
+- Robo-advisor (Nexus Invest) available for hands-off portfolio management (0.25% annual advisory fee).
+- Integrated tax reporting: 1099 forms generated automatically.
+
+Minimum to open: $0 (brokerage), $500 (IRA), $1,000 (Robo-advisor).
+
+Funding: Transfer from any Nexus bank account instantly.
+
+Risk disclosure: Investments are not FDIC-insured and may lose value. Past performance does not guarantee future results.
+
+To open: Log in to the app, go to Invest > Open Account, and select the account type. Opening takes approximately 5 minutes.

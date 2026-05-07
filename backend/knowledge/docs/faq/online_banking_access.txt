@@ -1,0 +1,21 @@
+Title: Accessing Online Banking and the Mobile App
+Category: faq
+Doc-ID: faq-005
+
+Nexus Bank offers online banking through the web portal (bank.nexusbank.com) and the Nexus Bank mobile app (available on iOS and Android).
+
+To set up online banking for the first time:
+1. Go to bank.nexusbank.com and click "Register."
+2. Enter your account number and the email address provided at account opening.
+3. Create a username and strong password.
+4. Enable two-factor authentication (2FA) — required for all accounts.
+5. You will receive a confirmation SMS to complete setup.
+
+Mobile app setup:
+1. Download "Nexus Bank" from the App Store or Google Play.
+2. Log in with your online banking credentials.
+3. Enable biometric login (Face ID / fingerprint) for faster access.
+
+Supported browsers: Chrome 90+, Firefox 90+, Safari 14+, Edge 90+.
+
+If you are locked out after multiple failed login attempts, your account will be temporarily locked for 30 minutes. After that, try again or use the "Forgot Password" flow to reset your credentials.

@@ -1,0 +1,27 @@
+Title: Finding Nexus Bank ATMs
+Category: branch
+Doc-ID: branch-002
+
+Nexus Bank operates over 2,000 ATMs nationwide, and customers can also use partner network ATMs with reduced or no fees.
+
+Finding a Nexus Bank ATM:
+- App: Tap "Branches & ATMs" on the home screen, then select "ATMs." Your nearest ATMs are shown on a map.
+- Website: Visit nexusbank.com/atm-locator and enter your location.
+- SMS: Text "ATM" followed by your zip code to 90900 (e.g., "ATM 10001") and receive the 3 nearest ATM addresses.
+
+ATM types:
+- Standard ATMs: Cash withdrawal, balance inquiry, mini-statement, PIN change.
+- Full-service ATMs (marked with a star in the app): All standard services + cash deposit, cheque deposit, mobile top-up, account-to-account transfer.
+
+ATM fee structure:
+- Nexus Bank ATMs: Free for all customers.
+- Partner network ATMs (AllPoint, MoneyPass): Free for Gold and Platinum account holders; $2 per withdrawal for Standard accounts.
+- Out-of-network ATMs: $2.50 per withdrawal + any fee charged by the ATM operator.
+- International ATMs: $5 per withdrawal + foreign currency conversion (typically 1-2%).
+
+Accessibility:
+- All Nexus Bank ATMs are wheelchair accessible.
+- Audio guidance and Braille keypads are available at all ATMs.
+- Screen magnification available on newer full-service ATMs.
+
+ATM availability: All ATMs operate 24/7. Planned maintenance is usually scheduled between 02:00 and 04:00 local time and is reflected in the app in advance.

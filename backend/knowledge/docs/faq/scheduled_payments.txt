@@ -1,0 +1,30 @@
+Title: Scheduled and Future-Dated Payments
+Category: faq
+Doc-ID: faq-016
+
+Nexus Bank allows you to schedule one-time or recurring payments in advance.
+
+Scheduling a future-dated payment:
+1. Go to Payments > New Transfer.
+2. Fill in the recipient, amount, and reference.
+3. Under "Payment Date," toggle to "Schedule for Later."
+4. Select a future date (up to 12 months in advance).
+5. Confirm with 2FA.
+
+The payment will be shown as "Scheduled" in your transaction list and will be processed on the selected date, provided sufficient funds are available.
+
+If funds are insufficient on the scheduled date:
+- The payment will fail and you will be notified by push notification and email.
+- A failed payment fee of $3 may apply.
+
+Editing or cancelling a scheduled payment:
+- Go to Payments > Scheduled Payments.
+- Select the payment and choose "Edit" or "Cancel."
+- Changes must be made at least 1 business day before the payment date.
+
+Recurring payments (standing orders):
+- See "Setting Up Direct Debit and Standing Orders" for more details.
+
+Payment processing times:
+- Domestic transfers: Same day if submitted before 17:00 on a business day; next day otherwise.
+- International transfers: 1-5 business days depending on destination.

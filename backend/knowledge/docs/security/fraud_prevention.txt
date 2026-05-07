@@ -1,0 +1,26 @@
+Title: Fraud Prevention — Protecting Your Account
+Category: security
+Doc-ID: sec-001
+
+Nexus Bank uses multiple layers of security to protect your accounts. Here is what we do — and what you can do — to prevent fraud.
+
+What Nexus Bank does:
+- Real-time transaction monitoring: Every transaction is analyzed for unusual patterns. Suspicious transactions are flagged or temporarily blocked.
+- Device fingerprinting: We recognize your trusted devices. Login from an unrecognized device triggers additional verification.
+- Behavioral analytics: We monitor typing speed, navigation patterns, and session behavior to detect account takeover attempts.
+- Automatic alerts: You receive push notifications and/or SMS for every transaction above $10 by default (configurable in app settings).
+- Card controls: You can restrict your card to specific transaction types (e.g., disable international transactions when not traveling).
+
+What you should do:
+- Never share your PIN, password, or OTP with anyone — including someone claiming to be from Nexus Bank. We will never ask for these.
+- Monitor your account regularly and report unfamiliar transactions immediately.
+- Enable transaction notifications in the app.
+- Use a unique, strong password for online banking.
+- Log out of online banking after each session, especially on shared devices.
+- Keep your contact details up to date so we can reach you quickly in case of suspicious activity.
+
+If you suspect fraud:
+- Call our 24/7 Fraud Line: 1-800-NEXUS-FR immediately.
+- Block your card via the app.
+- Change your online banking password.
+- We may place a temporary hold on your account while we investigate, for your protection.

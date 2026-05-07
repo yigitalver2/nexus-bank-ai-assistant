@@ -1,0 +1,37 @@
+Title: Booking a Branch Appointment
+Category: branch
+Doc-ID: branch-005
+
+For complex banking needs, booking an appointment in advance ensures you get dedicated time with the right specialist.
+
+When to book an appointment:
+- Mortgage or home equity consultation.
+- Business account setup and relationship manager meeting.
+- Investment portfolio review or financial planning session.
+- Estate and bereavement case discussions.
+- Complaint escalation requiring in-person resolution.
+- Power of attorney or legal document registration.
+- Foreign currency large orders.
+
+How to book:
+
+Via the app:
+1. Tap "Branches & ATMs" > select a branch > "Book Appointment."
+2. Choose the appointment type, preferred date, and time.
+3. Receive a confirmation with the specialist's name and branch details.
+
+Via the website:
+- nexusbank.com/appointments — same process as the app.
+
+Via phone:
+- Call 1-800-NEXUS-00 and ask for an appointment. Representative will find available slots for your preferred branch and purpose.
+
+What to bring:
+- Valid government-issued photo ID (always required).
+- Any documents relevant to your appointment (loan documents, property details, insurance policies, etc.).
+
+Cancellation policy:
+- Cancel or reschedule via app or phone at least 4 hours before the appointment.
+- Repeated no-shows may require a deposit for specialist appointment slots.
+
+Walk-ins: Walk-ins are accepted for most standard services during branch hours, subject to queue wait times. Appointments are prioritized over walk-ins.

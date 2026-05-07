@@ -1,0 +1,33 @@
+Title: How to Update Your Address and Contact Details
+Category: procedures
+Doc-ID: proc-005
+
+Keeping your contact information up to date ensures you receive statements, cards, and important notifications.
+
+Updating your address:
+
+Via online banking:
+1. Log in and go to Profile > Personal Details > Address.
+2. Enter your new address and confirm.
+3. An SMS confirmation is sent to your registered mobile number.
+4. Your new address is active immediately for digital communications. Cards and statements will be sent to the new address within 1-2 business days.
+
+Via app:
+1. Go to Profile (person icon) > Edit Details.
+2. Tap "Update Address" and fill in the new information.
+3. Confirm with biometric or PIN.
+
+Via branch:
+- Visit any branch with proof of new address (utility bill or government letter dated within 3 months) and photo ID.
+
+Note: For mortgage customers, address changes must be confirmed in writing due to legal requirements. Please visit a branch or send a secure message.
+
+Updating your phone number:
+- Phone number changes require in-branch verification or a call to 1-800-NEXUS-00, as your phone number is used for 2FA.
+
+Updating your email address:
+1. Log in to online banking > Profile > Email.
+2. Enter the new email. A verification link is sent to both old and new email addresses.
+3. Click the link in the new email to complete the change.
+
+For legal name changes (e.g., after marriage), see the "Name Change" procedure.

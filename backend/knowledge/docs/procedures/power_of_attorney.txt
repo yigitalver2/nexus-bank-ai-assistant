@@ -1,0 +1,29 @@
+Title: Power of Attorney — Banking Authority
+Category: procedures
+Doc-ID: proc-008
+
+A Power of Attorney (POA) allows a designated person (the "attorney" or agent) to manage your Nexus Bank accounts on your behalf.
+
+When is a POA needed?
+- If you are traveling abroad for an extended period.
+- If you are ill or incapacitated.
+- If you want a trusted person (e.g., spouse, parent) to manage your finances.
+
+Types of POA accepted:
+- General POA: Grants broad banking authority (transfers, payments, account management).
+- Limited POA: Grants authority for specific transactions or a defined period.
+- Lasting/Durable POA: Remains valid even if the account holder loses mental capacity (must be registered with the relevant authority).
+
+How to register a POA:
+
+1. Obtain a legally executed POA document (signed by you and notarized or witnessed as required by your jurisdiction).
+2. Both you (the donor) and the attorney must visit a Nexus Bank branch together (or the attorney alone if you are unable, with the original POA and their own photo ID).
+3. Complete the "Third Party Authority" form at the branch.
+4. The branch will verify the document and set up access.
+
+Processing time: 3-5 business days for the authority to be fully active.
+
+Important notes:
+- A POA does not remove your own access to the account.
+- You can revoke a POA at any time in writing or in person at a branch.
+- Nexus Bank is not responsible for decisions made by the attorney acting within the scope of the granted authority.

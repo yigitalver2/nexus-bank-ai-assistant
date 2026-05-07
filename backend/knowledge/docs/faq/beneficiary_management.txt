@@ -1,0 +1,28 @@
+Title: Managing Saved Beneficiaries for Transfers
+Category: faq
+Doc-ID: faq-015
+
+Saving beneficiaries (recipients) makes repeat transfers faster and reduces the chance of errors.
+
+Adding a beneficiary:
+1. Log in to online banking or the mobile app.
+2. Go to Payments > Beneficiaries > Add New.
+3. Enter the recipient's full name, IBAN, and an optional nickname.
+4. Confirm with your 2FA code.
+5. New beneficiaries are placed on a 24-hour hold before the first transfer can be made (fraud prevention).
+
+Editing a beneficiary:
+- You can update the nickname at any time.
+- To change the IBAN, you must delete and re-add the beneficiary. The 24-hour hold applies again.
+
+Deleting a beneficiary:
+- Go to Payments > Beneficiaries, select the contact, and tap "Delete."
+- Deleting a beneficiary does not cancel any scheduled or standing order payments to them — cancel those separately.
+
+Sending to a new (unsaved) recipient:
+- You can always transfer to a new IBAN without saving them as a beneficiary.
+- For amounts above $2,000 to a new recipient, an additional SMS verification is required.
+
+Beneficiary limit: You can save up to 200 beneficiaries per account.
+
+For bulk beneficiary import (business accounts), contact your relationship manager.

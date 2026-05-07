@@ -1,0 +1,35 @@
+Title: Loan Application Process
+Category: procedures
+Doc-ID: proc-002
+
+Applying for a Nexus Bank loan (personal, vehicle, or mortgage) follows a structured process.
+
+Step 1 — Choose your loan type and check eligibility:
+- Use the Loan Calculator at nexusbank.com/loans to estimate monthly payments and rates.
+- Check if you meet the minimum requirements (income, credit score, residency).
+
+Step 2 — Submit the application:
+- Online: Log in and go to Products > Loans > Apply.
+- App: Go to Borrow > Apply for a Loan.
+- Branch: Visit any Nexus branch and speak to a loan advisor.
+
+Step 3 — Provide required documents:
+- Government-issued photo ID.
+- Proof of income: Last 3 months of payslips, or last 2 years of tax returns (self-employed).
+- Proof of residence: Utility bill or bank statement from the last 3 months.
+- For vehicle loans: Vehicle details or dealer quote.
+- For mortgages: Property purchase agreement and additional documentation.
+
+Step 4 — Credit assessment:
+- A hard credit inquiry will be performed.
+- Assessment typically takes 1 business day (personal/vehicle) or up to 10 days (mortgage).
+
+Step 5 — Decision and offer:
+- Approved: You receive a loan offer with the rate, term, and monthly payment. Review and sign digitally.
+- Conditionally approved: Additional documents may be requested.
+- Declined: A written explanation will be provided. You may reapply after 6 months.
+
+Step 6 — Disbursement:
+- Personal loan: Credited to your Nexus account within 24 hours of signing.
+- Vehicle loan: Paid directly to dealer.
+- Mortgage: Disbursed at closing.

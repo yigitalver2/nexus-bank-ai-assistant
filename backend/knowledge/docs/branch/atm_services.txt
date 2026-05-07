@@ -1,0 +1,34 @@
+Title: ATM Services and Features
+Category: branch
+Doc-ID: branch-004
+
+Nexus Bank ATMs offer more than just cash withdrawals. Here is a full list of available services depending on ATM type.
+
+Standard ATM services (all Nexus ATMs):
+- Cash withdrawal (up to daily limit, single withdrawal max $500)
+- Balance inquiry (on-screen or printed receipt)
+- Mini-statement (last 10 transactions)
+- PIN change
+- Mobile top-up (prepaid phone credit, select carriers)
+
+Full-service ATM services (marked with a star in the app):
+All standard services, plus:
+- Cash deposit (counted and credited within 1 business hour; visible immediately as pending)
+- Cheque deposit (processing begins same day if deposited before 16:00)
+- Account-to-account transfer (between your own Nexus accounts)
+- Standing order setup and cancellation
+- Foreign currency ordering (for collection at a branch the next business day)
+
+ATM receipts:
+- Receipts are offered after every transaction.
+- You can also opt for an email receipt (link your email to your card in the app under Cards > Settings > Email Receipts).
+- Paper receipts should not be left at the ATM — they contain partial account information.
+
+ATM deposit limits:
+- Cash: Up to $10,000 per day.
+- Cheques: Up to $5,000 per day (5 cheques maximum).
+
+If an ATM swallows your deposit:
+- Note the ATM ID (printed on the machine) and the exact time.
+- Call 1-800-NEXUS-00 immediately.
+- We will investigate and credit the correct amount within 3 business days.

@@ -1,0 +1,31 @@
+Title: Privacy Policy Summary
+Category: legal
+Doc-ID: legal-001
+
+This is a plain-language summary of the Nexus Bank Privacy Policy. The full policy is available at nexusbank.com/privacy.
+
+What data we collect:
+- Identity data: Name, date of birth, national ID number, photo ID.
+- Contact data: Email address, phone number, mailing address.
+- Financial data: Account balances, transaction history, credit history, loan details.
+- Technical data: IP address, device ID, browser type, app usage data.
+- Communications data: Records of calls, emails, and chat sessions with our support team.
+
+Why we collect it:
+- To provide and manage your banking products and services.
+- To comply with legal and regulatory obligations (anti-money laundering, tax reporting, etc.).
+- To protect against fraud and unauthorized access.
+- To improve our products and personalize your experience (with your consent where required).
+- To communicate important account updates and marketing (you can opt out of marketing at any time).
+
+Who we share it with:
+- Regulators and law enforcement (when legally required).
+- Credit bureaus (for credit checks and reporting).
+- Payment processors and correspondent banks (to execute your transactions).
+- Technology providers under strict data processing agreements.
+- We never sell your data to third parties for marketing.
+
+Your rights:
+Contact privacy@nexusbank.com to exercise any of your privacy rights (access, rectification, deletion, portability, objection). We respond within 30 days.
+
+Last updated: January 2025. Full policy: nexusbank.com/privacy.

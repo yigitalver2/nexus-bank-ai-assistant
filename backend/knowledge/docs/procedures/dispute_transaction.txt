@@ -1,0 +1,33 @@
+Title: How to Dispute a Transaction
+Category: procedures
+Doc-ID: proc-004
+
+If you notice an unauthorized, incorrect, or duplicate transaction on your account, you can raise a dispute.
+
+Types of disputes:
+- Unauthorized transaction: A charge you did not make and did not authorize.
+- Duplicate charge: The same transaction charged more than once.
+- Incorrect amount: You were charged more than the agreed price.
+- Non-receipt of goods/services: You paid but the merchant never delivered.
+- Merchant refund not received: The merchant confirmed a refund that hasn't appeared on your account.
+
+How to dispute:
+
+Via the mobile app (fastest):
+1. Go to Transactions, find the transaction you want to dispute.
+2. Tap the transaction, then tap "Dispute this Transaction."
+3. Select the reason and provide a brief description.
+4. Submit. You will receive a case reference number.
+
+Via secure message:
+- Log in, go to Help > Secure Message, and describe the transaction and reason.
+
+Via phone:
+- Call 1-800-NEXUS-00. Have the transaction date, amount, and merchant name ready.
+
+What happens next:
+- Provisional credit: For unauthorized transactions, we typically credit your account within 5 business days while the investigation is ongoing.
+- Investigation: We investigate and contact the merchant on your behalf. This can take up to 45 days for international transactions.
+- Resolution: If the dispute is upheld, the credit becomes permanent. If not upheld, the provisional credit is reversed and we provide a written explanation.
+
+Time limit: Disputes must be raised within 60 days of the statement date. Raise disputes promptly.

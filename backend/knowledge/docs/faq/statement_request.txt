@@ -1,0 +1,28 @@
+Title: Requesting Account Statements
+Category: faq
+Doc-ID: faq-009
+
+Nexus Bank provides account statements in digital and paper formats.
+
+Digital statements (free):
+- Log in to online banking and go to My Accounts > Statements.
+- Select the account and the date range (monthly statements going back up to 7 years).
+- Download as PDF.
+- Statements are also automatically emailed to your registered address each month.
+
+Paper statements:
+- Paper statements are available on request for a fee of $2 per statement.
+- To request, call 1-800-NEXUS-00 or visit a branch.
+- Delivery takes 5-7 business days.
+
+Official / stamped statements for legal purposes:
+- Required for visa applications, mortgage applications, or court purposes.
+- Must be requested in-branch with valid photo ID.
+- Takes 2-3 business days to prepare.
+- Fee: $10 per document.
+
+Transaction-level export:
+- You can export your transaction history as a CSV or Excel file from My Accounts > Transactions > Export.
+- Useful for personal accounting or tax purposes.
+
+If you notice an error in a statement, report it immediately via secure message or call support.

@@ -1,0 +1,22 @@
+Title: How to Block or Freeze Your Card
+Category: faq
+Doc-ID: faq-003
+
+If your card is lost, stolen, or you suspect unauthorized use, you can block it immediately through the following methods:
+
+Via the Nexus Bank Mobile App (fastest):
+1. Open the app and go to "Cards" in the bottom navigation.
+2. Select the card you want to block.
+3. Tap "Block Card" and confirm.
+The card is blocked instantly. You can unblock it the same way if it was a mistake.
+
+Via the website:
+1. Log in and navigate to My Cards > Manage Card.
+2. Select "Temporarily Block" for lost cards or "Permanently Block" if stolen.
+
+Via phone:
+Call 1-800-NEXUS-00 (available 24/7). After identity verification, a representative will block your card immediately.
+
+Important: Temporarily blocking a card stops all new transactions but does not affect pending transactions already authorized. Permanently blocking a card cannot be undone — a new card will be issued within 5-7 business days.
+
+If you believe fraud has occurred, also report it using the "Dispute a Transaction" option in the app.

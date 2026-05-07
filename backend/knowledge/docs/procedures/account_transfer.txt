@@ -1,0 +1,30 @@
+Title: Transferring Your Account to Nexus Bank (Bank Switch)
+Category: procedures
+Doc-ID: proc-010
+
+Nexus Bank participates in the Current Account Switch Service (CASS), which makes switching your main bank account from another bank quick and simple.
+
+What the switch includes:
+- Transfer of all active direct debits and standing orders to your new Nexus account.
+- Redirection of all incoming payments (salary, government payments, transfers) for 36 months.
+- Closure of your old account.
+- Any payments made to your old account during the 36-month redirection window will still reach you.
+
+How to switch:
+
+Step 1 — Open a Nexus Checking account (if you haven't already).
+Step 2 — Log in to online banking and go to My Accounts > Switch to Nexus.
+Step 3 — Provide the details of your old account (bank name, sort code, account number).
+Step 4 — Select a switch date (minimum 7 working days in the future).
+Step 5 — Your old bank is notified and the switch begins on the selected date.
+
+Timeline: The full switch takes 7 working days from the start date.
+
+What you need to do:
+- Keep enough funds in your old account until the switch date.
+- Update your new account details with any billers who pay you (e.g., employer) — the redirection service handles those who fail to update.
+
+Switching bonus:
+- New customers who switch their main account to Nexus receive a $200 welcome bonus after completing 2 direct debits within 60 days.
+
+For partial account transfers (e.g., moving savings without closing the old account), see account management options under My Accounts.

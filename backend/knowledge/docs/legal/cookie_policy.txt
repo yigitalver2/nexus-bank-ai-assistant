@@ -1,0 +1,36 @@
+Title: Cookie Policy
+Category: legal
+Doc-ID: legal-004
+
+This policy explains how Nexus Bank uses cookies and similar tracking technologies on its website and mobile app.
+
+What are cookies?
+Cookies are small text files stored on your device when you visit a website. They help us recognize your device, remember your preferences, and improve your experience.
+
+Types of cookies we use:
+
+1. Strictly necessary cookies:
+Required for the website to function. These cannot be disabled.
+Examples: Session tokens (keeping you logged in), CSRF protection tokens, load-balancing cookies.
+
+2. Functional cookies:
+Remember your preferences to improve your experience.
+Examples: Language preference, remembered username (if you opt in), last-visited branch.
+
+3. Analytics cookies:
+Help us understand how customers use our website so we can improve it.
+Examples: Google Analytics (anonymized), internal heatmap tools. No personally identifiable information is collected.
+
+4. Marketing cookies (opt-in only):
+Used to show you relevant Nexus Bank products on third-party websites.
+Examples: Retargeting pixels. We do not share this data with unaffiliated third parties.
+
+Managing cookies:
+- You can manage your cookie preferences at any time via the cookie settings icon at the bottom of our website.
+- Disabling functional or analytics cookies will not prevent you from using online banking but may affect some features.
+- Most browsers allow you to block or delete cookies via browser settings.
+
+Third-party cookies:
+Some features (e.g., embedded maps for branch locator, social media share buttons) may set third-party cookies. We do not control these. Refer to the respective third-party's privacy policy.
+
+Full cookie list: nexusbank.com/cookie-list. Last updated: January 2025.

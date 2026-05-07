@@ -1,0 +1,20 @@
+Title: How to Close a Bank Account
+Category: faq
+Doc-ID: faq-007
+
+To close a Nexus Bank account, please follow the steps below:
+
+Requirements before closing:
+- Account balance must be zero or you must withdraw all remaining funds.
+- All pending transactions must be settled.
+- Any linked direct debits or standing orders must be cancelled or transferred.
+- Active loans, credit cards, or overdrafts linked to the account must be settled first.
+
+How to close:
+Option 1 — In branch: Visit any Nexus Bank branch with a valid photo ID. A relationship manager will process the closure after confirming the above conditions are met.
+
+Option 2 — Via secure message: Log in to online banking, go to Help > Secure Message, and submit a "Request Account Closure" message. We will respond within 2 business days and guide you through the process.
+
+Note: You cannot close an account if it is the primary account linked to an active loan or credit card. You must first transfer those products to another account.
+
+Account closure is irreversible. You will receive a final statement by email within 5 business days. If you have any questions about the process, call 1-800-NEXUS-00.

@@ -1,0 +1,28 @@
+Title: Overdraft Policy and Facility
+Category: faq
+Doc-ID: faq-017
+
+An overdraft allows your account to go below zero up to a pre-approved limit, so that payments are not rejected when your balance is insufficient.
+
+Types of overdraft:
+- Arranged overdraft: Pre-approved limit set on your account. Interest applies only on the amount used.
+- Unarranged overdraft: Going below zero without a pre-approved limit. Higher fees apply and may result in payment rejection.
+
+Applying for an arranged overdraft:
+- Log in to online banking and go to My Accounts > Overdraft.
+- Select the account and apply for a limit (up to $5,000 for standard accounts, $15,000 for business).
+- Approval is subject to a credit check and may take 1-2 business days.
+
+Interest rates:
+- Arranged overdraft: 15.9% APR.
+- Unarranged overdraft: 39.9% APR + $5 daily fee (max $15/month).
+
+Paying back an overdraft:
+- Deposit funds into the account. The overdraft is reduced automatically.
+- You are not required to make a fixed monthly repayment, but interest accrues daily.
+
+Cancelling an overdraft facility:
+- Go to My Accounts > Overdraft > Cancel Facility.
+- The overdraft must be fully repaid before cancellation is complete.
+
+Customers with an existing overdraft who miss the arranged limit will have payments declined to protect them from excessive debt.

@@ -1,0 +1,33 @@
+Title: Card Security — Keeping Your Debit and Credit Cards Safe
+Category: security
+Doc-ID: sec-005
+
+Physical and digital card security is critical to protecting your finances.
+
+Physical card safety:
+- Sign the back of your card immediately upon receipt.
+- Never write your PIN on your card or keep it in the same wallet.
+- Cover the keypad when entering your PIN at ATMs and POS terminals.
+- Inspect ATMs for skimming devices before inserting your card — if the card slot looks unusual, do not use it.
+- Destroy old cards by cutting through the chip and magnetic strip before disposal.
+
+Online card safety:
+- Only shop on websites with "https://" and a padlock icon.
+- Do not save your card details on websites you don't trust.
+- Use virtual card numbers (available in the Nexus app under Cards > Virtual Card) for one-time online purchases — these can be set to expire after a single use.
+- Enable 3D Secure (you will be prompted to verify purchases via app or SMS for online transactions above a set limit).
+
+Card controls (available in the Nexus app):
+- Disable contactless payments.
+- Disable international transactions when not traveling.
+- Set a lower spending limit for online purchases.
+- Enable or disable ATM withdrawals.
+
+Real-time alerts:
+- Enable push notifications for every transaction so you catch unauthorized use immediately.
+
+If your card is compromised:
+- Block the card immediately via the app.
+- Call 1-800-NEXUS-FR to report fraud.
+- Dispute any unauthorized transactions (see "How to Dispute a Transaction").
+- Request a new card with a new card number.

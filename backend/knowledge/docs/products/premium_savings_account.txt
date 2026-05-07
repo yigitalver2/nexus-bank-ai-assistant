@@ -1,0 +1,28 @@
+Title: Nexus Premium Savings Account
+Category: products
+Doc-ID: prod-003
+
+The Nexus Premium Savings Account is our high-yield savings product for customers who maintain larger balances.
+
+Key features:
+- Annual interest rate: 4.75% APY (fixed for 6 months, then variable).
+- No monthly fees — ever.
+- Higher daily transfer limits ($15,000/day to third parties).
+- Dedicated relationship manager for balances above $50,000.
+- Free international wire transfer once per quarter.
+- Preferential foreign currency exchange rates.
+- Priority customer support line.
+
+Minimum opening balance: $10,000.
+Minimum ongoing balance to maintain Premium status: $10,000. If balance drops below this, account reverts to standard Savings account terms.
+
+Interest rate tiers:
+- $10,000 – $49,999: 4.50% APY
+- $50,000 – $249,999: 4.75% APY
+- $250,000+: Contact your relationship manager for negotiated rates.
+
+Best for: Customers with significant savings looking for better returns than a standard savings account, with the flexibility of access.
+
+Eligibility: Open to all customers; minimum balance required. Not available as a first account (must have an existing Nexus account).
+
+To upgrade: Contact your relationship manager or visit any branch. Existing savings customers can request an upgrade via the app under My Accounts > Upgrade Account.

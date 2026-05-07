@@ -1,0 +1,37 @@
+Title: Account Recovery — Regaining Access to Your Account
+Category: security
+Doc-ID: sec-008
+
+If you are locked out of your Nexus Bank online banking account, here is how to recover access.
+
+Common reasons for lockout:
+- Too many incorrect password attempts (account locked after 5 attempts).
+- Too many incorrect 2FA codes (account locked after 3 attempts).
+- Suspicious activity detected by our systems.
+- Your account was locked at your own request.
+
+Recovery options:
+
+Option 1 — Self-service (fastest):
+1. Go to bank.nexusbank.com or open the app.
+2. Click "Forgot Password" on the login page.
+3. Enter your registered email address.
+4. You will receive a password reset link (valid 15 minutes).
+5. Click the link, set a new password, and complete 2FA verification.
+This works if you still have access to your registered email and 2FA device.
+
+Option 2 — Phone recovery:
+1. Call 1-800-NEXUS-00.
+2. We will verify your identity using your account number, date of birth, and national ID number.
+3. A temporary password will be sent to your registered mobile number.
+4. Log in and immediately set a new permanent password.
+
+Option 3 — In-branch recovery:
+1. Visit any Nexus Bank branch with valid photo ID.
+2. A branch representative will verify your identity and reset your access on the spot.
+3. You will receive a temporary password and must change it upon next login.
+
+After recovery:
+- Review your recent account activity for any unauthorized transactions.
+- Ensure your email, phone, and 2FA settings are up to date.
+- Consider enabling biometric login on your mobile device for faster and more secure access.

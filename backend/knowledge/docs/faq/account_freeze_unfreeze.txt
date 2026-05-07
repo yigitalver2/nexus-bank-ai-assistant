@@ -1,0 +1,30 @@
+Title: Freezing and Unfreezing Your Account
+Category: faq
+Doc-ID: faq-018
+
+Account freezing is different from card blocking. When an account is frozen, no transactions (incoming or outgoing) can be processed.
+
+Why an account might be frozen:
+- You requested a temporary freeze (e.g., suspected unauthorized access).
+- The bank detected suspicious activity and froze the account for your protection.
+- Legal or regulatory hold (e.g., court order).
+
+How to freeze your account (self-initiated):
+1. Log in to online banking and go to My Accounts > Account Settings.
+2. Select "Freeze Account."
+3. Confirm with your 2FA code.
+The freeze takes effect immediately.
+
+How to unfreeze your account (self-initiated):
+1. Log in and go to My Accounts > Account Settings.
+2. Select "Unfreeze Account" and confirm.
+If you cannot log in, call 1-800-NEXUS-00 — we will verify your identity before unfreezing.
+
+Bank-initiated freeze:
+- You will be notified by SMS and email if the bank freezes your account.
+- Call 1-800-NEXUS-00 to understand the reason and resolve it.
+- Common reasons: suspected fraud, unresolved compliance document requests, or court order.
+
+During a freeze:
+- Pending direct debits will be declined.
+- Loan repayments due will not be processed (late payment fees may still apply — contact us to arrange payment via another channel).
