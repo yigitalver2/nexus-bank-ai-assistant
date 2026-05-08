@@ -1,13 +1,26 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
+from knowledge.ingest import seed_kb
 
 from auth.router import router as auth_router
 from config import settings
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("[Startup] Seeding knowledge base...")
+    seed_kb()
+    print("[Startup] Done.")
+    yield
+    print("[Shutdown] Goodbye!")
+
+
 
 app = FastAPI(
     title="Nexus Bank AI Assistant API",
     description="AI-powered banking customer support agent — chat + voice.",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
