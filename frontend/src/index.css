@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-canvas text-ink-900 font-sans antialiased;
+  font-feature-settings: "cv11", "ss01", "ss03";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(84, 83, 240, 0.18);
+  color: #11141B;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4D8DE;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+  }
+
+  .surface {
+    @apply bg-white rounded-2xl border border-line shadow-soft;
+  }
+
+  .surface-raised {
+    @apply bg-white rounded-2xl border border-line shadow-card;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm
+           text-ink-900 placeholder:text-muted-soft
+           focus:border-brand-500 focus:outline-none focus:shadow-focus
+           transition-all duration-150;
+  }
+
+  .label {
+    @apply block text-2xs uppercase tracking-[0.08em] text-muted-strong font-semibold mb-1.5;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl
+           bg-ink-900 text-white text-sm font-medium px-4 py-2.5
+           hover:bg-ink-800 active:bg-ink-700
+           disabled:bg-line-strong disabled:text-muted disabled:cursor-not-allowed
+           transition-all duration-150 shadow-soft;
+  }
+
+  .btn-brand {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl
+           bg-brand-gradient bg-[length:200%_200%] animate-gradient-shift
+           text-white text-sm font-medium px-4 py-2.5
+           hover:shadow-glow disabled:opacity-50 disabled:cursor-not-allowed
+           transition-all duration-200;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl
+           text-muted-strong text-sm font-medium px-3 py-2
+           hover:bg-canvas-soft hover:text-ink-900
+           transition-all duration-150;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1 text-2xs font-medium
+           px-2 py-0.5 rounded-full;
+  }
+
+  .pulse-dot {
+    @apply w-1.5 h-1.5 rounded-full bg-current;
+  }
+
+  .number {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}

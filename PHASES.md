@@ -52,30 +52,30 @@ Amaç: LangGraph agent'ı, RAG bilgi tabanını ve chat endpoint'ini hazırlamak
 
 ---
 
-## Faz 3 — React Frontend (Gün 5-6)
+## ✅ Faz 3 — React Frontend (Tamamlandı)
 
 Amaç: Login + Dashboard + Chat UI'ını ayağa kaldırmak.
 
-- [ ] **3.1** `frontend/` Vite + React 18 + TailwindCSS kurulumu (`package.json`, `vite.config.js`, `tailwind.config.js`)
-- [ ] **3.2** Tailwind tema: PRD §2 renkleri (`primary #1A1F36`, `accent #4F46E5`, vb.) + Inter + JetBrains Mono fontları
-- [ ] **3.3** `frontend/Dockerfile` (`node:20-alpine`) + `docker-compose.yml`'a frontend servisi (port 3000)
-- [ ] **3.4** `src/api/client.js` — Axios instance, JWT interceptor, 401 → login redirect
-- [ ] **3.5** Zustand store'ları:
-    - [ ] **3.5.1** `authStore.js` — user, token, login/logout
-    - [ ] **3.5.2** `chatStore.js` — messages, session_id, loading, sendMessage
-    - [ ] **3.5.3** `accountStore.js` — accounts, transactions, tickets
-    - [ ] **3.5.4** `voiceStore.js` — connection status, transcript, audio state (iskelet)
-- [ ] **3.6** React Router v6: `/login`, `/dashboard`, `/voice` + protected route guard
-- [ ] **3.7** `components/NexusLogo.jsx` — SVG logo komponenti
-- [ ] **3.8** `pages/LoginPage.jsx` — logo, email/şifre formu, "Sign In", "Connect to Voice Assistant" butonu
-- [ ] **3.9** `pages/DashboardPage.jsx` — Header (Welcome back, [Ad] + logout + Switch to Voice) + 30/70 split layout
-- [ ] **3.10** `components/AccountPanel.jsx` — `AccountSummary` + `TransactionList` + `TicketList` (login sonrası fetch)
-- [ ] **3.11** `components/ChatPanel.jsx`:
-    - [ ] **3.11.1** `MessageList` + `MessageBubble` (kullanıcı/asistan, tool badge, RAG kaynak chip'leri)
-    - [ ] **3.11.2** `TypingIndicator`
-    - [ ] **3.11.3** `MessageInput` (Enter ile gönder, multiline shift+enter)
-    - [ ] **3.11.4** Otomatik en alta scroll davranışı
-- [ ] **3.12** Browser test: login → dashboard → mesaj gönder → tool badge ve cevap görünüyor
+- [x] **3.1** `frontend/` Vite + React 18 + TailwindCSS kurulumu (`package.json`, `vite.config.js`, `tailwind.config.js`)
+- [x] **3.2** Tailwind tema: PRD §2 renkleri (`primary #1A1F36`, `accent #4F46E5`, vb.) + Inter + JetBrains Mono fontları
+- [x] **3.3** `frontend/Dockerfile` (`node:20-alpine`) + `docker-compose.yml`'a frontend servisi (port 3000)
+- [x] **3.4** `src/api/client.js` — Axios instance, JWT interceptor, 401 → login redirect
+- [x] **3.5** Zustand store'ları:
+    - [x] **3.5.1** `authStore.js` — user, token, login/logout
+    - [x] **3.5.2** `chatStore.js` — messages, session_id, loading, sendMessage
+    - [x] **3.5.3** `accountStore.js` — accounts, transactions, tickets
+    - [x] **3.5.4** `voiceStore.js` — connection status, transcript, audio state (iskelet)
+- [x] **3.6** React Router v6: `/login`, `/dashboard`, `/voice` + protected route guard
+- [x] **3.7** `components/NexusLogo.jsx` — SVG logo komponenti
+- [x] **3.8** `pages/LoginPage.jsx` — logo, email/şifre formu, "Sign In", "Connect to Voice Assistant" butonu
+- [x] **3.9** `pages/DashboardPage.jsx` — Header (Welcome back, [Ad] + logout + Switch to Voice) + 30/70 split layout
+- [x] **3.10** `components/AccountPanel.jsx` — `AccountSummary` + `TransactionList` + `TicketList` (login sonrası fetch)
+- [x] **3.11** `components/ChatPanel.jsx`:
+    - [x] **3.11.1** `MessageList` + `MessageBubble` (kullanıcı/asistan, tool badge, RAG kaynak chip'leri)
+    - [x] **3.11.2** `TypingIndicator`
+    - [x] **3.11.3** `MessageInput` (Enter ile gönder, multiline shift+enter)
+    - [x] **3.11.4** Otomatik en alta scroll davranışı
+- [x] **3.12** Browser test: login → dashboard → mesaj gönder → tool badge ve cevap görünüyor
 
 ---
 
