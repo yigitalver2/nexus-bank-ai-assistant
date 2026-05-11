@@ -2,11 +2,14 @@ import uuid
 from datetime import datetime
 
 from langchain_core.tools import tool
+from langchain_openai import OpenAIEmbeddings
 from sqlalchemy.orm import Session
 
 from database.connection import SessionLocal
 from database.models import Account, Transaction, Loan, SupportTicket
 from knowledge.chroma_client import get_collection
+
+_embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 
 @tool
@@ -17,8 +20,9 @@ def search_knowledge_base(query: str) -> str:
     
     collection = get_collection()
     
+    query_vector = _embeddings.embed_query(query)
     results = collection.query(
-        query_texts=[query],
+        query_embeddings=[query_vector],
         n_results=4,
         include=["documents", "metadatas"],
     )
@@ -56,7 +60,7 @@ def get_account_info(customer_id: str) -> str:
     
     for acc in accounts:
         lines.append(
-            f"Account ID: {acc.id} | Type: {acc.type} | "
+            f"Account ID: {acc.account_id} | Type: {acc.type} | "
             f"Balance: {acc.balance:.2f} {acc.currency} | IBAN: {acc.iban}"
         )
     return "\n".join(lines)
@@ -70,7 +74,7 @@ def get_transaction_history(customer_id: str, limit: int = 10) -> str:
     
     with SessionLocal() as db:
         account_ids = [
-            row.id for row in db.query(Account.id).filter(
+            row.account_id for row in db.query(Account.account_id).filter(
                 Account.customer_id == customer_id
             ).all()
         ]
@@ -122,7 +126,7 @@ def create_support_ticket(customer_id: str, subject: str, description: str) -> s
     """Create a support ticket for the customer."""
     with SessionLocal() as db:
         ticket = SupportTicket(
-            id=str(uuid.uuid4()),
+            ticket_id=str(uuid.uuid4()),
             customer_id=customer_id,
             subject=subject,
             description=description,
@@ -134,7 +138,7 @@ def create_support_ticket(customer_id: str, subject: str, description: str) -> s
         db.add(ticket)
         db.commit()
         db.refresh(ticket)
-        ticket_id = ticket.id
+        ticket_id = ticket.ticket_id
 
     return (
         f"Support ticket created successfully.\n"

@@ -4,6 +4,11 @@ from contextlib import asynccontextmanager
 from knowledge.ingest import seed_kb
 
 from auth.router import router as auth_router
+from routers.chat import router as chat_router
+from routers.account import router as account_router
+from routers.knowledge import router as knowledge_router
+
+
 from config import settings
 
 @asynccontextmanager
@@ -33,6 +38,9 @@ app.add_middleware(
 
 
 app.include_router(auth_router)
+app.include_router(chat_router)
+app.include_router(account_router)
+app.include_router(knowledge_router)
 
 
 @app.get("/health", tags=["system"])

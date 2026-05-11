@@ -1,10 +1,10 @@
-from typing import TypedDict
+from typing import Annotated, TypedDict
 from langchain_core.messages import BaseMessage
-
+from langgraph.graph.message import add_messages
 
 
 class AgentState(TypedDict):
-    messages: list[BaseMessage]
+    messages: Annotated[list[BaseMessage], add_messages]
     customer_id: str
     customer_name: str
     tool_calls_made: list[str]

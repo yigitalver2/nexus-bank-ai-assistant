@@ -24,31 +24,31 @@ Amaç: Repo iskeletini, veritabanını, mock veriyi ve JWT auth'u ayağa kaldır
 
 ---
 
-## Faz 2 — Agent Çekirdeği (Gün 3-4)
+## ✅ Faz 2 — Agent Çekirdeği (Tamamlandı)
 
 Amaç: LangGraph agent'ı, RAG bilgi tabanını ve chat endpoint'ini hazırlamak.
 
-- [ ] **2.1** `backend/knowledge/chroma_client.py` — Chroma embedded client + `nexus_bank_kb` koleksiyonu
-- [ ] **2.2** `backend/knowledge/docs/` altına kategori klasörleri (`faq/`, `products/`, `procedures/`, `security/`, `branch/`, `legal/`) ve içerik dokümanları (toplam 63 doküman, PRD §10)
-- [ ] **2.3** `backend/knowledge/ingest.py` (seed_kb) — dokümanları yükle, 300 token chunk + 50 overlap, `text-embedding-3-small` ile embed, metadata (`category`, `doc_id`, `title`, `language`)
-- [ ] **2.4** Container startup'ta koleksiyon boşsa otomatik ingest tetiklemesi
-- [ ] **2.5** `backend/agent/state.py` — `AgentState` TypedDict (`messages`, `customer_id`, `customer_name`, `tool_calls_made`, `session_id`)
-- [ ] **2.6** `backend/agent/prompts.py` — İngilizce sistem promptu (chat) + Türkçe sistem promptu (voice)
-- [ ] **2.7** `backend/agent/tools.py` — 6 tool tanımı:
-    - [ ] **2.7.1** `search_knowledge_base(query)` → Chroma
-    - [ ] **2.7.2** `get_account_info(customer_id)` → PostgreSQL
-    - [ ] **2.7.3** `get_transaction_history(customer_id, limit=10)` → PostgreSQL
-    - [ ] **2.7.4** `get_loan_status(customer_id)` → PostgreSQL
-    - [ ] **2.7.5** `create_support_ticket(customer_id, subject, description)` → PostgreSQL
-    - [ ] **2.7.6** `escalate_to_human(customer_id, reason)` → internal ref no
-- [ ] **2.8** `backend/agent/graph.py` — LangGraph: `agent_node` (GPT-4o) + `tools_node` + `should_continue` koşullu kenar + `MemorySaver` checkpointer
-- [ ] **2.9** `backend/routers/chat.py`:
-    - [ ] **2.9.1** `POST /api/chat` — mesaj gönder, agent yanıtı + `tool_used` döndür
-    - [ ] **2.9.2** `GET /api/chat/history/{session_id}` — checkpoint state'inden mesajları getir
-    - [ ] **2.9.3** `POST /api/chat/end` — session'ı `conversations` + `messages` tablolarına yaz
-- [ ] **2.10** `backend/routers/account.py` — `GET /api/account/{customer_id}`, `GET /api/transactions/{customer_id}`, `GET /api/tickets/{customer_id}` (hepsi JWT'den `customer_id` ile filtreli)
-- [ ] **2.11** `backend/routers/knowledge.py` — `POST /api/knowledge/ingest`, `GET /api/knowledge/search` (debug için)
-- [ ] **2.12** Postman/curl ile uçtan uca test: 6 tool da doğru veri dönüyor, agent doğru tool'u seçiyor
+- [x] **2.1** `backend/knowledge/chroma_client.py` — Chroma embedded client + `nexus_bank_kb` koleksiyonu
+- [x] **2.2** `backend/knowledge/docs/` altına kategori klasörleri (`faq/`, `products/`, `procedures/`, `security/`, `branch/`, `legal/`) ve içerik dokümanları (toplam 63 doküman, PRD §10)
+- [x] **2.3** `backend/knowledge/ingest.py` (seed_kb) — dokümanları yükle, 300 token chunk + 50 overlap, `text-embedding-3-small` ile embed, metadata (`category`, `doc_id`, `title`, `language`)
+- [x] **2.4** Container startup'ta koleksiyon boşsa otomatik ingest tetiklemesi
+- [x] **2.5** `backend/agent/state.py` — `AgentState` TypedDict (`messages`, `customer_id`, `customer_name`, `tool_calls_made`, `session_id`)
+- [x] **2.6** `backend/agent/prompts.py` — İngilizce sistem promptu (chat) + Türkçe sistem promptu (voice)
+- [x] **2.7** `backend/agent/tools.py` — 6 tool tanımı:
+    - [x] **2.7.1** `search_knowledge_base(query)` → Chroma
+    - [x] **2.7.2** `get_account_info(customer_id)` → PostgreSQL
+    - [x] **2.7.3** `get_transaction_history(customer_id, limit=10)` → PostgreSQL
+    - [x] **2.7.4** `get_loan_status(customer_id)` → PostgreSQL
+    - [x] **2.7.5** `create_support_ticket(customer_id, subject, description)` → PostgreSQL
+    - [x] **2.7.6** `escalate_to_human(customer_id, reason)` → internal ref no
+- [x] **2.8** `backend/agent/graph.py` — LangGraph: `agent_node` (GPT-4o) + `tools_node` + `should_continue` koşullu kenar + `MemorySaver` checkpointer
+- [x] **2.9** `backend/routers/chat.py`:
+    - [x] **2.9.1** `POST /api/chat` — mesaj gönder, agent yanıtı + `tool_used` döndür
+    - [x] **2.9.2** `GET /api/chat/history/{session_id}` — checkpoint state'inden mesajları getir
+    - [x] **2.9.3** `POST /api/chat/end` — session'ı `conversations` + `messages` tablolarına yaz
+- [x] **2.10** `backend/routers/account.py` — `GET /api/account/{customer_id}`, `GET /api/transactions/{customer_id}`, `GET /api/tickets/{customer_id}` (hepsi JWT'den `customer_id` ile filtreli)
+- [x] **2.11** `backend/routers/knowledge.py` — `POST /api/knowledge/ingest`, `GET /api/knowledge/search` (debug için)
+- [x] **2.12** Postman/curl ile uçtan uca test: 6 tool da doğru veri dönüyor, agent doğru tool'u seçiyor
 
 ---
 
