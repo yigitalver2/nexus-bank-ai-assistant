@@ -50,6 +50,19 @@ services:
     depends_on:
       - backend
 
+  adminer:
+    image: adminer:4
+    container_name: nexus-adminer
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+      ADMINER_DESIGN: dracula
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 volumes:
   postgres-data:
   chroma-data:
