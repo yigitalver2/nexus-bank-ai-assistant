@@ -1,6 +1,6 @@
 # Nexus Bank AI Assistant — Geliştirme Fazları
 
-PRD v1.0 üzerinden çıkarılmış faz ve alt-görev listesi. Her görev tamamlandıkça `[ ]` yerine `[x]` işaretle.
+PRD v2.0 (WebRTC Edition) üzerinden çıkarılmış faz ve alt-görev listesi. Her görev tamamlandıkça `[ ]` yerine `[x]` işaretle.
 
 ---
 
@@ -79,24 +79,47 @@ Amaç: Login + Dashboard + Chat UI'ını ayağa kaldırmak.
 
 ---
 
-## Faz 4 — Voice Agent (Gün 7-8)
+## Faz 4 — Voice Agent / WebRTC (Gün 7-8)
 
-Amaç: Türkçe gerçek-zamanlı sesli asistan (OpenAI Realtime API + WebSocket proxy).
+Amaç: Türkçe gerçek-zamanlı sesli asistan — WebRTC + ephemeral token mimarisi (PRD v2.0).
+Ses trafiği **doğrudan** tarayıcı ↔ OpenAI arasında akar; backend yalnızca token basar ve tool çağrılarını çalıştırır.
 
-- [ ] **4.1** `backend/voice/proxy.py` — `WS /api/voice/ws` endpoint'i, JWT query param ile auth
-- [ ] **4.2** OpenAI Realtime API'ye sunucu-taraflı WebSocket bağlantısı
-- [ ] **4.3** Session config gönderimi: `gpt-4o-realtime-preview`, `language: tr`, `voice: alloy`, 6 tool function definition, Türkçe sistem promptu
-- [ ] **4.4** Audio bidi stream: client → backend → OpenAI ve OpenAI → backend → client
-- [ ] **4.5** `function_call` event'lerini yakala → ilgili LangGraph tool'unu çağır → sonucu `function_call_output` ile session'a geri enjekte et
-- [ ] **4.6** Transcript event'lerini client'a forward et (text görüntüleme için)
-- [ ] **4.7** Voice session sonunda `conversations` + `messages` tablolarına transcript'i yaz
-- [ ] **4.8** `pages/VoicePage.jsx` — büyük animasyonlu mikrofon butonu (orb)
-- [ ] **4.9** `components/VoiceOrb.jsx` — ses dalgası animasyonu (Listening/Speaking/Processing state'lerine göre)
-- [ ] **4.10** `StatusLabel` komponenti — anlık durum göstergesi
-- [ ] **4.11** `TranscriptPanel` — kaydırılabilir konuşma metni
-- [ ] **4.12** Browser AudioWorklet/PCM16 mikrofon yakalama + speaker'a playback
-- [ ] **4.13** "Back to Chat" butonu (dashboard'a dön)
-- [ ] **4.14** Uçtan uca test: Türkçe konuş → asistan bakiyeyi okusun, ticket oluştursun
+### Backend
+
+- [ ] **4.1** `backend/voice/token.py` — `POST /api/voice/token` endpoint'i:
+    - JWT decode → `customer_id`, `customer_name` al
+    - Session config oluştur: model `gpt-realtime`, `modalities: ["audio","text"]`, `voice: alloy`, Türkçe sistem promptu, 6 LangGraph tool tanımı, `turn_detection: server_vad`
+    - `POST https://api.openai.com/v1/realtime/sessions` — header: `Authorization: Bearer OPENAI_API_KEY`, `OpenAI-Safety-Identifier: sha256(customer_id)`
+    - `{ client_secret, session_id }` döndür
+- [ ] **4.2** `backend/voice/tool.py` — `POST /api/voice/tool` endpoint'i:
+    - Body: `{ session_id, name, arguments }` (JWT auth)
+    - JWT'den `customer_id` al → ilgili LangGraph tool'unu çalıştır
+    - `{ result }` döndür
+- [ ] **4.3** `backend/voice/persist.py` — `POST /api/voice/end` endpoint'i:
+    - Body: `{ session_id, transcript: [{role, content}] }`
+    - `conversations` tablosuna `mode=voice` satırı yaz + `messages` tablosuna transcript kayıt
+
+### Frontend
+
+- [ ] **4.4** `voiceStore.js` güncellemesi — WebRTC bağlantı durumu, transcript listesi, audio state, ephemeral token (WebSocket state'lerini kaldır)
+- [ ] **4.5** `src/lib/webrtc.js` — `RTCPeerConnection` yardımcı fonksiyonları:
+    - `createPeerConnection()` — mic track ekle (`getUserMedia`), remote track'i `<audio>` elementine bağla (`ontrack`)
+    - `exchangeSDP(pc, clientSecret)` — SDP offer oluştur → OpenAI Realtime'a POST → remote answer set et
+    - `createDataChannel(pc)` — `"oai-events"` data channel
+- [ ] **4.6** `pages/VoicePage.jsx`:
+    - Mount'ta `POST /api/voice/token` çağır → `client_secret`, `session_id` al
+    - `webrtc.js` aracılığıyla `RTCPeerConnection` kur + SDP exchange yap
+    - Data channel `onmessage` ile `transcript_delta` ve `function_call` event'lerini dinle
+    - Session kapanınca `POST /api/voice/end` ile transcript'i backende gönder
+    - "Back to Chat" butonu — dashboard'a yönlendir
+- [ ] **4.7** `components/VoiceOrb.jsx` — remote stream üzerinde `AnalyserNode` ile ses seviyesine bağlı animasyon
+- [ ] **4.8** `StatusLabel` komponenti — `Listening` / `Speaking` / `Processing` durumları
+- [ ] **4.9** `TranscriptPanel` — `transcript_delta` event'lerinden biriken kaydırılabilir metin
+- [ ] **4.10** Tool call dispatcher (VoicePage içinde):
+    - `response.done` event'inden `function_call` parse et
+    - `POST /api/voice/tool` → sonucu al
+    - Data channel üzerinden `conversation.item.create` (function_call_output) + `response.create` gönder
+- [ ] **4.11** Uçtan uca test: Türkçe konuş → asistan bakiyeyi okusun, ticket oluştursun
 
 ---
 
@@ -111,7 +134,12 @@ Amaç: Hata yönetimi, dokümantasyon, demo hazırlığı.
     - [ ] **5.1.4** JWT expired → 401 (frontend redirect)
     - [ ] **5.1.5** Geçersiz `customer_id` → 403
     - [ ] **5.1.6** Agent max iterasyon → kısmi cevap + açıklama
-- [ ] **5.2** Frontend hata/yükleme durumları: WebSocket drop için reconnect butonu, login fail mesajı, network hatası toast'ı, boş state'ler (no transactions, no tickets)
+- [ ] **5.2** Frontend hata/yükleme durumları:
+    - [ ] **5.2.1** Ephemeral token alınamadı → voice sayfasında hata mesajı, session başlatma engeli
+    - [ ] **5.2.2** WebRTC ICE negotiation başarısız → "Bağlantı kurulamadı, tekrar dene" butonu
+    - [ ] **5.2.3** Data channel mid-session koptu → reconnect girişimi; başarısızsa manuel retry
+    - [ ] **5.2.4** `/api/voice/tool` POST hatası → data channel'a error result gönder, model gracefully devam etsin
+    - [ ] **5.2.5** Login fail mesajı, network hatası toast'ı, boş state'ler (no transactions, no tickets)
 - [ ] **5.3** `.env.example` cleanup (tüm gerekli değişkenler, dummy değerler)
 - [ ] **5.4** `README.md` — kurulum talimatları (Docker Compose), mimari özeti, demo kullanıcı bilgileri, ekran görüntüleri
 - [ ] **5.5** `docs/architecture.png` — mimari diyagramı export'u
