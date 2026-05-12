@@ -32,8 +32,8 @@ def seed_kb() -> None:
         return
 
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=300,
-        chunk_overlap=50,
+        chunk_size=2000,
+        chunk_overlap=200,
     )
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 

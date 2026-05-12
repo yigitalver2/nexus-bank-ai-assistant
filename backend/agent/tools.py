@@ -23,7 +23,7 @@ def search_knowledge_base(query: str) -> str:
     query_vector = _embeddings.embed_query(query)
     results = collection.query(
         query_embeddings=[query_vector],
-        n_results=4,
+        n_results=5,
         include=["documents", "metadatas"],
     )
     documents = results["documents"][0]
@@ -68,10 +68,21 @@ def get_account_info(customer_id: str) -> str:
 
 
 @tool
-def get_transaction_history(customer_id: str, limit: int = 10) -> str:
-    
-    """Get recent transaction history for the customer."""
-    
+def get_transaction_history(
+    customer_id: str,
+    limit: int = 20,
+    start_date: str | None = None,
+    end_date: str | None = None,
+) -> str:
+    """Get transaction history for the customer.
+
+    Args:
+        customer_id: The customer's ID.
+        limit: Max number of transactions to return (default 20).
+        start_date: Optional start date filter in YYYY-MM-DD format (inclusive).
+        end_date: Optional end date filter in YYYY-MM-DD format (inclusive).
+    """
+
     with SessionLocal() as db:
         account_ids = [
             row.account_id for row in db.query(Account.account_id).filter(
@@ -82,12 +93,22 @@ def get_transaction_history(customer_id: str, limit: int = 10) -> str:
         if not account_ids:
             return "No accounts found."
 
-        transactions = db.query(Transaction).filter(
+        query = db.query(Transaction).filter(
             Transaction.account_id.in_(account_ids)
-        ).order_by(Transaction.created_at.desc()).limit(limit).all()
+        )
+
+        if start_date:
+            query = query.filter(
+                Transaction.created_at >= datetime.fromisoformat(start_date)
+            )
+        if end_date:
+            end_dt = datetime.fromisoformat(end_date).replace(hour=23, minute=59, second=59)
+            query = query.filter(Transaction.created_at <= end_dt)
+
+        transactions = query.order_by(Transaction.created_at.desc()).limit(limit).all()
 
     if not transactions:
-        return "No transactions found."
+        return "No transactions found for the given criteria."
 
     lines = []
     for tx in transactions:
