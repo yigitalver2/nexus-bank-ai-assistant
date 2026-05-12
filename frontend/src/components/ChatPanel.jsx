@@ -5,152 +5,147 @@ import MessageBubble from "./MessageBubble.jsx";
 import TypingIndicator from "./TypingIndicator.jsx";
 
 const suggestions = [
-  {
-    text: "What are my account balances?",
-    hint: "Account data",
-    icon: (
-      <>
-        <rect x="3" y="6" width="18" height="13" rx="2" />
-        <line x1="3" y1="11" x2="21" y2="11" />
-      </>
-    ),
-  },
-  {
-    text: "Show me my last 5 transactions",
-    hint: "Activity",
-    icon: (
-      <>
-        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-        <polyline points="17 6 23 6 23 12" />
-      </>
-    ),
-  },
-  {
-    text: "How can I block my card?",
-    hint: "Knowledge base",
-    icon: (
-      <>
-        <rect x="3" y="11" width="18" height="11" rx="2" />
-        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-      </>
-    ),
-  },
-  {
-    text: "Tell me about your credit card products",
-    hint: "Products",
-    icon: (
-      <>
-        <rect x="2" y="6" width="20" height="13" rx="2" />
-        <line x1="2" y1="11" x2="22" y2="11" />
-      </>
-    ),
-  },
+  "Check my balance",
+  "Recent transactions",
+  "Report an issue",
 ];
 
-function SuggestionCard({ s, onClick }) {
+function ChatToggleButton({ isOpen, onToggle, hasUnread }) {
   return (
     <button
-      onClick={onClick}
-      className="group flex items-start gap-3 text-left p-3.5 rounded-xl bg-white border border-line hover:border-brand-300 hover:shadow-soft transition-all duration-150"
+      onClick={onToggle}
+      className="group relative w-14 h-14 rounded-full bg-electric-500 hover:bg-electric-400 text-white flex items-center justify-center animate-btn-breathe transition-colors duration-60"
+      aria-label={isOpen ? "Close chat" : "Ask Nexus AI"}
     >
-      <span className="w-9 h-9 rounded-lg bg-brand-gradient-soft border border-brand-200/40 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+      {isOpen ? (
         <svg
-          width="16"
-          height="16"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <line x1="6" y1="6" x2="18" y2="18" />
+          <line x1="6" y1="18" x2="18" y2="6" />
+        </svg>
+      ) : (
+        <svg
+          width="22"
+          height="22"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-brand-600"
         >
-          {s.icon}
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
         </svg>
-      </span>
-      <span className="flex-1 min-w-0">
-        <span className="block text-2xs uppercase tracking-[0.1em] text-muted-soft font-semibold mb-1">
-          {s.hint}
+      )}
+      {hasUnread && !isOpen && (
+        <span className="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-danger-500 border-2 border-ink-950" />
+      )}
+      {!isOpen && (
+        <span className="pointer-events-none absolute bottom-full mb-2 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-60 whitespace-nowrap text-[12px] text-warm-100 bg-ink-700 border border-ink-600 px-2.5 py-1 rounded-md">
+          Ask Nexus AI
         </span>
-        <span className="block text-sm text-ink-900 font-medium leading-snug">
-          {s.text}
-        </span>
-      </span>
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="text-muted-soft group-hover:text-brand-500 group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-3"
-      >
-        <line x1="5" y1="12" x2="19" y2="12" />
-        <polyline points="12 5 19 12 12 19" />
-      </svg>
+      )}
     </button>
   );
 }
 
-function ChatHeader({ messageCount }) {
+function ChatHeader({ onMinimize, onClose }) {
   return (
-    <div className="flex-shrink-0 px-6 py-3 border-b border-line bg-white/60 backdrop-blur-sm flex items-center justify-between">
+    <div className="h-[52px] flex-shrink-0 flex items-center justify-between px-4 bg-ink-950 border-b border-ink-600 rounded-t-[16px]">
       <div className="flex items-center gap-2.5">
-        <div className="relative w-8 h-8 rounded-lg bg-brand-gradient flex items-center justify-center shadow-soft">
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="white"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M12 2L13.5 8.5L20 10L13.5 11.5L12 18L10.5 11.5L4 10L10.5 8.5L12 2Z" />
-          </svg>
-          <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-success-500 border-2 border-white" />
+        <div className="relative">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-electric-500 to-electric-700 animate-ai-breathe" />
         </div>
-        <div className="leading-tight">
-          <h2 className="text-sm font-semibold text-ink-900">
-            Nexus Assistant
-          </h2>
-          <p className="text-2xs text-muted-soft flex items-center gap-1.5">
-            <span className="pulse-dot bg-success-500" />
-            Online · GPT-4o
-          </p>
+        <div className="flex items-center gap-2">
+          <span className="text-[13px] font-medium text-warm-100">
+            Nexus AI
+          </span>
+          <span className="w-1.5 h-1.5 rounded-full bg-success-500" />
         </div>
       </div>
-      {messageCount > 0 && (
-        <span className="text-2xs text-muted-soft number">
-          {messageCount} {messageCount === 1 ? "message" : "messages"}
-        </span>
-      )}
+      <div className="flex items-center gap-1">
+        <button
+          onClick={onMinimize}
+          className="w-7 h-7 rounded-md text-muted-strong hover:text-warm-100 hover:bg-ink-700 flex items-center justify-center transition-colors duration-60"
+          aria-label="Minimize"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </button>
+        <button
+          onClick={onClose}
+          className="w-7 h-7 rounded-md text-muted-strong hover:text-warm-100 hover:bg-ink-700 flex items-center justify-center transition-colors duration-60"
+          aria-label="Close"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+            <line x1="6" y1="6" x2="18" y2="18" />
+            <line x1="6" y1="18" x2="18" y2="6" />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 }
 
-export default function ChatPanel({ customerName }) {
+function SuggestionChip({ text, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className="text-[12px] px-3 py-1.5 rounded-full bg-ink-700 border border-ink-600 text-warm-200 hover:border-electric-500 hover:text-warm-100 transition-colors duration-60"
+    >
+      {text}
+    </button>
+  );
+}
+
+function EmptyState({ customerName, onPick }) {
+  return (
+    <div className="h-full flex flex-col items-center justify-center px-4 text-center">
+      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-electric-500 to-electric-700 animate-ai-breathe mb-4" />
+      <p className="font-serif text-[18px] leading-snug text-warm-100">
+        How can I help you today
+        {customerName ? `, ${customerName}` : ""}?
+      </p>
+      <div className="flex flex-wrap justify-center gap-1.5 mt-5">
+        {suggestions.map((s) => (
+          <SuggestionChip key={s} text={s} onClick={() => onPick(s)} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function ChatPanel({ customerName, isOpen, onToggle }) {
   const { messages, sendMessage, loading } = useChatStore();
   const [input, setInput] = useState("");
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
+    if (!isOpen) return;
     scrollRef.current?.scrollTo({
       top: scrollRef.current.scrollHeight,
       behavior: "smooth",
     });
-  }, [messages.length, loading]);
+  }, [messages.length, loading, isOpen]);
 
   useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+    if (isOpen) {
+      inputRef.current?.focus();
+    }
+  }, [isOpen]);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e?.preventDefault?.();
     if (!input.trim() || loading) return;
     sendMessage(input);
     setInput("");
@@ -164,83 +159,56 @@ export default function ChatPanel({ customerName }) {
   };
 
   return (
-    <div className="flex flex-col h-full bg-canvas">
-      <ChatHeader messageCount={messages.length} />
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+      {isOpen && (
+        <div
+          className="w-[380px] h-[520px] bg-ink-900 border border-ink-600 rounded-[16px] rounded-br-[4px] shadow-elevated-dark flex flex-col overflow-hidden animate-widget-in"
+          role="dialog"
+          aria-label="Nexus AI chat"
+        >
+          <ChatHeader onMinimize={onToggle} onClose={onToggle} />
 
-      <div
-        ref={scrollRef}
-        className="flex-1 overflow-y-auto px-6 py-6"
-      >
-        {messages.length === 0 && !loading && (
-          <div className="h-full flex flex-col items-center justify-center max-w-2xl mx-auto text-center px-2">
-            <div className="relative mb-6">
-              <div className="absolute inset-0 bg-brand-gradient rounded-3xl blur-2xl opacity-30 animate-pulse" />
-              <div className="relative w-16 h-16 rounded-3xl bg-brand-gradient bg-[length:200%_200%] animate-gradient-shift flex items-center justify-center shadow-elevated">
-                <svg
-                  width="28"
-                  height="28"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M12 2L13.5 8.5L20 10L13.5 11.5L12 18L10.5 11.5L4 10L10.5 8.5L12 2Z" />
-                </svg>
+          <div
+            ref={scrollRef}
+            className="flex-1 overflow-y-auto px-3 py-4"
+          >
+            {messages.length === 0 && !loading ? (
+              <EmptyState
+                customerName={customerName}
+                onPick={(text) => sendMessage(text)}
+              />
+            ) : (
+              <div className="space-y-3">
+                {messages.map((msg, idx) => (
+                  <MessageBubble key={idx} message={msg} />
+                ))}
+                {loading && <TypingIndicator />}
               </div>
-            </div>
-
-            <h1 className="text-2xl sm:text-3xl font-bold text-ink-900 tracking-tightest text-balance">
-              Hi {customerName}, how can I help today?
-            </h1>
-            <p className="text-sm text-muted-strong mt-2 max-w-md text-pretty">
-              Ask me anything about your accounts, transactions, loans, or
-              Nexus Bank's products and policies.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-8 w-full">
-              {suggestions.map((s) => (
-                <SuggestionCard
-                  key={s.text}
-                  s={s}
-                  onClick={() => sendMessage(s.text)}
-                />
-              ))}
-            </div>
+            )}
           </div>
-        )}
 
-        {messages.length > 0 && (
-          <div className="space-y-4 max-w-3xl mx-auto">
-            {messages.map((msg, idx) => (
-              <MessageBubble key={idx} message={msg} />
-            ))}
-            {loading && <TypingIndicator />}
-          </div>
-        )}
-      </div>
-
-      <div className="flex-shrink-0 px-6 pt-2 pb-5 bg-canvas">
-        <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
-          <div className="relative rounded-2xl bg-white border border-line shadow-soft focus-within:border-brand-400 focus-within:shadow-focus transition-all">
+          <form
+            onSubmit={handleSubmit}
+            className="h-[52px] flex-shrink-0 flex items-center gap-2 px-3 bg-ink-950 border-t border-ink-600"
+          >
             <textarea
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Ask anything about your accounts or Nexus Bank..."
+              placeholder="Ask anything…"
               rows={1}
               disabled={loading}
-              className="w-full resize-none bg-transparent outline-none px-4 py-3.5 pr-14 text-sm leading-relaxed max-h-40 disabled:text-muted placeholder:text-muted-soft"
+              className="flex-1 bg-transparent border-0 outline-none resize-none text-[13px] text-warm-100 placeholder:text-muted leading-relaxed py-2 max-h-[72px]"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="absolute right-2 bottom-2 w-9 h-9 rounded-lg bg-ink-900 hover:bg-ink-800 disabled:bg-line text-white disabled:text-muted flex items-center justify-center transition-colors"
+              className="w-8 h-8 rounded-full bg-electric-500 hover:bg-electric-400 disabled:bg-ink-600 disabled:text-muted text-white flex items-center justify-center transition-colors duration-60 flex-shrink-0"
+              aria-label="Send"
             >
               {loading ? (
-                <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <svg
                   width="14"
@@ -248,7 +216,7 @@ export default function ChatPanel({ customerName }) {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2.5"
+                  strokeWidth="2.6"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
@@ -257,17 +225,11 @@ export default function ChatPanel({ customerName }) {
                 </svg>
               )}
             </button>
-          </div>
-          <p className="text-2xs text-muted-soft mt-2 text-center">
-            Nexus Assistant may make mistakes. Verify important info with
-            support. Press{" "}
-            <kbd className="font-mono text-2xs bg-canvas-soft px-1 py-0.5 rounded border border-line">
-              Enter
-            </kbd>{" "}
-            to send.
-          </p>
-        </form>
-      </div>
+          </form>
+        </div>
+      )}
+
+      <ChatToggleButton isOpen={isOpen} onToggle={onToggle} hasUnread={false} />
     </div>
   );
 }

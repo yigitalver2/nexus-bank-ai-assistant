@@ -6,64 +6,74 @@ export default function VoicePage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col bg-ink-gradient text-white relative overflow-hidden">
+    <div className="min-h-screen flex flex-col bg-ink-950 text-warm-100 relative overflow-hidden">
       <div
-        className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+        className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full opacity-25 blur-3xl pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle, rgba(124, 58, 237, 0.6), transparent 70%)",
+            "radial-gradient(circle, rgba(37, 99, 235, 0.55), transparent 70%)",
         }}
       />
       <div
-        className="absolute -bottom-40 -right-40 w-[700px] h-[700px] rounded-full opacity-25 blur-3xl"
+        className="absolute -bottom-40 -right-40 w-[620px] h-[620px] rounded-full opacity-20 blur-3xl pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle, rgba(192, 38, 211, 0.5), transparent 70%)",
+            "radial-gradient(circle, rgba(59, 116, 255, 0.5), transparent 70%)",
         }}
       />
-      <div className="absolute inset-0 bg-noise opacity-30 mix-blend-overlay pointer-events-none" />
 
-      <header className="relative z-10 px-6 py-4 flex items-center justify-between">
-        <NexusLogo size={36} variant="onDark" />
-        <button
-          onClick={() => navigate("/dashboard")}
-          className="inline-flex items-center gap-2 text-sm font-medium text-white/70 hover:text-white px-3 py-2 rounded-xl hover:bg-white/5 transition-colors"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+      <header
+        className="relative z-10 h-14 px-6 flex items-center justify-between border-b border-ink-600"
+        style={{ background: "rgba(8, 10, 15, 0.92)", backdropFilter: "blur(16px)" }}
+      >
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="btn-ghost"
+            type="button"
           >
-            <line x1="19" y1="12" x2="5" y2="12" />
-            <polyline points="12 19 5 12 12 5" />
-          </svg>
-          Back to chat
-        </button>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="19" y1="12" x2="5" y2="12" />
+              <polyline points="12 19 5 12 12 5" />
+            </svg>
+            Dashboard
+          </button>
+          <span className="w-px h-5 bg-ink-600" />
+          <NexusLogo size={26} withWordmark />
+        </div>
+        <div className="text-[11px] text-muted font-mono">
+          gpt-4o-realtime-preview
+        </div>
       </header>
 
       <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-6">
         <div className="relative animate-orb-float">
-          <span className="absolute inset-0 rounded-full bg-brand-400/30 blur-3xl scale-150" />
-          <span className="absolute inset-0 rounded-full bg-brand-500/20 animate-pulse-ring" />
+          <span className="absolute inset-0 rounded-full bg-electric-500/25 blur-3xl scale-150" />
+          <span className="absolute inset-0 rounded-full bg-electric-500/20 animate-pulse-ring" />
           <span
-            className="absolute inset-0 rounded-full bg-brand-500/20 animate-pulse-ring"
+            className="absolute inset-0 rounded-full bg-electric-500/20 animate-pulse-ring"
             style={{ animationDelay: "1s" }}
           />
 
           <button
             disabled
-            className="relative w-44 h-44 rounded-full bg-brand-gradient bg-[length:200%_200%] animate-gradient-shift text-white shadow-glow flex items-center justify-center disabled:cursor-not-allowed group"
+            className="relative w-40 h-40 rounded-full bg-gradient-to-br from-electric-500 to-electric-700 text-white flex items-center justify-center disabled:cursor-not-allowed"
+            type="button"
+            aria-label="Voice assistant"
           >
-            <span className="absolute inset-1 rounded-full bg-black/10" />
-            <span className="absolute inset-3 rounded-full border border-white/20" />
+            <span className="absolute inset-2 rounded-full border border-white/15" />
             <svg
-              width="56"
-              height="56"
+              width="52"
+              height="52"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -81,16 +91,16 @@ export default function VoicePage() {
         </div>
 
         <div className="mt-12 text-center max-w-md">
-          <span className="inline-flex items-center gap-1.5 text-2xs uppercase tracking-[0.16em] font-semibold bg-white/10 border border-white/15 rounded-full px-3 py-1 mb-4">
-            <span className="pulse-dot bg-warning-500" />
+          <span className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-widest2 font-medium bg-ink-700 border border-ink-600 rounded-full px-3 py-1 mb-4 text-muted-strong">
+            <span className="w-1.5 h-1.5 rounded-full bg-warning-500" />
             Coming in Phase 4
           </span>
-          <h1 className="text-3xl font-bold tracking-tightest mb-3 text-balance">
+          <h1 className="serif-hero text-[34px] leading-tight mb-3">
             Türkçe sesli asistan
           </h1>
-          <p className="text-sm text-white/65 leading-relaxed text-pretty">
-            Real-time Turkish voice agent powered by OpenAI Realtime API.
-            Speak naturally — ask for balances, recent transactions, or open a
+          <p className="text-[13px] text-muted-strong leading-relaxed text-pretty">
+            Real-time Turkish voice agent powered by OpenAI Realtime API. Speak
+            naturally — ask for balances, recent transactions, or open a
             support ticket entirely hands-free.
           </p>
         </div>
@@ -98,16 +108,17 @@ export default function VoicePage() {
         <div className="mt-10 flex flex-col sm:flex-row items-center gap-3">
           <button
             onClick={() => navigate("/dashboard")}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-white text-ink-900 hover:bg-white/90 text-sm font-semibold px-5 py-3 shadow-elevated transition-all"
+            className="btn-primary"
+            type="button"
           >
-            Continue with chat
+            Back to Dashboard
             <svg
               width="14"
               height="14"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2.5"
+              strokeWidth="2.4"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -117,17 +128,18 @@ export default function VoicePage() {
           </button>
           <button
             disabled
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 text-white/70 text-sm font-medium px-5 py-3 cursor-not-allowed"
+            className="inline-flex items-center justify-center gap-2 h-12 px-5 rounded-[10px] border border-ink-600 text-muted-strong text-[14px] font-medium cursor-not-allowed"
+            type="button"
           >
-            <span className="pulse-dot bg-white/50" />
+            <span className="w-1.5 h-1.5 rounded-full bg-muted" />
             Notify me when available
           </button>
         </div>
       </main>
 
-      <footer className="relative z-10 px-6 py-4 flex items-center justify-between text-2xs text-white/40">
+      <footer className="relative z-10 px-6 py-4 flex items-center justify-between text-[11px] text-muted">
         <span>© 2026 Nexus Bank</span>
-        <span className="font-mono">Realtime API · gpt-4o-realtime-preview</span>
+        <span className="font-mono">Realtime API</span>
       </footer>
     </div>
   );
