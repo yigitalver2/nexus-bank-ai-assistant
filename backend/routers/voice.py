@@ -58,9 +58,9 @@ async def get_voice_token(current_customer=Depends(get_current_customer)):
                     "noise_reduction": {"type": "near_field"},
                     "turn_detection": {
                         "type": "server_vad",
-                        "threshold": 0.7,
+                        "threshold": 0.88,
                         "prefix_padding_ms": 300,
-                        "silence_duration_ms": 800,
+                        "silence_duration_ms": 1000,
                     },
                 },
                 "output": {
