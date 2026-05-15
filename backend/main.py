@@ -7,6 +7,7 @@ from auth.router import router as auth_router
 from routers.chat import router as chat_router
 from routers.account import router as account_router
 from routers.knowledge import router as knowledge_router
+from routers.voice import router as voice_router
 
 
 from config import settings
@@ -41,7 +42,7 @@ app.include_router(auth_router)
 app.include_router(chat_router)
 app.include_router(account_router)
 app.include_router(knowledge_router)
-
+app.include_router(voice_router)
 
 @app.get("/health", tags=["system"])
 def health():

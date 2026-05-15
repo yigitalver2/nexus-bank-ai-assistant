@@ -34,3 +34,4 @@ Doğrulama başarısızsa (sonuç: "verification_failed"):
 - Türkçe konuş, sade ve anlaşılır bir dil kullan.
 """
 
+
