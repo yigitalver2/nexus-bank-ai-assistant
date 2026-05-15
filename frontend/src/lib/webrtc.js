@@ -1,5 +1,11 @@
 export async function createPeerConnection() {
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  const stream = await navigator.mediaDevices.getUserMedia({
+    audio: {
+      echoCancellation: true,
+      noiseSuppression: true,
+      autoGainControl: true,
+    },
+  });
 
   const pc = new RTCPeerConnection();
 
@@ -22,7 +28,7 @@ export async function exchangeSDP(pc, clientSecret) {
   await pc.setLocalDescription(offer);
 
   const response = await fetch(
-    "https://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17",
+    "https://api.openai.com/v1/realtime/calls",
     {
       method: "POST",
       headers: {
@@ -34,6 +40,12 @@ export async function exchangeSDP(pc, clientSecret) {
   );
 
   const answerSdp = await response.text();
+
+  if (!response.ok) {
+    console.error("[webrtc] SDP exchange failed:", response.status, answerSdp);
+    throw new Error(`SDP exchange failed: ${response.status} ${answerSdp}`);
+  }
+
   await pc.setRemoteDescription({ type: "answer", sdp: answerSdp });
 }
 

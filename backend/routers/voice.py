@@ -28,9 +28,9 @@ router = APIRouter(prefix="/api/voice", tags=["voice"])
 
 
 @router.post("/token")
-async def get_voice_token(current_customer: dict = Depends(get_current_customer)):
-    customer_id   = str(current_customer["customer_id"])
-    customer_name = current_customer["name"]
+async def get_voice_token(current_customer=Depends(get_current_customer)):
+    customer_id   = str(current_customer.customer_id)
+    customer_name = current_customer.name
 
     system_prompt = VOICE_SYSTEM_PROMPT.format(
         customer_name=customer_name,
@@ -47,33 +47,52 @@ async def get_voice_token(current_customer: dict = Depends(get_current_customer)
         for t in all_tools
     ]
 
-    session_config = {
-        "model": settings.openai_realtime_model,
-        "modalities": ["audio", "text"],
-        "voice": settings.openai_realtime_voice,
-        "instructions": system_prompt,
-        "tools": tool_definitions,
-        "turn_detection": {"type": "server_vad"},
+    request_body = {
+        "session": {
+            "type": "realtime",
+            "model": settings.openai_realtime_model,
+            "instructions": system_prompt,
+            "output_modalities": ["audio"],
+            "audio": {
+                "input": {
+                    "noise_reduction": {"type": "near_field"},
+                    "turn_detection": {
+                        "type": "server_vad",
+                        "threshold": 0.7,
+                        "prefix_padding_ms": 300,
+                        "silence_duration_ms": 800,
+                    },
+                },
+                "output": {
+                    "voice": settings.openai_realtime_voice,
+                },
+            },
+            "tools": tool_definitions,
+        }
     }
+
+    print(f"[voice/token] Sending model: {settings.openai_realtime_model}")
 
     async with httpx.AsyncClient() as client:
         response = await client.post(
-            "https://api.openai.com/v1/realtime/sessions",
+            "https://api.openai.com/v1/realtime/client_secrets",
             headers={
                 "Authorization": f"Bearer {settings.openai_api_key}",
                 "Content-Type": "application/json",
             },
-            json=session_config,
+            json=request_body,
             timeout=15,
         )
 
     if response.status_code != 200:
+        print(f"[voice/token] OpenAI error {response.status_code}: {response.text}")
         raise HTTPException(status_code=502, detail="Failed to create voice session")
 
     data = response.json()
+    print(f"[voice/token] OpenAI response keys: {list(data.keys())}")
     return {
-        "client_secret": data["client_secret"]["value"],
-        "session_id": data["id"],
+        "client_secret": data["value"],
+        "session_id": data.get("session", {}).get("id", "unknown"),
     }
 
 class ToolCallRequest(BaseModel):
@@ -97,13 +116,13 @@ TOOL_MAP = {
 @router.post("/tool")
 async def run_voice_tool(
     body: ToolCallRequest,
-    current_customer: dict = Depends(get_current_customer),
+    current_customer=Depends(get_current_customer),
 ):
     tool = TOOL_MAP.get(body.tool_name)
     if not tool:
         raise HTTPException(status_code=400, detail=f"Unknown tool: {body.tool_name}")
 
-    customer_id = str(current_customer["customer_id"])
+    customer_id = str(current_customer.customer_id)
 
     try:
         args = json.loads(body.arguments)
@@ -132,9 +151,9 @@ class EndVoiceSessionRequest(BaseModel):
 @router.post("/end")
 async def end_voice_session(
     body: EndVoiceSessionRequest,
-    current_customer: dict = Depends(get_current_customer),
+    current_customer=Depends(get_current_customer),
 ):
-    customer_id = str(current_customer["customer_id"])
+    customer_id = str(current_customer.customer_id)
 
     with SessionLocal() as db:
         conversation = Conversation(
@@ -159,5 +178,6 @@ async def end_voice_session(
             ))
 
         db.commit()
+        conversation_id = str(conversation.conversation_id)
 
-    return {"ok": True, "conversation_id": conversation.conversation_id}
+    return {"ok": True, "conversation_id": conversation_id}

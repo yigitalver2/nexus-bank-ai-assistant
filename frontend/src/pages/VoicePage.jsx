@@ -3,26 +3,10 @@ import { useNavigate } from "react-router-dom";
 import NexusLogo from "../components/NexusLogo.jsx";
 import { useVoiceStore } from "../store/voiceStore.js";
 import { createPeerConnection, exchangeSDP, createDataChannel } from "../lib/webrtc.js";
-import api from "../api/client.js";
+import { apiClient as api } from "../api/client.js";
 import VoiceOrb from "../components/VoiceOrb.jsx";
-
-const STATUS_LABELS = {
-  idle:       "Bağlanıyor...",
-  connecting: "Bağlanıyor...",
-  listening:  "Dinleniyor",
-  speaking:   "Konuşuyor",
-  processing: "İşleniyor",
-  verifying:  "Doğrulanıyor",
-  error:      "Hata oluştu",
-};
-
-const STATUS_DOT = {
-  listening:  "bg-green-400",
-  speaking:   "bg-electric-500",
-  processing: "bg-yellow-400",
-  verifying:  "bg-yellow-400",
-  error:      "bg-red-400",
-};
+import StatusLabel from "../components/StatusLabel.jsx";
+import TranscriptPanel from "../components/TranscriptPanel.jsx";
 
 export default function VoicePage() {
   const navigate = useNavigate();
@@ -35,8 +19,12 @@ export default function VoicePage() {
   } = useVoiceStore();
 
   const assistantBuffer = useRef("");
+  const sessionStartedRef = useRef(false);
 
   useEffect(() => {
+    if (sessionStartedRef.current) return;
+    sessionStartedRef.current = true;
+
     let pc;
 
     async function startSession() {
@@ -53,7 +41,15 @@ export default function VoicePage() {
         const dc = createDataChannel(pc);
         setDataChannel(dc);
 
-        dc.onopen = () => setStatus("listening");
+        dc.onopen = () => {
+          setStatus("listening");
+          dc.send(JSON.stringify({
+            type: "response.create",
+            response: {
+              instructions: "Sistem promptundaki ADIM 1'i uygula: müşteriyi selamla, kendini tanıt ve 'Baba adınız nedir?' diye sor. Başka hiçbir şey söyleme.",
+            },
+          }));
+        };
 
         dc.onmessage = (e) => {
           const event = JSON.parse(e.data);
@@ -139,8 +135,6 @@ export default function VoicePage() {
     navigate("/dashboard");
   }
 
-  const dotColor = STATUS_DOT[status] ?? "bg-gray-400";
-
   return (
     <div className="min-h-screen flex flex-col bg-ink-950 text-warm-100 relative overflow-hidden">
       {/* Arka plan ışıkları */}
@@ -178,31 +172,10 @@ export default function VoicePage() {
         <VoiceOrb status={status} onClick={handleEndSession} />
 
         {/* Durum etiketi */}
-        <div className="flex flex-col items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-widest font-medium bg-ink-700 border border-ink-600 rounded-full px-3 py-1 text-muted-strong">
-            <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
-            {STATUS_LABELS[status] ?? status}
-          </span>
-          {error && <p className="text-[12px] text-red-400">{error}</p>}
-        </div>
+        <StatusLabel status={status} error={error} />
 
         {/* Transcript */}
-        {transcript.length > 0 && (
-          <div className="w-full max-w-lg max-h-60 overflow-y-auto flex flex-col gap-2 px-1">
-            {transcript.map((msg) => (
-              <div
-                key={msg.id}
-                className={`text-[13px] leading-relaxed px-3 py-2 rounded-lg ${
-                  msg.role === "user"
-                    ? "bg-ink-700 text-warm-100 self-end max-w-[80%] text-right"
-                    : "bg-electric-500/10 border border-electric-500/20 text-warm-100 self-start max-w-[85%]"
-                }`}
-              >
-                {msg.content}
-              </div>
-            ))}
-          </div>
-        )}
+        <TranscriptPanel transcript={transcript} />
 
         <p className="text-[12px] text-muted text-center">
           Orb'a tıklayarak görüşmeyi bitirebilirsin
