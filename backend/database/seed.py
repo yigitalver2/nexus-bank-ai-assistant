@@ -92,6 +92,8 @@ def seed() -> None:
             password_hash=_hash("demo1234"),
             phone="05301234567",
             national_id="12345678901",
+            father_name="Mehmet",
+            birth_place="Ankara",
         )
         db.add(demo)
         db.flush()
@@ -107,6 +109,8 @@ def seed() -> None:
                 password_hash=_hash("password123"),
                 phone=fake.phone_number(),
                 national_id=fake.numerify("###########"),
+                father_name=fake.first_name_male(),
+                birth_place=fake.city(),
             )
             db.add(c)
             customers.append(c)

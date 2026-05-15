@@ -20,6 +20,9 @@ class Customer(Base):
     phone: Mapped[str | None] = mapped_column(VARCHAR(30))
     national_id: Mapped[str | None] = mapped_column(VARCHAR(20))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    father_name: Mapped[str | None] = mapped_column(VARCHAR(100))
+    birth_place: Mapped[str | None] = mapped_column(VARCHAR(100))
+    
 
     accounts: Mapped[list["Account"]] = relationship(back_populates="customer")
     loans: Mapped[list["Loan"]] = relationship(back_populates="customer")

@@ -6,7 +6,7 @@ from langchain_openai import OpenAIEmbeddings
 from sqlalchemy.orm import Session
 
 from database.connection import SessionLocal
-from database.models import Account, Transaction, Loan, SupportTicket
+from database.models import Account, Transaction, Loan, SupportTicket, Customer
 from knowledge.chroma_client import get_collection
 
 _embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
