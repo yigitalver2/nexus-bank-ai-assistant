@@ -184,7 +184,30 @@ def escalate_to_human(customer_id: str, reason: str) -> str:
         f"A representative will contact you within 2 business hours.\n"
         f"You can also call us directly at 1-800-NEXUS-00."
     )
+    
+    
+@tool
+def verify_customer_identity(customer_id: str, father_name: str, birth_place: str) -> str:
+    """Verify customer identity by checking father's name and birth place.
+    Call this before providing any account information in voice sessions."""
+    with SessionLocal() as db:
+        customer = db.query(Customer).filter(
+            Customer.customer_id == customer_id
+        ).first()
 
+    if not customer:
+        return "verification_failed"
+
+    db_father_name = (customer.father_name or "").lower().strip()
+    db_birth_place = (customer.birth_place or "").lower().strip()
+    in_father_name = father_name.lower().strip()
+    in_birth_place = birth_place.lower().strip()
+
+    if db_father_name == in_father_name and db_birth_place == in_birth_place:
+        return "verified"
+    return "verification_failed"
+
+        
 
 
 all_tools = [
@@ -194,4 +217,5 @@ all_tools = [
     get_loan_status,
     create_support_ticket,
     escalate_to_human,
+    verify_customer_identity
 ]
