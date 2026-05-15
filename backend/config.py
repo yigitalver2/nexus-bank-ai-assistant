@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     # OpenAI
     openai_api_key: str
     openai_chat_model: str = "gpt-4o"
-    openai_realtime_model: str = "gpt-realtime"
+    openai_realtime_model: str = "gpt-4o-realtime-preview-2024-12-17"
     openai_embedding_model: str = "text-embedding-3-small"
     openai_realtime_voice: str = "alloy"
 
