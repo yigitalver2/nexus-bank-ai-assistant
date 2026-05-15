@@ -1,8 +1,20 @@
+import json
 import httpx
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel
 
 from agent.prompts import VOICE_SYSTEM_PROMPT
-from agent.tools import all_tools
+from agent.tools import (
+    all_tools,
+    search_knowledge_base,
+    get_account_info,
+    get_transaction_history,
+    get_loan_status,
+    create_support_ticket,
+    escalate_to_human,
+    verify_customer_identity
+    
+)
 from auth.utils import get_current_customer
 from config import settings
 
@@ -57,3 +69,43 @@ async def get_voice_token(current_customer: dict = Depends(get_current_customer)
         "client_secret": data["client_secret"]["value"],
         "session_id": data["id"],
     }
+
+class ToolCallRequest(BaseModel):
+    tool_name: str
+    arguments: str
+    session_id: str
+    
+    
+    
+TOOL_MAP = {
+    "verify_customer_identity": verify_customer_identity,
+    "get_account_info": get_account_info,
+    "get_transaction_history": get_transaction_history,
+    "get_loan_status": get_loan_status,
+    "create_support_ticket": create_support_ticket,
+    "escalate_to_human": escalate_to_human,
+    "search_knowledge_base": search_knowledge_base,
+}
+
+
+@router.post("/tool")
+async def run_voice_tool(
+    body: ToolCallRequest,
+    current_customer: dict = Depends(get_current_customer),
+):
+    tool = TOOL_MAP.get(body.tool_name)
+    if not tool:
+        raise HTTPException(status_code=400, detail=f"Unknown tool: {body.tool_name}")
+
+    customer_id = str(current_customer["customer_id"])
+
+    try:
+        args = json.loads(body.arguments)
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=400, detail="Invalid tool arguments JSON")
+
+    if "customer_id" in args:
+        args["customer_id"] = customer_id
+
+    result = tool.invoke(args)
+    return {"result": result}
