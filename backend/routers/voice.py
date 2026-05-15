@@ -2,6 +2,12 @@ import json
 import httpx
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
+import uuid
+from datetime import datetime
+from database.connection import SessionLocal
+from database.models import Conversation, Message
+
+
 
 from agent.prompts import VOICE_SYSTEM_PROMPT
 from agent.tools import (
@@ -109,3 +115,49 @@ async def run_voice_tool(
 
     result = tool.invoke(args)
     return {"result": result}
+
+
+
+class TranscriptMessage(BaseModel):
+    role: str
+    content: str
+
+class EndVoiceSessionRequest(BaseModel):
+    session_id: str
+    transcript: list[TranscriptMessage]
+    
+    
+    
+    
+@router.post("/end")
+async def end_voice_session(
+    body: EndVoiceSessionRequest,
+    current_customer: dict = Depends(get_current_customer),
+):
+    customer_id = str(current_customer["customer_id"])
+
+    with SessionLocal() as db:
+        conversation = Conversation(
+            conversation_id=str(uuid.uuid4()),
+            customer_id=customer_id,
+            mode="voice",
+            started_at=datetime.utcnow(),
+            ended_at=datetime.utcnow(),
+        )
+        db.add(conversation)
+        db.flush()
+
+        for msg in body.transcript:
+            if msg.role not in ("user", "assistant"):
+                continue
+            db.add(Message(
+                message_id=str(uuid.uuid4()),
+                conversation_id=conversation.conversation_id,
+                role=msg.role,
+                content=msg.content,
+                created_at=datetime.utcnow(),
+            ))
+
+        db.commit()
+
+    return {"ok": True, "conversation_id": conversation.conversation_id}
