@@ -83,43 +83,63 @@ Amaç: Login + Dashboard + Chat UI'ını ayağa kaldırmak.
 
 Amaç: Türkçe gerçek-zamanlı sesli asistan — WebRTC + ephemeral token mimarisi (PRD v2.0).
 Ses trafiği **doğrudan** tarayıcı ↔ OpenAI arasında akar; backend yalnızca token basar ve tool çağrılarını çalıştırır.
+Görüşme başlamadan önce asistan **kimlik doğrulaması** yapar (baba adı + doğum yeri).
+
+### Ön Koşul — DB & Seed Güncellemesi
+
+- [ ] **4.0** `customers` tablosuna `father_name` ve `birth_place` alanları ekle:
+    - [ ] **4.0.1** `backend/database/models.py` — `Customer` modeline `father_name: Mapped[str | None]` ve `birth_place: Mapped[str | None]` alanları ekle
+    - [ ] **4.0.2** Alembic migration: `alembic revision --autogenerate -m "add_identity_fields"` → `alembic upgrade head`
+    - [ ] **4.0.3** `backend/database/seed.py` — demo müşteri `Ahmet Yılmaz`'a sabit değer ata (`father_name="Mehmet"`, `birth_place="Ankara"`), rastgele müşterilere Faker ile Türkçe isim + şehir ata
 
 ### Backend
 
-- [ ] **4.1** `backend/voice/token.py` — `POST /api/voice/token` endpoint'i:
+- [ ] **4.1** `backend/agent/tools.py` — `verify_customer_identity` tool'u ekle (7. tool):
+    - Input: `customer_id: str`, `father_name: str`, `birth_place: str`
+    - PostgreSQL'den `customers` tablosunu sorgula, case-insensitive + strip karşılaştırma yap
+    - Output: `"verified"` veya `"verification_failed"` (ayrıntı verme)
+    - `all_tools` listesine ekle
+- [ ] **4.2** `backend/agent/prompts.py` — `VOICE_SYSTEM_PROMPT`'u güncelle:
+    - Görüşmeye başlamadan önce kimlik doğrulaması zorunlu kural ekle
+    - Baba adı ve doğum yeri sor, her ikisini aldıktan sonra `verify_customer_identity` çağır
+    - Tool çağrısından önce "Bilgilerinizi kontrol ediyorum, bir moment lütfen..." söyle (bekleme hissi)
+    - Doğrulama başarısızsa görüşmeyi sonlandır, 3 haktan sonra eskalasyon
+- [ ] **4.3** `backend/voice/token.py` — `POST /api/voice/token` endpoint'i:
     - JWT decode → `customer_id`, `customer_name` al
-    - Session config oluştur: model `gpt-realtime`, `modalities: ["audio","text"]`, `voice: alloy`, Türkçe sistem promptu, 6 LangGraph tool tanımı, `turn_detection: server_vad`
+    - Session config oluştur: model `gpt-realtime`, `modalities: ["audio","text"]`, `voice: alloy`, güncel Türkçe sistem promptu, **7 LangGraph tool tanımı** (verify dahil), `turn_detection: server_vad`
     - `POST https://api.openai.com/v1/realtime/sessions` — header: `Authorization: Bearer OPENAI_API_KEY`, `OpenAI-Safety-Identifier: sha256(customer_id)`
     - `{ client_secret, session_id }` döndür
-- [ ] **4.2** `backend/voice/tool.py` — `POST /api/voice/tool` endpoint'i:
+- [ ] **4.4** `backend/voice/tool.py` — `POST /api/voice/tool` endpoint'i:
     - Body: `{ session_id, name, arguments }` (JWT auth)
-    - JWT'den `customer_id` al → ilgili LangGraph tool'unu çalıştır
+    - JWT'den `customer_id` al → ilgili LangGraph tool'unu çalıştır (`verify_customer_identity` dahil)
     - `{ result }` döndür
-- [ ] **4.3** `backend/voice/persist.py` — `POST /api/voice/end` endpoint'i:
+- [ ] **4.5** `backend/voice/persist.py` — `POST /api/voice/end` endpoint'i:
     - Body: `{ session_id, transcript: [{role, content}] }`
     - `conversations` tablosuna `mode=voice` satırı yaz + `messages` tablosuna transcript kayıt
 
 ### Frontend
 
-- [ ] **4.4** `voiceStore.js` güncellemesi — WebRTC bağlantı durumu, transcript listesi, audio state, ephemeral token (WebSocket state'lerini kaldır)
-- [ ] **4.5** `src/lib/webrtc.js` — `RTCPeerConnection` yardımcı fonksiyonları:
+- [ ] **4.6** `voiceStore.js` güncellemesi — WebRTC bağlantı durumu, transcript listesi, audio state, ephemeral token (WebSocket state'lerini kaldır)
+- [ ] **4.7** `src/lib/webrtc.js` — `RTCPeerConnection` yardımcı fonksiyonları:
     - `createPeerConnection()` — mic track ekle (`getUserMedia`), remote track'i `<audio>` elementine bağla (`ontrack`)
     - `exchangeSDP(pc, clientSecret)` — SDP offer oluştur → OpenAI Realtime'a POST → remote answer set et
     - `createDataChannel(pc)` — `"oai-events"` data channel
-- [ ] **4.6** `pages/VoicePage.jsx`:
+- [ ] **4.8** `pages/VoicePage.jsx`:
     - Mount'ta `POST /api/voice/token` çağır → `client_secret`, `session_id` al
     - `webrtc.js` aracılığıyla `RTCPeerConnection` kur + SDP exchange yap
     - Data channel `onmessage` ile `transcript_delta` ve `function_call` event'lerini dinle
     - Session kapanınca `POST /api/voice/end` ile transcript'i backende gönder
     - "Back to Chat" butonu — dashboard'a yönlendir
-- [ ] **4.7** `components/VoiceOrb.jsx` — remote stream üzerinde `AnalyserNode` ile ses seviyesine bağlı animasyon
-- [ ] **4.8** `StatusLabel` komponenti — `Listening` / `Speaking` / `Processing` durumları
-- [ ] **4.9** `TranscriptPanel` — `transcript_delta` event'lerinden biriken kaydırılabilir metin
-- [ ] **4.10** Tool call dispatcher (VoicePage içinde):
+- [ ] **4.9** `components/VoiceOrb.jsx` — remote stream üzerinde `AnalyserNode` ile ses seviyesine bağlı animasyon
+- [ ] **4.10** `StatusLabel` komponenti — `Listening` / `Speaking` / `Processing` / `Verifying` durumları
+- [ ] **4.11** `TranscriptPanel` — `transcript_delta` event'lerinden biriken kaydırılabilir metin
+- [ ] **4.12** Tool call dispatcher (VoicePage içinde):
     - `response.done` event'inden `function_call` parse et
     - `POST /api/voice/tool` → sonucu al
     - Data channel üzerinden `conversation.item.create` (function_call_output) + `response.create` gönder
-- [ ] **4.11** Uçtan uca test: Türkçe konuş → asistan bakiyeyi okusun, ticket oluştursun
+- [ ] **4.13** Uçtan uca test:
+    - Türkçe konuş → asistan baba adı + doğum yeri sor → "Bilgilerinizi kontrol ediyorum..." desin → tool çağrısı gitsin → doğrulama başarılı → bakiyeyi okusun, ticket oluştursun
+    - Hatalı bilgi verince doğrulama başarısız → eskalasyon akışı
 
 ---
 

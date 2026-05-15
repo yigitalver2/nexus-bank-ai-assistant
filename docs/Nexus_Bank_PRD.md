@@ -3,10 +3,14 @@
 | | |
 |---|---|
 | **Project** | Nexus Bank AI Assistant |
-| **Version** | 1.0 |
-| **Status** | Planning |
+| **Version** | 2.0 (WebRTC Edition) |
+| **Status** | In Progress |
 | **Stack** | React · FastAPI · LangGraph · PostgreSQL · Chroma · OpenAI |
 | **Author** | Yigit Alver |
+| **Updated** | 2026 — WebRTC transport migration + identity verification |
+
+> **What changed in v2.0:**
+> Voice agent transport migrated from WebSocket proxy to WebRTC + ephemeral token pattern. Model string updated to `gpt-realtime` (GA). Identity verification flow added (father's name + birthplace) as a mandatory step before every voice session. Database schema extended with `father_name` and `birth_place` fields. Session config, audio pipeline, tool set (now 7 tools), system prompt, and development phases updated accordingly.
 
 ---
 
@@ -20,7 +24,7 @@
 6. [LangGraph Agent Design](#6-langgraph-agent-design)
 7. [API Endpoints](#7-api-endpoints)
 8. [Frontend — React UI](#8-frontend--react-ui)
-9. [Voice Agent (Realtime API)](#9-voice-agent-realtime-api)
+9. [Voice Agent (WebRTC)](#9-voice-agent-webrtc)
 10. [Knowledge Base](#10-knowledge-base-chroma--rag)
 11. [Authentication & Security](#11-authentication--security)
 12. [Session Management](#12-session-management)
@@ -50,7 +54,8 @@ Nexus Bank AI Assistant is an industry-grade, AI-powered customer support system
 | Feature | Description |
 |---|---|
 | Chat Assistant | Text-based AI chat with LangGraph agent and RAG |
-| Voice Agent | Real-time voice interaction via OpenAI Realtime API (Turkish) |
+| Voice Agent | Real-time voice via OpenAI Realtime API + WebRTC (Turkish) |
+| Identity Verification | Voice sessions begin with father's name + birthplace check |
 | Account Info | Query balances, transactions, loan status from PostgreSQL |
 | RAG Support | FAQ and product knowledge via Chroma vector database |
 | Ticket System | Create and track support tickets |
@@ -85,10 +90,6 @@ Nexus Bank is a fictional digital bank with a modern, technology-forward identit
 - **Code/Monospace:** JetBrains Mono — terminal, code blocks
 - **Language:** English (UI), Turkish (Voice Agent)
 
-### Logo
-
-The logo consists of a geometric "N" mark inside an indigo rounded square, paired with the wordmark "NEXUS BANK". Corner nodes connected by subtle lines reinforce the "nexus/network" concept. Export formats: SVG (primary), PNG 512×512, PNG 192×192 (favicon).
-
 ---
 
 ## 3. System Architecture
@@ -98,13 +99,15 @@ The logo consists of a geometric "N" mark inside an indigo rounded square, paire
 ```
 React Frontend (Port 3000)
     |
-    HTTP / WebSocket
+    HTTP / WebRTC signalling (voice)
     |
 FastAPI Backend (Port 8000)
-    /api/chat    → LangGraph Agent
-    /api/voice   → WebSocket Proxy → OpenAI Realtime API
-    /api/auth    → JWT Auth
-    /api/account → Direct DB queries
+    /api/chat         → LangGraph Agent
+    /api/voice/token  → Ephemeral token endpoint [NEW]
+    /api/voice/tool   → Tool call executor [NEW]
+    /api/voice/end    → Transcript persistence [NEW]
+    /api/auth         → JWT Auth
+    /api/account      → Direct DB queries
     |
     ┌──────┼──────────────┐
     │      │              │
@@ -112,26 +115,34 @@ LangGraph PostgreSQL     Chroma
 Agent     (Port 5432)    (embedded)
     │
     Tools:
-      search_knowledge_base   → Chroma
-      get_account_info        → PostgreSQL
-      get_transaction_history → PostgreSQL
-      get_loan_status         → PostgreSQL
-      create_support_ticket   → PostgreSQL
-      escalate_to_human       → Internal
+      verify_customer_identity → PostgreSQL  ← NEW
+      search_knowledge_base    → Chroma
+      get_account_info         → PostgreSQL
+      get_transaction_history  → PostgreSQL
+      get_loan_status          → PostgreSQL
+      create_support_ticket    → PostgreSQL
+      escalate_to_human        → Internal
 ```
 
-### Voice Architecture
+### Voice Architecture (WebRTC)
+
+The voice agent uses WebRTC for direct browser-to-OpenAI audio transport. The FastAPI backend acts only as a Control Plane — it mints ephemeral tokens and executes tool calls; it never proxies audio.
 
 ```
-React (Microphone)
-  → WebSocket → FastAPI WebSocket Proxy
-  → OpenAI Realtime API (WebSocket)
-  ← Audio stream + transcription
-  → LangGraph tools (when function_call received)
-  ← Tool results injected back to Realtime session
-  ← Audio stream → React (Speaker output)
-  ← Transcript → React (Text display)
+Step 1  React → POST /api/voice/token (JWT auth)
+Step 2  FastAPI → OpenAI REST: create ephemeral token, inject session config
+        (model, Turkish system prompt, 7 tool definitions, customer_id)
+Step 3  FastAPI → React: { client_secret, session_id }
+Step 4  React → OpenAI Realtime API: WebRTC handshake (SDP exchange via data channel)
+Step 5  Audio flows DIRECTLY React ↔ OpenAI (no backend hop)
+Step 6  OpenAI asks identity questions → user answers via mic
+Step 7  Function call events → OpenAI data channel → React → POST /api/voice/tool
+Step 8  FastAPI executes verify_customer_identity → returns "verified" / "verification_failed"
+Step 9  OpenAI continues audio (proceeds if verified, escalates if not)
+Step 10 On session end: React POSTs transcript → FastAPI persists to DB
 ```
+
+> **Removed vs v1.0:** `WS /api/voice/ws` (WebSocket proxy). Audio no longer passes through the backend — replaced by ephemeral token + client-side WebRTC. This removes the double network hop, eliminates manual PCM16 buffering, and gives the browser native echo cancellation and interrupt handling.
 
 ### Container Architecture
 
@@ -152,7 +163,7 @@ React (Microphone)
 | Frontend | TailwindCSS | 3+ | Styling |
 | Frontend | React Router | v6 | Client routing |
 | Frontend | Zustand | latest | State management |
-| Backend | FastAPI | 0.111+ | REST + WebSocket API |
+| Backend | FastAPI | 0.111+ | REST API |
 | Backend | LangGraph | latest | Agent orchestration |
 | Backend | LangChain | latest | LLM tooling |
 | Backend | SQLAlchemy | 2.0+ | ORM |
@@ -160,10 +171,12 @@ React (Microphone)
 | Backend | Pydantic | v2 | Data validation |
 | Database | PostgreSQL | 16 | Main relational DB |
 | Vector DB | Chroma | latest | RAG vector store (embedded) |
+| AI | OpenAI gpt-realtime | GA | Voice agent (replaces preview) |
 | AI | OpenAI GPT-4o | latest | Chat completions |
-| AI | OpenAI Realtime API | latest | Voice agent |
 | AI | text-embedding-3-small | latest | Embeddings for RAG |
 | Infra | Docker Compose | v2 | Container orchestration |
+
+> **Model update:** `gpt-4o-realtime-preview` has been replaced by the GA model `gpt-realtime` (snapshot: `gpt-realtime-2025-08-28`). Use `gpt-realtime-mini` for cost-sensitive workloads.
 
 ---
 
@@ -176,6 +189,8 @@ React (Microphone)
 - `password_hash` (VARCHAR)
 - `phone` (VARCHAR)
 - `national_id` (VARCHAR)
+- `father_name` (VARCHAR, nullable) ← **NEW** — used for voice identity verification
+- `birth_place` (VARCHAR, nullable) ← **NEW** — used for voice identity verification
 - `created_at` (TIMESTAMP)
 
 ### accounts
@@ -246,7 +261,7 @@ React (Microphone)
 
 ### Mock Data Seed
 
-A `seed.py` script will generate: 100 customers, 2-4 accounts per customer (random types), 20-50 transactions per account (last 6 months), 0-2 loans per customer, credit card for ~60% of customers, 5-10 open support tickets total. Faker library used for realistic names, IBANs, and descriptions.
+A `seed.py` script generates: 100 customers (with `father_name` and `birth_place` populated via Faker), 2-4 accounts per customer, 20-50 transactions per account (last 6 months), 0-2 loans per customer, credit card for ~60% of customers, 5-10 open support tickets total. Demo customer `Ahmet Yılmaz` has fixed values (`father_name="Mehmet"`, `birth_place="Ankara"`) for predictable testing.
 
 ---
 
@@ -268,7 +283,7 @@ class AgentState(TypedDict):
 ```
 [START]
    ↓
-[agent_node]  — GPT-4o decides which tool to call
+[agent_node]  — GPT-4o / gpt-realtime decides which tool to call
    ↓
 [should_continue]  — conditional edge
     ├── tool_call → [tools_node]
@@ -279,24 +294,50 @@ class AgentState(TypedDict):
 
 ### Tools
 
-| Tool Name | Input | Output | Source |
-|---|---|---|---|
-| `search_knowledge_base` | query: str | relevant docs + sources | Chroma |
-| `get_account_info` | customer_id: str | accounts list with balances | PostgreSQL |
-| `get_transaction_history` | customer_id, limit=10 | recent transactions | PostgreSQL |
-| `get_loan_status` | customer_id: str | loans with status & payments | PostgreSQL |
-| `create_support_ticket` | customer_id, subject, description | ticket_id + ETA | PostgreSQL |
-| `escalate_to_human` | customer_id, reason | escalation ref number | Internal |
+| Tool Name | Input | Output | Source | Mode |
+|---|---|---|---|---|
+| `verify_customer_identity` | customer_id, father_name, birth_place | `"verified"` / `"verification_failed"` | PostgreSQL | Voice only |
+| `search_knowledge_base` | query: str | relevant docs + sources | Chroma | Both |
+| `get_account_info` | customer_id: str | accounts list with balances | PostgreSQL | Both |
+| `get_transaction_history` | customer_id, limit=10 | recent transactions | PostgreSQL | Both |
+| `get_loan_status` | customer_id: str | loans with status & payments | PostgreSQL | Both |
+| `create_support_ticket` | customer_id, subject, description | ticket_id + ETA | PostgreSQL | Both |
+| `escalate_to_human` | customer_id, reason | escalation ref number | Internal | Both |
 
-### System Prompt
+> The chat agent (`/api/chat`) uses all 7 tools. The voice session config sent to OpenAI includes all 7 tool definitions. `verify_customer_identity` never reveals mismatched field values — it returns only `"verified"` or `"verification_failed"` to prevent enumeration attacks.
 
+### System Prompts
+
+**Chat (English):**
 ```
-You are a helpful banking assistant for Nexus Bank.
+You are a helpful AI banking assistant for Nexus Bank.
 The customer you are speaking with is {customer_name} (ID: {customer_id}).
-You have access to their account data and our knowledge base.
-Always be professional, concise, and security-conscious.
+You have access to their account data and the Nexus Bank knowledge base.
+Always be professional, concise, and friendly.
+Use the available tools to answer questions — do not guess account data.
 Never reveal sensitive data beyond what is necessary.
-If a request is outside your capabilities, create a support ticket or escalate.
+If a request is outside your capabilities, create a support ticket or escalate to a human agent.
+```
+
+**Voice (Turkish) — updated with identity verification flow:**
+```
+Sen Nexus Bank'ın yapay zeka destekli müşteri hizmetleri asistanısın.
+Konuştuğun müşteri: {customer_name} (ID: {customer_id}).
+
+Kimlik Doğrulama Kuralları:
+- Görüşmeye başlamadan önce müşteriyi doğrulamak zorundasın.
+- Önce baba adını, sonra doğum yerini sor.
+- Her iki bilgiyi de aldıktan sonra, "Bilgilerinizi kontrol ediyorum, bir moment lütfen..."
+  diyerek verify_customer_identity aracını çağır.
+- Sonuç "verified" ise görüşmeye devam et.
+- Sonuç "verification_failed" ise kibarca tekrar sor; 3 başarısız denemeden sonra
+  escalate_to_human aracını çağır ve görüşmeyi sonlandır.
+
+Genel Kurallar:
+- Her zaman kibarca, profesyonelce ve kısaca cevap ver.
+- Hesap bilgilerini tahmin etme — her zaman uygun aracı kullan.
+- Hassas bilgileri yalnızca gerektiğinde paylaş.
+- Yapamayacağın bir işlem varsa destek talebi oluştur veya insan temsilciye aktar.
 ```
 
 ---
@@ -319,11 +360,15 @@ If a request is outside your capabilities, create a support ticket or escalate.
 | GET | `/api/chat/history/{session_id}` | Get conversation history |
 | POST | `/api/chat/end` | End session, persist to DB |
 
-### Voice
+### Voice (WebRTC)
 
 | Method | Path | Description |
 |---|---|---|
-| WS | `/api/voice/ws` | WebSocket proxy to OpenAI Realtime API |
+| POST | `/api/voice/token` | Mint ephemeral token + session config (7 tools) → return to client |
+| POST | `/api/voice/tool` | Execute LangGraph tool call from client, return result |
+| POST | `/api/voice/end` | Persist transcript to conversations + messages tables |
+
+> **Removed:** `WS /api/voice/ws` (WebSocket proxy). Audio no longer passes through the backend.
 
 ### Account
 
@@ -363,18 +408,19 @@ If a request is outside your capabilities, create a support ticket or escalate.
 - Switch to Voice button in header
 
 #### Voice Agent (`/voice`)
-- Large animated microphone button (center)
+- Large animated microphone orb (center)
 - Sound wave visualization (moves when speaking)
-- Status: "Listening..." / "Speaking..." / "Processing..."
+- Status: `Listening...` / `Speaking...` / `Processing...` / `Verifying...`
 - Transcript panel below (scrollable)
 - Back to Chat button
+- Connection handled via WebRTC (no WebSocket to backend for audio)
 
 ### State Management (Zustand)
 
 - `authStore`: user info, JWT token, login/logout actions
 - `chatStore`: messages, session_id, loading state, send message action
 - `accountStore`: account data, transactions, tickets (fetched on login)
-- `voiceStore`: connection status, transcript, audio state
+- `voiceStore`: WebRTC connection state, transcript, audio state, ephemeral token
 
 ### Component Tree
 
@@ -396,47 +442,115 @@ App
 │       ├── TypingIndicator
 │       └── MessageInput
 └── VoicePage
-    ├── VoiceOrb (animated)
-    ├── StatusLabel
+    ├── VoiceOrb (animated, AnalyserNode-driven)
+    ├── StatusLabel (Listening/Speaking/Processing/Verifying)
     └── TranscriptPanel
 ```
 
 ---
 
-## 9. Voice Agent (Realtime API)
+## 9. Voice Agent (WebRTC)
 
-### Architecture
+The voice agent uses OpenAI's Realtime API via WebRTC. The browser connects directly to OpenAI's media edge — the FastAPI backend only mints ephemeral tokens and executes tool calls. Audio never passes through the backend.
 
-The voice agent uses OpenAI's Realtime API via a WebSocket proxy in FastAPI. This keeps the API key server-side and allows LangGraph tools to be injected into the voice session.
-
-### Flow
+### Session Initialisation Flow
 
 1. User opens `/voice` page
-2. React opens WebSocket to FastAPI: `ws://localhost:8000/api/voice/ws`
-3. FastAPI opens WebSocket to OpenAI Realtime API
-4. FastAPI sends session config:
-   - model: `gpt-4o-realtime-preview`
-   - language: `tr` (Turkish)
-   - voice: `alloy`
-   - tools: [all 6 LangGraph tools as function definitions]
-   - instructions: Turkish banking assistant system prompt
-5. React streams microphone audio → FastAPI → OpenAI
-6. OpenAI streams audio response → FastAPI → React (speaker)
-7. When OpenAI calls a `function_call`:
-   - FastAPI intercepts
-   - Calls LangGraph tool with `customer_id`
-   - Returns result back to OpenAI session
-8. Transcript streamed to React for display
+2. React → `POST /api/voice/token { Authorization: Bearer <token> }`
+3. FastAPI:
+   - Decode JWT → `customer_id`, `customer_name`
+   - Build session config (see below)
+   - `POST https://api.openai.com/v1/realtime/sessions`
+     - Headers: `Authorization: Bearer OPENAI_API_KEY`, `OpenAI-Safety-Identifier: sha256(customer_id)`
+   - Return `{ client_secret, session_id }` to React
+4. React creates `RTCPeerConnection`
+5. React adds local audio track (`getUserMedia`)
+6. React creates data channel (`"oai-events"`) for control events
+7. React creates SDP offer → POST to OpenAI Realtime with `client_secret`
+8. React sets remote SDP answer → ICE negotiation completes
+9. Audio streams DIRECTLY: React mic → OpenAI / OpenAI TTS → React speaker
 
-### Turkish System Prompt for Voice
+### Session Config (sent by FastAPI)
+
+```json
+{
+  "model": "gpt-realtime",
+  "modalities": ["audio", "text"],
+  "instructions": "<Turkish system prompt with identity verification rules>",
+  "voice": "alloy",
+  "input_audio_format": "pcm16",
+  "output_audio_format": "pcm16",
+  "input_audio_transcription": { "model": "whisper-1" },
+  "turn_detection": {
+    "type": "server_vad",
+    "threshold": 0.5,
+    "prefix_padding_ms": 300,
+    "silence_duration_ms": 500
+  },
+  "tools": [ "...7 LangGraph tool definitions..." ],
+  "tool_choice": "auto",
+  "temperature": 0.8,
+  "max_response_output_tokens": 1024
+}
+```
+
+### Identity Verification Flow (Voice)
 
 ```
-Sen Nexus Bank'in yapay zeka destekli müşteri hizmetleri asistanısın.
-Konuştuğun müşteri: {customer_name}.
-Her zaman kibarca, profesyonelce ve kısaca cevap ver.
-Müşterinin hesap bilgilerine ve bilgi tabanına erişimin var.
-Hassas bilgileri yalnızca gerektiğinde paylaş.
+Agent: "Merhaba, Nexus Bank müşteri hizmetlerine hoş geldiniz.
+        Sizi doğrulamam gerekiyor. Babanızın adı nedir?"
+User:  "Mehmet"
+Agent: "Teşekkürler. Doğum yeriniz neresi?"
+User:  "Ankara"
+Agent: "Bilgilerinizi kontrol ediyorum, bir moment lütfen..."
+       [verify_customer_identity tool called → "verified"]
+Agent: "Kimliğiniz doğrulandı. Size nasıl yardımcı olabilirim?"
 ```
+
+On failure (up to 3 attempts):
+```
+Agent: "Üzgünüm, bilgilerinizi doğrulayamadım."
+       [escalate_to_human called]
+Agent: "Sizi insan temsilcimize bağlıyorum."
+```
+
+### Tool Call Flow (via data channel)
+
+```
+OpenAI emits on data channel:
+{ type: "response.done", output: [{ type: "function_call", name: "...", arguments: "..." }] }
+
+React:
+1. Parse function_call from data channel event
+2. POST /api/voice/tool { session_id, name, arguments } (JWT auth)
+
+FastAPI:
+3. Execute matching LangGraph tool with customer_id from JWT
+4. Return { result }
+
+React:
+5. Send on data channel:
+   { type: "conversation.item.create",
+     item: { type: "function_call_output", call_id: "...", output: result } }
+6. Send on data channel:
+   { type: "response.create" }
+
+OpenAI:
+7. Resumes audio response incorporating the tool result
+```
+
+### Interrupt Handling
+
+With WebRTC transport, the server manages the output audio buffer and knows exactly how much audio has been played at any moment. When the user starts speaking mid-response, OpenAI automatically truncates unplayed audio and starts a new response. No client-side truncation logic required.
+
+### Frontend Audio
+
+WebRTC handles all audio plumbing natively. No AudioWorklet, no manual PCM16 encoding, no speaker buffer management. The React component only needs:
+
+- `navigator.mediaDevices.getUserMedia({ audio: true })` — capture mic
+- `pc.addTrack(stream.getAudioTracks()[0])` — attach to peer connection
+- `pc.ontrack = (e) => audioEl.srcObject = e.streams[0]` — play TTS output
+- `dataChannel.onmessage` — receive transcript + function_call events
 
 ---
 
@@ -455,15 +569,15 @@ Hassas bilgileri yalnızca gerektiğinde paylaş.
 
 ### Chunking Strategy
 
-- **Chunk size:** 300 tokens (larger than RAG project — richer context per chunk)
+- **Chunk size:** 300 tokens
 - **Overlap:** 50 tokens
 - **Embedding model:** `text-embedding-3-small` (1536 dimensions)
-- **Metadata stored per chunk:** category, doc_id, title, language
+- **Metadata per chunk:** category, doc_id, title, language
 - **Collection:** `nexus_bank_kb` in Chroma
 
 ### Ingest Script
 
-A `knowledge/seed_kb.py` script will load all documents from `knowledge/docs/` folder, chunk them, embed via OpenAI, and store in Chroma. Runs automatically on container startup if collection is empty.
+`knowledge/seed_kb.py` loads all documents from `knowledge/docs/`, chunks them, embeds via OpenAI, and stores in Chroma. Runs automatically on container startup if collection is empty.
 
 ---
 
@@ -491,18 +605,19 @@ All protected routes:
 - All account queries filtered by `customer_id` from JWT — no horizontal privilege escalation
 - CORS configured for frontend origin only
 - OpenAI API key stored in `.env`, never exposed to frontend
-- WebSocket connections authenticated via JWT query parameter
+- WebRTC: ephemeral tokens minted per session — long-lived API key never leaves backend
+- Ephemeral token valid for one session only (OpenAI enforces this server-side)
+- `verify_customer_identity` returns only `"verified"` / `"verification_failed"` — never reveals which field was wrong
+- Safety identifier: `sha256(customer_id)` sent in `OpenAI-Safety-Identifier` header
 
 ---
 
 ## 12. Session Management
 
-### Strategy
-
 - During conversation: LangGraph state holds full message history in memory
 - `session_id` generated on first message (UUID)
 - On session end (`/api/chat/end`): full conversation persisted to `conversations` + `messages` tables
-- Voice sessions also persisted (transcript from Realtime API)
+- Voice sessions persisted via `POST /api/voice/end` with transcript from data channel events
 - Frontend stores `session_id` in Zustand (memory only, not localStorage)
 
 ### LangGraph Checkpointer
@@ -519,12 +634,13 @@ Use `MemorySaver` checkpointer for in-session persistence. Each session has a `t
 |---|---|---|
 | 1 | JWT login + personalized greeting | P0 |
 | 2 | Chat interface (React) | P0 |
-| 3 | LangGraph agent with all 6 tools | P0 |
+| 3 | LangGraph agent with all 7 tools | P0 |
 | 4 | PostgreSQL with mock data (100 customers) | P0 |
 | 5 | Chroma RAG with knowledge base | P0 |
 | 6 | Account summary sidebar | P0 |
-| 7 | Voice agent (Realtime API, Turkish) | P0 |
-| 8 | Docker Compose setup | P0 |
+| 7 | Voice agent (WebRTC, gpt-realtime, Turkish) | P0 |
+| 8 | Identity verification before voice session | P0 |
+| 9 | Docker Compose setup | P0 |
 
 ### Post-MVP (Nice to Have)
 
@@ -535,33 +651,34 @@ Use `MemorySaver` checkpointer for in-session persistence. Each session has a `t
 - Rate limiting on API endpoints
 - Structured logging (tool calls, latency, errors)
 - Demo mode — auto-play demo conversation
+- Push-to-talk mode (disable VAD, spacebar gate)
 
 ---
 
 ## 14. Development Phases
 
-### Phase 1 — Foundation (Day 1-2)
+### Phase 1 — Foundation (Day 1-2) ✅
 
 - Initialize repo, folder structure, git
 - `docker-compose.yml` with backend + postgres containers
 - FastAPI skeleton with health endpoint
-- SQLAlchemy models (all 8 tables)
+- SQLAlchemy models (all 8 tables + `father_name`, `birth_place` in customers)
 - Alembic migrations
-- `seed.py` — generate 100 customers + mock data
+- `seed.py` — generate 100 customers + mock data (including identity fields)
 - JWT auth endpoints (login, me)
 - Verify: login returns token, `/api/auth/me` returns customer
 
-### Phase 2 — Agent Core (Day 3-4)
+### Phase 2 — Agent Core (Day 3-4) ✅
 
 - Chroma setup + knowledge base documents
 - `seed_kb.py` — ingest all docs
-- LangGraph agent: state, graph, all 6 tools
+- LangGraph agent: state, graph, all 7 tools (including `verify_customer_identity`)
 - `POST /api/chat` endpoint
 - Test agent with Postman: all tools responding correctly
 - Session management with `MemorySaver`
 - `POST /api/chat/end` — persist to DB
 
-### Phase 3 — React Frontend (Day 5-6)
+### Phase 3 — React Frontend (Day 5-6) ✅
 
 - Vite + React + TailwindCSS setup
 - frontend Dockerfile + add to docker-compose
@@ -569,25 +686,32 @@ Use `MemorySaver` checkpointer for in-session persistence. Each session has a `t
 - Dashboard layout (sidebar + chat panel)
 - Account sidebar: balances, transactions, tickets
 - Chat interface: send message, display response, tool badge
-- Typing indicator, scroll behavior
+- Typing indicator, scroll behaviour
 - Routing: `/login`, `/dashboard`
 
-### Phase 4 — Voice Agent (Day 7-8)
+### Phase 4 — Voice Agent / WebRTC (Day 7-8)
 
-- WebSocket proxy in FastAPI (`/api/voice/ws`)
-- OpenAI Realtime API session config (Turkish, tools)
-- Tool call interception + LangGraph tool execution
-- Voice page in React: mic button, sound wave animation
-- Audio streaming: microphone → server → speaker
-- Transcript display
-- End-to-end voice test
+- `customers` schema: add `father_name` + `birth_place` (migration + seed update)
+- `verify_customer_identity` tool in `tools.py`
+- `VOICE_SYSTEM_PROMPT` updated with identity verification flow
+- `POST /api/voice/token` — mint ephemeral token, build session config with 7 tools
+- `POST /api/voice/tool` — execute LangGraph tool call from client
+- `POST /api/voice/end` — persist voice transcript to DB
+- React: `RTCPeerConnection` setup, SDP exchange with OpenAI
+- React: `getUserMedia` mic track + `ontrack` speaker playback
+- React: data channel listener — parse `transcript_delta` + `function_call` events
+- React: tool call dispatcher → `POST /api/voice/tool` → inject result back via data channel
+- `VoicePage.jsx`: orb animation tied to audio level (`AnalyserNode` on remote stream)
+- `StatusLabel`: Listening / Speaking / Processing / Verifying states
+- `TranscriptPanel`: scrollable, built from `transcript_delta` events
+- End-to-end test: identity verification → bakiyeyi okusun, ticket oluştursun
 
 ### Phase 5 — Polish & Deploy (Day 9-10)
 
 - Error handling throughout (agent, API, frontend)
 - Loading states and edge cases in UI
 - Environment variables cleanup (`.env.example`)
-- `README.md` (Claude Code)
+- `README.md`
 - Architecture diagram
 - Screenshots for portfolio
 - Final Docker Compose test (clean build)
@@ -612,24 +736,22 @@ nexus-bank-ai-assistant/
 │   │   └── utils.py
 │   ├── agent/
 │   │   ├── graph.py
-│   │   ├── tools.py
-│   │   ├── prompts.py
+│   │   ├── tools.py          ← verify_customer_identity added (7th tool)
+│   │   ├── prompts.py        ← VOICE_SYSTEM_PROMPT updated
 │   │   └── state.py
 │   ├── voice/
-│   │   └── proxy.py
+│   │   ├── token.py          ← ephemeral token endpoint
+│   │   ├── tool.py           ← tool call executor
+│   │   └── persist.py        ← transcript persistence
 │   ├── database/
 │   │   ├── connection.py
-│   │   ├── models.py
+│   │   ├── models.py         ← father_name, birth_place fields added
 │   │   ├── schemas.py
-│   │   └── seed.py
+│   │   └── seed.py           ← identity fields in seed data
 │   ├── knowledge/
 │   │   ├── chroma_client.py
 │   │   ├── ingest.py
 │   │   └── docs/
-│   │       ├── faq/
-│   │       ├── products/
-│   │       ├── procedures/
-│   │       └── security/
 │   └── routers/
 │       ├── chat.py
 │       ├── account.py
@@ -646,7 +768,7 @@ nexus-bank-ai-assistant/
 │       │   ├── authStore.js
 │       │   ├── chatStore.js
 │       │   ├── accountStore.js
-│       │   └── voiceStore.js
+│       │   └── voiceStore.js       ← WebRTC state (no WS)
 │       ├── pages/
 │       │   ├── LoginPage.jsx
 │       │   ├── DashboardPage.jsx
@@ -657,13 +779,18 @@ nexus-bank-ai-assistant/
 │       │   ├── MessageBubble.jsx
 │       │   ├── AccountPanel.jsx
 │       │   ├── VoiceOrb.jsx
-│       │   └── TypingIndicator.jsx
+│       │   ├── TypingIndicator.jsx
+│       │   └── TranscriptPanel.jsx
+│       ├── lib/
+│       │   └── webrtc.js           ← RTCPeerConnection helpers
 │       └── api/
 │           └── client.js
 └── docs/
-    ├── PRD.pdf
+    ├── Nexus_Bank_PRD.md
     └── architecture.png
 ```
+
+> **Removed:** `backend/voice/proxy.py` (WebSocket proxy). Replaced by three focused modules: `token.py`, `tool.py`, `persist.py`. Added: `frontend/src/lib/webrtc.js` for `RTCPeerConnection` helpers.
 
 ---
 
@@ -671,14 +798,21 @@ nexus-bank-ai-assistant/
 
 | Scenario | Handling |
 |---|---|
+| Identity verification fails (1-2 attempts) | Agent kindly re-asks; tracks attempt count in conversation |
+| Identity verification fails (3rd attempt) | `escalate_to_human` called; session ends gracefully |
+| `verify_customer_identity` DB error | Return `"verification_failed"` (never expose internals) |
 | Tool returns empty result | Agent responds: "I could not find that information" |
 | PostgreSQL query error | Return 500, agent says "temporary issue" |
 | OpenAI API timeout | Retry once, then return error message to user |
 | JWT expired | Return 401, frontend redirects to login |
-| Voice WebSocket drops | Frontend shows reconnect button |
+| WebRTC ICE negotiation fails | Frontend shows "Connection failed, retry" button |
+| Ephemeral token fetch fails | Frontend shows error, prevents voice session start |
+| Data channel disconnects mid-session | Frontend attempts reconnect; if fails, shows manual retry |
+| Tool call POST fails (`/api/voice/tool`) | React sends error result back to OpenAI data channel; model continues gracefully |
 | Chroma returns no results | Agent falls back to general response |
 | Invalid `customer_id` in JWT | Return 403 Forbidden |
 | Agent max iterations reached | Return partial response with explanation |
+| OpenAI Safety rate limit | Return 429, show friendly error to user |
 
 ---
 
@@ -691,10 +825,10 @@ nexus-bank-ai-assistant/
 - Structured logging with tool call analytics
 
 ### Medium Term
-- OpenAI Realtime API upgrade (when stable) — smoother voice
 - Multi-language support (EN/TR toggle)
 - Admin dashboard for conversation monitoring
 - Fine-tuned model on banking domain
+- Push-to-talk mode (disable VAD, spacebar gate)
 
 ### Long Term
 - Real bank API integration (Open Banking)
@@ -704,4 +838,4 @@ nexus-bank-ai-assistant/
 
 ---
 
-*Nexus Bank AI Assistant — PRD v1.0 — Confidential & For Portfolio Use Only*
+*Nexus Bank AI Assistant — PRD v2.0 — WebRTC Edition — Confidential & For Portfolio Use Only*
