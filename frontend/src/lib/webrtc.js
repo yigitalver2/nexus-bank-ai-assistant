@@ -16,7 +16,41 @@ export async function createPeerConnection() {
   document.body.appendChild(audioEl);
 
   pc.ontrack = (e) => {
-    audioEl.srcObject = e.streams[0];
+    const stream = e.streams[0];
+
+    try {
+      const actx = new (globalThis.AudioContext || globalThis.webkitAudioContext)();
+      const src  = actx.createMediaStreamSource(stream);
+
+      // Telefon/kulaklık bandpass filtresi: 300–3400 Hz
+      const hi = actx.createBiquadFilter();
+      hi.type = "highpass";
+      hi.frequency.value = 300;
+      hi.Q.value = 0.7;
+
+      const lo = actx.createBiquadFilter();
+      lo.type = "lowpass";
+      lo.frequency.value = 3400;
+      lo.Q.value = 0.7;
+
+      // Hafif kompresyon — kulaklık sıkışıklığı hissi
+      const comp = actx.createDynamicsCompressor();
+      comp.threshold.value = -18;
+      comp.knee.value = 8;
+      comp.ratio.value = 5;
+      comp.attack.value = 0.003;
+      comp.release.value = 0.15;
+
+      src.connect(hi);
+      hi.connect(lo);
+      lo.connect(comp);
+      comp.connect(actx.destination);
+
+      if (actx.state === "suspended") actx.resume();
+    } catch {
+      // Web Audio API yoksa fallback
+      audioEl.srcObject = stream;
+    }
   };
 
   return pc;

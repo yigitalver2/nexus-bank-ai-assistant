@@ -7,6 +7,66 @@ import { apiClient as api } from "../api/client.js";
 import StatusLabel from "../components/StatusLabel.jsx";
 import TranscriptPanel from "../components/TranscriptPanel.jsx";
 
+function playPhoneRing(ctx) {
+  const vol   = 0.028;
+  const ringHz = 425;
+
+  // İki çalış — ring-ring
+  [0, 1.5].forEach((startOffset) => {
+    const osc = ctx.createOscillator();
+    const env = ctx.createGain();
+    const lp  = ctx.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 1800; // uzakta duyulur etkisi
+
+    osc.type = "sine";
+    osc.frequency.value = ringHz;
+
+    const t = ctx.currentTime + startOffset;
+    env.gain.setValueAtTime(0, t);
+    env.gain.linearRampToValueAtTime(vol, t + 0.04);
+    env.gain.setValueAtTime(vol, t + 0.9);
+    env.gain.linearRampToValueAtTime(0, t + 1);
+
+    osc.connect(lp);
+    lp.connect(env);
+    env.connect(ctx.destination);
+    osc.start(t);
+    osc.stop(t + 1);
+  });
+}
+
+function schedulePhoneRings(ctx, ambientRef) {
+  const delay = 18000 + Math.random() * 22000; // 18–40 sn arası
+  const timer = setTimeout(() => {
+    if (!ambientRef.current) return;
+    playPhoneRing(ctx);
+    schedulePhoneRings(ctx, ambientRef);
+  }, delay);
+  ambientRef.current._ringTimer = timer;
+}
+
+function playDtmfClick(ctx) {
+  const dtmfLow  = [697, 770, 852, 941];
+  const dtmfHigh = [1209, 1336, 1477];
+  const f1 = dtmfLow[Math.floor(Math.random() * dtmfLow.length)];
+  const f2 = dtmfHigh[Math.floor(Math.random() * dtmfHigh.length)];
+  const dur = 0.09;
+  const vol = 0.018 + Math.random() * 0.012;
+
+  [f1, f2].forEach((freq) => {
+    const osc = ctx.createOscillator();
+    const gn  = ctx.createGain();
+    osc.frequency.value = freq;
+    gn.gain.setValueAtTime(vol, ctx.currentTime);
+    gn.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+    osc.connect(gn);
+    gn.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+  });
+}
+
 function logoClass(status) {
   if (status === "connecting") return "logo-morph";
   if (status === "speaking")   return "logo-pulse";
@@ -25,16 +85,93 @@ export default function VoicePage() {
 
   const assistantBuffer = useRef("");
   const pcRef = useRef(null);
+  const ambientRef = useRef(null);
 
   useEffect(() => {
     return () => {
       if (pcRef.current) pcRef.current.close();
+      stopAmbient();
     };
   }, []);
+
+  // Ambient ses başlat — brown noise + telefon filtresi
+  function startAmbient() {
+    if (ambientRef.current) return;
+    try {
+      const ctx = new (globalThis.AudioContext || globalThis.webkitAudioContext)();
+
+      // Brown noise buffer — 4 saniyelik, loop
+      const sr  = ctx.sampleRate;
+      const buf = ctx.createBuffer(2, sr * 4, sr);
+      for (let ch = 0; ch < 2; ch++) {
+        const data = buf.getChannelData(ch);
+        let last = 0;
+        for (let i = 0; i < data.length; i++) {
+          const w = Math.random() * 2 - 1;
+          last = (last + 0.04 * w) / 1.04;
+          data[i] = last * 4.5;
+        }
+      }
+
+      const source = ctx.createBufferSource();
+      source.buffer = buf;
+      source.loop = true;
+
+      const hipass = ctx.createBiquadFilter();
+      hipass.type = "highpass";
+      hipass.frequency.value = 250;
+
+      const lopass = ctx.createBiquadFilter();
+      lopass.type = "lowpass";
+      lopass.frequency.value = 2200;
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.022, ctx.currentTime + 2.5);
+
+      source.connect(hipass);
+      hipass.connect(lopass);
+      lopass.connect(gain);
+      gain.connect(ctx.destination);
+      source.start();
+
+      ambientRef.current = { ctx, source, gain };
+
+      scheduleDtmfClicks(ctx);
+      schedulePhoneRings(ctx, ambientRef);
+    } catch {
+      // Web Audio API desteklenmiyorsa sessizce geç
+    }
+  }
+
+  function scheduleDtmfClicks(ctx) {
+    const delay = 4000 + Math.random() * 9000; // 4–13 sn arası rastgele
+    const timer = setTimeout(() => {
+      if (!ambientRef.current) return;
+      playDtmfClick(ctx);
+      scheduleDtmfClicks(ctx);
+    }, delay);
+    ambientRef.current._clickTimer = timer;
+  }
+
+
+  function stopAmbient() {
+    if (!ambientRef.current) return;
+    const { ctx, source, gain, _clickTimer, _ringTimer } = ambientRef.current;
+    clearTimeout(_clickTimer);
+    clearTimeout(_ringTimer);
+    try {
+      gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.5);
+      source.stop(ctx.currentTime + 1.5);
+      setTimeout(() => ctx.close(), 2000);
+    } catch { /* ignore */ }
+    ambientRef.current = null;
+  }
 
   async function startSession() {
     try {
       setStatus("connecting");
+      startAmbient();
 
       const { data } = await api.post("/api/voice/token");
       const { client_secret, session_id } = data;
@@ -115,6 +252,7 @@ export default function VoicePage() {
 
   async function handleEndSession() {
     if (peerConnection) peerConnection.close();
+    stopAmbient();
 
     try {
       await api.post("/api/voice/end", {
