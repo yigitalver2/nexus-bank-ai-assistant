@@ -11,16 +11,29 @@ from knowledge.chroma_client import get_collection
 
 _embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
+# Birikimli embedding token sayacı — end_session'da okunup sıfırlanır
+_embedding_tokens_accumulated: int = 0
+
+
+def pop_embedding_tokens() -> int:
+    global _embedding_tokens_accumulated
+    total = _embedding_tokens_accumulated
+    _embedding_tokens_accumulated = 0
+    return total
+
 
 @tool
 def search_knowledge_base(query: str) -> str:
-    
+
     """Search the Nexus Bank knowledge base for information about products,
     procedures, FAQs, and policies."""
-    
+
+    global _embedding_tokens_accumulated
     collection = get_collection()
-    
+
     query_vector = _embeddings.embed_query(query)
+    # text-embedding-3-small: ~1 token / 4 karakter (GPT tokenizer yaklaşımı)
+    _embedding_tokens_accumulated += max(1, len(query) // 4)
     results = collection.query(
         query_embeddings=[query_vector],
         n_results=5,

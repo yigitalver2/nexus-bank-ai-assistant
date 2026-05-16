@@ -9,5 +9,8 @@ class AgentState(TypedDict):
     customer_name: str
     tool_calls_made: list[str]
     session_id: str
+    prompt_tokens: int
+    completion_tokens: int
+    embedding_tokens: int
     
     

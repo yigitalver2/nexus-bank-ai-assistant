@@ -13,7 +13,12 @@ llm_with_tools = llm.bind_tools(all_tools)
 
 def agent_node(state: AgentState) -> dict:
     response = llm_with_tools.invoke(state["messages"])
-    return {"messages": [response]}
+    usage = response.response_metadata.get("token_usage", {})
+    return {
+        "messages":          [response],
+        "prompt_tokens":     state.get("prompt_tokens", 0)     + usage.get("prompt_tokens", 0),
+        "completion_tokens": state.get("completion_tokens", 0) + usage.get("completion_tokens", 0),
+    }
 
 
 def should_continue(state: AgentState) -> str:

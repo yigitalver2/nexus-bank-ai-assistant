@@ -9,6 +9,7 @@ from database.models import Conversation, Message
 
 
 
+from agent.pricing import calc_realtime_cost, log_session_cost
 from agent.prompts import VOICE_SYSTEM_PROMPT
 from agent.tools import (
     all_tools,
@@ -143,9 +144,16 @@ class TranscriptMessage(BaseModel):
     role: str
     content: str
 
+class VoiceUsage(BaseModel):
+    input_text_tokens: int = 0
+    input_audio_tokens: int = 0
+    output_text_tokens: int = 0
+    output_audio_tokens: int = 0
+
 class EndVoiceSessionRequest(BaseModel):
     session_id: str
     transcript: list[TranscriptMessage]
+    usage: VoiceUsage = VoiceUsage()
     
     
     
@@ -181,5 +189,29 @@ async def end_voice_session(
 
         db.commit()
         conversation_id = str(conversation.conversation_id)
+
+    # ── Token & Fiyat Logu ────────────────────────────────────────
+    u = body.usage
+    model = settings.openai_realtime_model
+    total_cost = calc_realtime_cost(
+        model=model,
+        input_text_tokens=u.input_text_tokens,
+        input_audio_tokens=u.input_audio_tokens,
+        output_text_tokens=u.output_text_tokens,
+        output_audio_tokens=u.output_audio_tokens,
+    )
+    log_session_cost(
+        label="VOICE",
+        details={
+            "👤 Müşteri              ": current_customer.name,
+            "🎙️  Input audio tokens   ": u.input_audio_tokens,
+            "📝 Input text tokens    ": u.input_text_tokens,
+            "🔊 Output audio tokens  ": u.output_audio_tokens,
+            "📄 Output text tokens   ": u.output_text_tokens,
+            "🤖 Model               ": model,
+        },
+        total_usd=total_cost,
+    )
+    # ─────────────────────────────────────────────────────────────
 
     return {"ok": True, "conversation_id": conversation_id}

@@ -5,8 +5,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
 from agent.graph import graph
+from agent.pricing import calc_chat_cost, calc_embedding_cost, log_session_cost
 from agent.prompts import CHAT_SYSTEM_PROMPT
 from agent.state import AgentState
+from agent.tools import pop_embedding_tokens
 from auth.utils import get_current_customer
 from database.connection import SessionLocal
 from database.models import Conversation, Message
@@ -129,5 +131,29 @@ def end_session(request: EndSessionRequest, customer=Depends(get_current_custome
             ))
 
         db.commit()
+
+    # ── Token & Fiyat Logu ────────────────────────────────────────
+    sv = state.values
+    prompt_tokens     = sv.get("prompt_tokens", 0)
+    completion_tokens = sv.get("completion_tokens", 0)
+    embedding_tokens  = pop_embedding_tokens()
+
+    llm_cost   = calc_chat_cost("gpt-4o", prompt_tokens, completion_tokens)
+    embed_cost = calc_embedding_cost(embedding_tokens)
+    total_cost = llm_cost + embed_cost
+
+    log_session_cost(
+        label="CHAT",
+        details={
+            "👤 Müşteri         ": customer.name,
+            "📥 Prompt tokens   ": prompt_tokens,
+            "📤 Completion tokens": completion_tokens,
+            "🔍 Embedding tokens ": embedding_tokens,
+            "🤖 LLM modeli      ": "gpt-4o",
+            "🧩 Embedding modeli ": "text-embedding-3-small",
+        },
+        total_usd=total_cost,
+    )
+    # ─────────────────────────────────────────────────────────────
 
     return {"status": "ok", "conversation_id": str(conversation.conversation_id)}
