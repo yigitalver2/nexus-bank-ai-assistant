@@ -86,6 +86,12 @@ export default function VoicePage() {
   const assistantBuffer = useRef("");
   const pcRef = useRef(null);
   const ambientRef = useRef(null);
+  const usageRef = useRef({
+    input_text_tokens: 0,
+    input_audio_tokens: 0,
+    output_text_tokens: 0,
+    output_audio_tokens: 0,
+  });
 
   useEffect(() => {
     return () => {
@@ -243,6 +249,13 @@ export default function VoicePage() {
     }
 
     if (event.type === "response.done") {
+      const u = event.response?.usage;
+      if (u) {
+        usageRef.current.input_text_tokens  += u.input_token_details?.text_tokens  ?? 0;
+        usageRef.current.input_audio_tokens += u.input_token_details?.audio_tokens ?? 0;
+        usageRef.current.output_text_tokens  += u.output_token_details?.text_tokens  ?? 0;
+        usageRef.current.output_audio_tokens += u.output_token_details?.audio_tokens ?? 0;
+      }
       const outputs = event.response?.output ?? [];
       for (const output of outputs) {
         if (output.type === "function_call") await handleToolCall(output, sid, dc);
@@ -258,6 +271,7 @@ export default function VoicePage() {
       await api.post("/api/voice/end", {
         session_id: sessionId,
         transcript,
+        usage: usageRef.current,
       });
     } catch {
       // best-effort — bağlantı kopmuş olsa bile navigate et
