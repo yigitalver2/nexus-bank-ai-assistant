@@ -103,6 +103,10 @@ export default {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-8px)" },
         },
+        "logo-spin": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       },
       animation: {
         "fade-in": "fade-in 180ms ease-out",
@@ -113,6 +117,7 @@ export default {
         "btn-breathe": "btn-breathe 3s ease-in-out infinite",
         "pulse-ring": "pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "orb-float": "orb-float 4s ease-in-out infinite",
+        "logo-spin": "logo-spin 10s linear infinite",
       },
       transitionDuration: {
         60: "60ms",

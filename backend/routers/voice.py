@@ -31,9 +31,11 @@ router = APIRouter(prefix="/api/voice", tags=["voice"])
 async def get_voice_token(current_customer=Depends(get_current_customer)):
     customer_id   = str(current_customer.customer_id)
     customer_name = current_customer.name
+    customer_first_name = customer_name.split()[0] if customer_name else "Sayın Müşterimiz"
 
     system_prompt = VOICE_SYSTEM_PROMPT.format(
         customer_name=customer_name,
+        customer_first_name=customer_first_name,
         customer_id=customer_id,
     )
 

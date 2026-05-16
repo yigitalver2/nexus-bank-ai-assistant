@@ -15,12 +15,7 @@ const numberFormatter = new Intl.NumberFormat("en-US", {
 
 const formatBalance = (n) => numberFormatter.format(n);
 
-const navItems = [
-  { key: "overview", label: "Overview" },
-  { key: "accounts", label: "Accounts" },
-  { key: "cards", label: "Cards" },
-  { key: "transfers", label: "Transfers" },
-];
+const navItems = [{ key: "overview", label: "Overview" }];
 
 function Avatar({ name }) {
   const initials =
@@ -46,7 +41,7 @@ function StatCard({ label, value, icon, tint = "default" }) {
       ? "text-danger-500 bg-danger-500/10"
       : "text-muted-strong bg-ink-700";
   return (
-    <div className="rounded-[12px] bg-ink-800 border border-ink-600 p-5">
+    <div className="rounded-[12px] border border-ink-600 p-5" style={{ background: "rgba(17,19,24,0.75)", backdropFilter: "blur(8px)" }}>
       <div className="flex items-center justify-between">
         <span className="label-tiny">{label}</span>
         <div
@@ -152,7 +147,7 @@ export default function DashboardPage() {
   }, {});
 
   return (
-    <div className="h-screen flex flex-col bg-ink-950 text-warm-100">
+    <div className="h-screen flex flex-col text-warm-100" style={{ background: "linear-gradient(160deg, #111c3a 0%, #0e1730 35%, #0a1228 65%, #131f3e 100%)" }}>
       <header
         className="flex-shrink-0 h-14 px-6 flex items-center justify-between border-b border-ink-600 sticky top-0 z-30"
         style={{ background: "rgba(8, 10, 15, 0.92)", backdropFilter: "blur(16px)" }}
@@ -173,27 +168,6 @@ export default function DashboardPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <button
-            onClick={() => navigate("/voice")}
-            className="btn-ghost"
-            title="Voice assistant"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
-              <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-            </svg>
-            <span className="hidden lg:inline">Voice</span>
-          </button>
-
           <button
             className="relative w-8 h-8 rounded-full text-muted-strong hover:text-warm-100 hover:bg-ink-700 flex items-center justify-center transition-colors duration-60"
             aria-label="Notifications"
@@ -244,7 +218,7 @@ export default function DashboardPage() {
       </header>
 
       <div className="flex-1 flex overflow-hidden">
-        <aside className="hidden md:flex w-[280px] flex-shrink-0 flex-col bg-ink-900 border-r border-ink-600 overflow-hidden">
+        <aside className="hidden md:flex w-[280px] flex-shrink-0 flex-col border-r border-ink-600 overflow-hidden" style={{ background: "rgba(10,18,40,0.7)", backdropFilter: "blur(8px)" }}>
           <AccountPanel />
         </aside>
 
@@ -298,7 +272,7 @@ export default function DashboardPage() {
               />
             </div>
 
-            <section className="rounded-[12px] bg-ink-800 border border-ink-600 overflow-hidden mb-8">
+            <section className="rounded-[12px] border border-ink-600 overflow-hidden mb-8" style={{ background: "rgba(17,19,24,0.75)", backdropFilter: "blur(8px)" }}>
               <div className="px-4 py-3 border-b border-ink-600 flex items-center justify-between">
                 <h2 className="text-[14px] font-medium text-warm-100">
                   Recent Transactions
@@ -335,6 +309,30 @@ export default function DashboardPage() {
           </div>
         </main>
       </div>
+
+      {/* Floating Voice butonu */}
+      <button
+        onClick={() => navigate("/voice")}
+        className="fixed bottom-6 z-50 flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-all duration-180 hover:scale-105 group"
+        style={{
+          right: "6.5rem",
+          background: "linear-gradient(135deg, #1D55D4, #2563EB)",
+          boxShadow: "0 4px 24px rgba(37,99,235,0.45)",
+        }}
+        title="Voice assistant"
+        type="button"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+          <line x1="12" y1="19" x2="12" y2="23" />
+          <line x1="8" y1="23" x2="16" y2="23" />
+        </svg>
+        {/* Tooltip */}
+        <span className="pointer-events-none absolute bottom-full mb-2 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-60 whitespace-nowrap text-[12px] text-warm-100 bg-ink-700 border border-ink-600 px-2.5 py-1 rounded-md">
+          Voice assistant
+        </span>
+      </button>
 
       <ChatPanel
         customerName={firstName}
